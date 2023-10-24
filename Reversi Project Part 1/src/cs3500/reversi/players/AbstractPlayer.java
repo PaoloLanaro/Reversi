@@ -12,7 +12,7 @@ public abstract class AbstractPlayer implements Player {
 
   }
 
-  public PlayerColor getColor() {
+  public PlacedColor getColor() {
     return null;
   }
 }

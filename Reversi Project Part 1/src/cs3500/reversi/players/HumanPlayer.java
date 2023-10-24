@@ -12,7 +12,7 @@ public class HumanPlayer extends AbstractPlayer {
   }
 
   @Override
-  public PlayerColor getColor() {
+  public PlacedColor getColor() {
     return null;
   }
 }

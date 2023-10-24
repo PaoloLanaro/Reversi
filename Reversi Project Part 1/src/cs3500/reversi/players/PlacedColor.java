@@ -5,14 +5,19 @@ package cs3500.reversi.players;
  * either black or white as their color, and this enum provides constants
  * for those color choices.
  */
-public enum PlayerColor {
+public enum PlacedColor {
   /**
    * Represents the black player's color.
    */
-  Black,
+  BLACK,
 
   /**
    * Represents the white player's color.
    */
-  White,
+  WHITE,
+
+  /**
+   *
+   */
+  NOT_PLACED
 }

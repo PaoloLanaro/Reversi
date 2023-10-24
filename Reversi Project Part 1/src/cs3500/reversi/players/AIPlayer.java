@@ -12,7 +12,7 @@ public class AIPlayer extends AbstractPlayer {
   }
 
   @Override
-  public PlayerColor getColor() {
+  public PlacedColor getColor() {
     return null;
   }
 }
