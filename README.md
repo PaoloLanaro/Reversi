@@ -1,2 +1,2 @@
-# Reversi-Part-1
+# Reversi-Project
 Two-player Reversi game with a graphical interface.
