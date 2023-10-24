@@ -1,5 +1,8 @@
 package cs3500.reversi.model;
 
+/**
+ *
+ */
 public class StandardBoard implements Board {
   @Override
   public void initBoard() {

@@ -2,6 +2,9 @@ package cs3500.reversi.model;
 
 import java.util.List;
 
+/**
+ *
+ */
 public class StandardGameLogic implements GameLogic {
   @Override
   public List<Coordinate> calculateValidMoves(Board board, Player player) {

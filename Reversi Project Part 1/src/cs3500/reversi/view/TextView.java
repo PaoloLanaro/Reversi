@@ -5,7 +5,8 @@ import cs3500.reversi.model.Board;
 /**
  *
  */
-public abstract class AbstractView implements View {
+public class TextView extends AbstractView {
+
   @Override
   public void renderBoard(Board board) {
 
@@ -15,5 +16,4 @@ public abstract class AbstractView implements View {
   public void updateBoard(Board board) {
 
   }
-
 }
