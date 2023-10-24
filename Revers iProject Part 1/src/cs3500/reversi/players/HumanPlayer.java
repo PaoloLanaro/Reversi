@@ -1,6 +1,0 @@
-package cs3500.reversi.players;
-
-import cs3500.reversi.model.Player;
-
-public class HumanPlayer extends AbstractPlayer implements Player {
-}
