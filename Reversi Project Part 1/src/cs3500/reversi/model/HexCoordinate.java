@@ -11,6 +11,7 @@ public class HexCoordinate {
 
   public HexCoordinate(int q, int r) {
     this.r = r;
+    // gwkki
     this.q = q;
     this.s = -q - r; //may nto need this, could delegate responsibility to getters.
   }
