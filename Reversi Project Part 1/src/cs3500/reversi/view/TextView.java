@@ -37,6 +37,7 @@ public class TextView extends AbstractView {
         appendHelper('\n');
       }
     }
+    System.out.println("ello");
   }
 
   private void appendHelper(char player) {
