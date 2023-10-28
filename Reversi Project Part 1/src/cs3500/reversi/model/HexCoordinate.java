@@ -7,6 +7,22 @@ package cs3500.reversi.model;
  */
 public class HexCoordinate {
   // constructor that takes in two ints. one for row, one for col
+  private final int s, q, r;
+
+  public HexCoordinate(int q, int r) {
+    this.r = r;
+    // gwkki
+    this.q = q;
+    this.s = -q - r; //may nto need this, could delegate responsibility to getters.
+  }
 
   //getters for both
+  public int getR() {
+    return 0;
+  }
+
+  public int getQ() {
+    return 0;
+  }
+
 }
