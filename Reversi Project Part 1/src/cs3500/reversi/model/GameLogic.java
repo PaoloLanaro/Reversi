@@ -17,7 +17,8 @@ public interface GameLogic {
    * @param player the player for whom valid moves are calculated.
    * @return a list of {@link Coordinate} objects representing valid moves for the player.
    */
-  List<Cell> calculateValidMoves(Board board, Player player);
+
+  List<Cell> calculateValidMoves(PlayerColor color);
 
   /**
    * Makes a move on the game board for a specific player at the specified row and column.
@@ -27,7 +28,7 @@ public interface GameLogic {
    * @param row    the 0-indexed row where the move is made.
    * @param col    the 0-indexed column where the move is made.
    */
-  void makeMove(Board board, Player player, int row, int col);
+  void makeMove(PlayerColor color, int row, int col);
 
   /**
    * Determines whether the game is over based on the current state of the game board.

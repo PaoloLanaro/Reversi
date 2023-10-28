@@ -15,7 +15,7 @@ public interface Board {
    *
    * @return a 2D array of {@link Cell} objects representing the current state of the board.
    */
-  List<List<Cell>> getBoardState();
+  List<List<Cell>> getBoard();
 
   /**
    * Checks whether a move is valid for a specific player at the given row and column.

@@ -45,28 +45,48 @@ public class TextView extends AbstractView {
   @Override
   public String toString() {
     StringBuilder boardRepresentation = new StringBuilder();
-    List<List<Cell>> currentBoard = board.getBoardState();
-    for (List<Cell> cellRow : currentBoard) {
-      for (Cell cell : cellRow) {
-        if (cell == null) {
-          boardRepresentation.append(' ');
-          continue;
-        }
-        switch (cell.getState()) {
-          case EMPTY:
-            boardRepresentation.append('_');
+
+    int middleRow = board.getBoard().size() / 2;
+
+    for (int row = 0; row < board.getBoard().size(); row++) {
+      int initialOffset = row - middleRow;
+      for (int col = 0; col < board.getBoard().size(); col++) {
+        Cell cell = board.getBoard().get(row).get(col);
+        if (row <= middleRow) {
+          if (cell == null) {
             boardRepresentation.append(' ');
-            break;
-          case BLACK:
-            boardRepresentation.append('X');
-            break;
-          case WHITE:
-            boardRepresentation.append('O');
+            continue;
+          }
+          getCellStateAsString(boardRepresentation, cell);
+        }
+        if (row > middleRow) {
+          while (initialOffset > 0) {
+            boardRepresentation.append(' ');
+            initialOffset--;
+          }
+          if (cell == null) {
+            continue;
+          }
+          getCellStateAsString(boardRepresentation, cell);
         }
       }
       boardRepresentation.append('\n');
-    }
+      }
     return boardRepresentation.toString();
 
+  }
+
+  private void getCellStateAsString(StringBuilder boardRepresentation, Cell cell) {
+    switch (cell.getState()) {
+      case EMPTY:
+        boardRepresentation.append('_');
+        boardRepresentation.append(' ');
+        break;
+      case BLACK:
+        boardRepresentation.append('X');
+        break;
+      case WHITE:
+        boardRepresentation.append('O');
+    }
   }
 }

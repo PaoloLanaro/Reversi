@@ -51,7 +51,7 @@ public class StandardBoard implements Board {
   }
 
   @Override
-  public List<List<Cell>> getBoardState() {
+  public List<List<Cell>> getBoard() {
     return new ArrayList<>(board);
   }
 

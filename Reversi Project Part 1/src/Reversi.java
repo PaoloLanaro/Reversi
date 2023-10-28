@@ -6,7 +6,7 @@ public class Reversi {
 
     StandardBoard sb = new StandardBoard(6);
     for (int i = 0; i < 11; i++) {
-      System.out.println(sb.getBoardState().get(i).toString());
+      System.out.println(sb.getBoard().get(i).toString());
     }
 
     StringBuffer sb1 = new StringBuffer();
