@@ -22,5 +22,5 @@ public interface Player {
    *
    * @return the player's color as a {@link PlacedColor}.
    */
-  PlacedColor getColor();
+  PlayerColor getColor();
 }

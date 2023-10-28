@@ -12,6 +12,10 @@ public class StandardBoard implements Board {
   private List<List<Cell>> board;
 
   public StandardBoard(int size) {
+    if (size <= 2) {
+      throw new IllegalArgumentException("Top side length of the board cannot be less than or " +
+              "equal to two.");
+    }
     this.size = size;
     board = initBoard();
   }
@@ -28,7 +32,19 @@ public class StandardBoard implements Board {
 
     nullSetSpaghetti(diameter, middleRow, initialList);
 
+    setStarterDiscs(middleRow, initialList);
+
     return initialList;
+  }
+
+  private static void setStarterDiscs(int middleRow, List<List<Cell>> initialList) {
+    initialList.get(middleRow).get(middleRow - 1).setDiscColor(PlayerColor.WHITE);
+    initialList.get(middleRow - 1).get(middleRow + 1).setDiscColor(PlayerColor.WHITE);
+    initialList.get(middleRow + 1).get(middleRow).setDiscColor(PlayerColor.WHITE);
+
+    initialList.get(middleRow).get(middleRow + 1).setDiscColor(PlayerColor.BLACK);
+    initialList.get(middleRow - 1).get(middleRow).setDiscColor(PlayerColor.BLACK);
+    initialList.get(middleRow + 1).get(middleRow - 1).setDiscColor(PlayerColor.BLACK);
   }
 
   private static void nullSetSpaghetti(int diameter, int middleRow, List<List<Cell>> initialList) {
@@ -100,6 +116,8 @@ public class StandardBoard implements Board {
 
   @Override
   public void makeMove(Player player, int row, int col) {
+  StandardGameLogic logic = new StandardGameLogic(this);
+  logic.makeMove(player.getColor(), row, col);
   }
 
   @Override

@@ -65,11 +65,11 @@ public class Cell {
   }
 
   public Cell getBottomLeft() {
-    return bottomLeft;
+    return bottomRight;
   }
 
   public Cell getBottomRight() {
-    return bottomRight;
+    return bottomLeft;
   }
 
   /**
@@ -98,9 +98,12 @@ public class Cell {
    *
    * @param player the player who placed the black disc in the cell.
    */
-  public void setBlackDisc(Player player) {
+  public void setBlackDisc() {
     color = PlayerColor.BLACK;
-    occupant = player;
+  }
+
+  public void setDiscColor(PlayerColor color) {
+    this.color = color;
   }
 
   /**
@@ -109,9 +112,8 @@ public class Cell {
    *
    * @param player the player who placed the white disc in the cell.
    */
-  public void setWhiteDisc(Player player) {
+  public void setWhiteDisc() {
     color = PlayerColor.WHITE;
-    occupant = player;
   }
 
   /**

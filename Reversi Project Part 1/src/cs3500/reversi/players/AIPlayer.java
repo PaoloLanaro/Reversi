@@ -1,6 +1,7 @@
 package cs3500.reversi.players;
 
 import cs3500.reversi.model.Board;
+import cs3500.reversi.model.PlayerColor;
 
 /**
  *
@@ -12,7 +13,7 @@ public class AIPlayer extends AbstractPlayer {
   }
 
   @Override
-  public PlacedColor getColor() {
+  public PlayerColor getColor() {
     return null;
   }
 }
