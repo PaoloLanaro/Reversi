@@ -4,8 +4,8 @@ import cs3500.reversi.view.TextView;
 public class Reversi {
   public static void main(String[] args) {
 
-    StandardBoard sb = new StandardBoard(6);
-    for (int i = 0; i < 11; i++) {
+    StandardBoard sb = new StandardBoard(4);
+    for (int i = 0; i < 4; i++) {
       System.out.println(sb.getBoard().get(i).toString());
     }
 
