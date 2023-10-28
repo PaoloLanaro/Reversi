@@ -29,14 +29,6 @@ public class TextView extends AbstractView {
     out.append(toString()).append(System.lineSeparator());
   }
 
-  private void appendHelper(char player) {
-    try {
-      out.append(player);
-    } catch (IOException exception) {
-      throw new IllegalStateException("Could not write to game board.");
-    }
-  }
-
   @Override
   public void updateBoard(Board board) {
 
@@ -77,16 +69,18 @@ public class TextView extends AbstractView {
   }
 
   private void getCellStateAsString(StringBuilder boardRepresentation, Cell cell) {
-    switch (cell.getState()) {
+    switch (cell.getColor()) {
       case EMPTY:
         boardRepresentation.append('_');
         boardRepresentation.append(' ');
         break;
       case BLACK:
         boardRepresentation.append('X');
+        boardRepresentation.append(' ');
         break;
       case WHITE:
         boardRepresentation.append('O');
+        boardRepresentation.append(' ');
     }
   }
 }
