@@ -19,9 +19,6 @@ public class StandardBoard implements Board {
   }
 
   private List<List<Cell>> initBoard() {
-    // https://www.redblobgames.com/grids/hexagons/#coordinates-axial
-    // this link will be useful as to the board initialization and most other stuff related to
-    // the coordinates
 
     int diameter = size * 2 - 1;
     int middleRow = diameter / 2;
@@ -38,7 +35,6 @@ public class StandardBoard implements Board {
           nonMiddleHelper(col < middleRow - row, finalBoard, row);
         }
         if (row > middleRow) {
-          // boolean expression to check whether it's x from last where x increases each row
           nonMiddleHelper(col >= diameter - row + middleRow, finalBoard, row);
         }
       }

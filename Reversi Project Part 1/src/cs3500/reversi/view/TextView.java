@@ -44,7 +44,6 @@ public class TextView extends AbstractView {
 
   @Override
   public String toString() {
-    // get player at each location in board and print out 'X', 'O', '_', or ' '.
     StringBuilder boardRepresentation = new StringBuilder();
     List<List<Cell>> currentBoard = board.getBoardState();
     for (List<Cell> cellRow : currentBoard) {
@@ -66,7 +65,6 @@ public class TextView extends AbstractView {
         }
       }
       boardRepresentation.append('\n');
-//      boardRepresentation.append(' ');
     }
     return boardRepresentation.toString();
 
