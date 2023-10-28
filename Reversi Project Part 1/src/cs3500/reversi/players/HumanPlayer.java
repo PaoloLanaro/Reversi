@@ -1,15 +1,17 @@
 package cs3500.reversi.players;
 
 import cs3500.reversi.model.Board;
+import cs3500.reversi.model.Player;
+import cs3500.reversi.model.PlayerColor;
 
 /**
  *
  */
 public class HumanPlayer extends AbstractPlayer {
 
-  private final PlacedColor color;
+  private final PlayerColor color;
 
-  public HumanPlayer(PlacedColor color) {
+  public HumanPlayer(PlayerColor color) {
     this.color = color;
   }
 
@@ -19,7 +21,7 @@ public class HumanPlayer extends AbstractPlayer {
   }
 
   @Override
-  public PlacedColor getColor() {
+  public PlayerColor getColor() {
     return color;
   }
 }
