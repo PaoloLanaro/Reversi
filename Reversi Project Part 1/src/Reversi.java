@@ -1,6 +1,3 @@
-import org.w3c.dom.Text;
-
-import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.StandardBoard;
 import cs3500.reversi.view.TextView;
 
@@ -14,7 +11,7 @@ public class Reversi {
 
     StringBuffer sb1 = new StringBuffer();
     TextView view = new TextView(sb1, sb);
-    System.out.println(view.toString());
+    System.out.println(view);
 
   }
 }
