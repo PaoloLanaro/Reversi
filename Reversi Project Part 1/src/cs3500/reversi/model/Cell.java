@@ -61,4 +61,9 @@ public class Cell {
     state = CellState.EMPTY;
     occupant = null;
   }
+
+  @Override
+  public String toString() {
+    return state + " " + occupant;
+  }
 }

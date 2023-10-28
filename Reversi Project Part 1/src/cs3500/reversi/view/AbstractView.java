@@ -1,5 +1,7 @@
 package cs3500.reversi.view;
 
+import java.io.IOException;
+
 import cs3500.reversi.model.Board;
 
 /**
@@ -7,7 +9,7 @@ import cs3500.reversi.model.Board;
  */
 public abstract class AbstractView implements View {
   @Override
-  public void renderBoard(Board board) {
+  public void renderBoard() throws IOException {
 
   }
 

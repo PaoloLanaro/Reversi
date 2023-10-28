@@ -1,5 +1,7 @@
 package cs3500.reversi.view;
 
+import java.io.IOException;
+
 import cs3500.reversi.model.Board;
 
 /**
@@ -13,7 +15,7 @@ public interface View {
    *
    * @param board the game board to render.
    */
-  void renderBoard(Board board);
+  void renderBoard() throws IOException;
 
   /**
    * Updates the visual representation of the provided game board, reflecting any

@@ -17,7 +17,7 @@ public interface GameLogic {
    * @param player the player for whom valid moves are calculated.
    * @return a list of {@link Coordinate} objects representing valid moves for the player.
    */
-  List<Coordinate> calculateValidMoves(Board board, Player player);
+  List<Cell> calculateValidMoves(Board board, Player player);
 
   /**
    * Makes a move on the game board for a specific player at the specified row and column.
@@ -36,4 +36,6 @@ public interface GameLogic {
    * @return {@code true} if the game is over, {@code false} otherwise.
    */
   boolean isGameOver(Board board);
+
+  Player getWinner();
 }

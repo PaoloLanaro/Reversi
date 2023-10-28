@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class StandardGameLogic implements GameLogic {
   @Override
-  public List<Coordinate> calculateValidMoves(Board board, Player player) {
+  public List<Cell> calculateValidMoves(Board board, Player player) {
     return null;
   }
 
@@ -20,4 +20,10 @@ public class StandardGameLogic implements GameLogic {
   public boolean isGameOver(Board board) {
     return false;
   }
+
+  @Override
+  public Player getWinner() {
+    return null;
+  }
+
 }

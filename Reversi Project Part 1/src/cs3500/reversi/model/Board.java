@@ -1,5 +1,7 @@
 package cs3500.reversi.model;
 
+import java.util.List;
+
 /**
  * Represents the game board for a Reversi game. The board consists of cells
  * in which players make moves during the game. The board keeps track of the
@@ -8,18 +10,12 @@ package cs3500.reversi.model;
 public interface Board {
 
   /**
-   * Initializes the game board. This method sets up the initial configuration
-   * of cells on the board, preparing it for a new game.
-   */
-  void initBoard();
-
-  /**
    * Retrieves the current state of the game board, including the status of
    * each cell.
    *
    * @return a 2D array of {@link Cell} objects representing the current state of the board.
    */
-  Cell[][] getBoardState();
+  List<List<Cell>> getBoardState();
 
   /**
    * Checks whether a move is valid for a specific player at the given row and column.

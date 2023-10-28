@@ -1,6 +1,7 @@
 package cs3500.reversi.view;
 
 import java.io.IOException;
+import java.util.List;
 
 import cs3500.reversi.model.Board;
 import cs3500.reversi.model.Cell;
@@ -10,39 +11,27 @@ import cs3500.reversi.model.Cell;
  */
 public class TextView extends AbstractView {
 
-  Appendable appendable;
+  private final Appendable out;
+  private final Board board;
 
-  public TextView(Appendable appendable) {
-    this.appendable = appendable;
+  public TextView(Appendable out, Board board) {
+    this.out = out;
+    this.board = board;
+  }
+
+  public TextView(Board board) {
+    this.out = System.out;
+    this.board = board;
   }
 
   @Override
-  public void renderBoard(Board board) {
-    // get player at each location in board and print out 'X', 'O', '_', or ' '.
-    Cell[][] currentBoard = board.getBoardState();
-    for (Cell[] cellRow : currentBoard) {
-      for (Cell cell : cellRow) {
-        switch (cell.getState()) {
-          case EMPTY:
-            appendHelper('_');
-            break;
-          case BLACK:
-            appendHelper('X');
-            break;
-          case WHITE:
-            appendHelper('O');
-          case null:
-            appendHelper(' ');
-        }
-        appendHelper('\n');
-      }
-    }
-    System.out.println("ello");
+  public void renderBoard() throws IOException {
+    out.append(toString()).append(System.lineSeparator());
   }
 
   private void appendHelper(char player) {
     try {
-      appendable.append(player).append(' ');
+      out.append(player);
     } catch (IOException exception) {
       throw new IllegalStateException("Could not write to game board.");
     }
@@ -50,6 +39,36 @@ public class TextView extends AbstractView {
 
   @Override
   public void updateBoard(Board board) {
+
+  }
+
+  @Override
+  public String toString() {
+    // get player at each location in board and print out 'X', 'O', '_', or ' '.
+    StringBuilder boardRepresentation = new StringBuilder();
+    List<List<Cell>> currentBoard = board.getBoardState();
+    for (List<Cell> cellRow : currentBoard) {
+      for (Cell cell : cellRow) {
+        if (cell == null) {
+          boardRepresentation.append(' ');
+          continue;
+        }
+        switch (cell.getState()) {
+          case EMPTY:
+            boardRepresentation.append('_');
+            boardRepresentation.append(' ');
+            break;
+          case BLACK:
+            boardRepresentation.append('X');
+            break;
+          case WHITE:
+            boardRepresentation.append('O');
+        }
+      }
+      boardRepresentation.append('\n');
+//      boardRepresentation.append(' ');
+    }
+    return boardRepresentation.toString();
 
   }
 }
