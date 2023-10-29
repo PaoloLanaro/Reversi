@@ -2,6 +2,7 @@ package cs3500.reversi.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -28,9 +29,9 @@ public class StandardBoard implements Board {
 
     initializeMatrix(diameter, initialList);
 
-    setCellNeighbors(diameter, initialList);
-
     nullSetSpaghetti(diameter, middleRow, initialList);
+
+    setCellNeighbors(diameter, initialList);
 
     setStarterDiscs(middleRow, initialList);
 
@@ -74,25 +75,46 @@ public class StandardBoard implements Board {
   private static void setCellNeighbors(int diameter, List<List<Cell>> initialList) {
     for (int row = 0; row < diameter; row++) {
       for (int col = 0; col < diameter; col++) {
-        Cell cell = initialList.get(row).get(col);
-        if (row > 0) {
-          cell.setUpperLeft(initialList.get(row - 1).get(col));
-          if (col > 0) {
-            cell.setUpperRight(initialList.get(row - 1).get(col - 1));
-          }
+        Cell currentCell = initialList.get(row).get(col);
+        if (currentCell == null) {
+          continue;
         }
-        if (row < diameter - 1) {
-          cell.setBottomLeft(initialList.get(row + 1).get(col));
-          if (col < diameter - 1) {
-            cell.setBottomRight(initialList.get(row + 1).get(col + 1));
-          }
+        try {
+          currentCell.setUpperLeft(Objects.requireNonNull(initialList.get(row - 1).get(col)));
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+          currentCell.setBottomLeft(null);
         }
-        if (col > 0) {
-          cell.setLeft(initialList.get(row).get(col - 1));
+
+        try {
+          currentCell.setUpperRight(Objects.requireNonNull(initialList.get(row - 1).get(col + 1)));
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+          currentCell.setBottomRight(null);
         }
-        if (col < diameter - 1) {
-          cell.setRight(initialList.get(row).get(col + 1));
+
+        try {
+          currentCell.setLeft(Objects.requireNonNull(initialList.get(row).get(col - 1)));
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+          currentCell.setLeft(null);
         }
+
+        try {
+          currentCell.setRight(Objects.requireNonNull(initialList.get(row).get(col + 1)));
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+          currentCell.setRight(null);
+        }
+
+        try {
+          currentCell.setBottomLeft(Objects.requireNonNull(initialList.get(row + 1).get(col - 1)));
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+          currentCell.setBottomLeft(null);
+        }
+
+        try {
+          currentCell.setBottomRight(Objects.requireNonNull(initialList.get(row + 1).get(col)));
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+          currentCell.setBottomRight(null);
+        }
+
       }
     }
   }
@@ -107,26 +129,5 @@ public class StandardBoard implements Board {
   @Override
   public List<List<Cell>> getBoard() {
     return new ArrayList<>(board);
-  }
-
-  @Override
-  public boolean isMoveValid(Player player, int row, int col) {
-    return false;
-  }
-
-  @Override
-  public void makeMove(Player player, int row, int col) {
-  StandardGameLogic logic = new StandardGameLogic(this);
-  logic.makeMove(player.getColor(), row, col);
-  }
-
-  @Override
-  public boolean isGameOver() {
-    return false;
-  }
-
-  @Override
-  public Player getWinner() {
-    return null;
   }
 }

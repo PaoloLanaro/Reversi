@@ -1,6 +1,7 @@
 package cs3500.reversi.model;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents the game logic for a Reversi game. Game logic is responsible for
@@ -30,13 +31,17 @@ public interface GameLogic {
    */
   void makeMove(PlayerColor color, int row, int col);
 
+  void passTurn();
+
   /**
    * Determines whether the game is over based on the current state of the game board.
    *
    * @param board the game board to check for the game's end condition.
    * @return {@code true} if the game is over, {@code false} otherwise.
    */
-  boolean isGameOver(Board board);
+  boolean isGameOver();
 
-  Player getWinner();
+  PlayerColor getWinnerColor();
+
+  Map<PlayerColor, Integer> getScore();
 }
