@@ -63,85 +63,16 @@ public class StandardGameLogic implements GameLogic {
     }
   }
 
-//  private void foo(Cell originCell, PlayerColor playerColor) {
-//    Map<String, List<Cell>> routesMap = getRunsForCell(originCell, playerColor);
-//
-//    List<List<Cell>> validRuns = new ArrayList<>();
-//
-//    String[] directions = {"ul", "ur", "l", "r", "bl", "br"};
-//
-//    for (String direction : directions) {
-//      List<Cell> run = routesMap.get(direction);
-//      if (run != null && !run.isEmpty() && run.get(run.size() - 1).getColor() == playerColor) {
-//        originCell.setDiscColor(playerColor);
-//        run.add(0, originCell);
-//        validRuns.add(run);
-//      }
-//    }
-//
-//    if (validRuns.isEmpty()) {
-//      throw new IllegalStateException("Not a valid move");
-//    }
-//
-//    for (List<Cell> singleRun : validRuns) {
-//      for (Cell runCell : singleRun) {
-//        runCell.setDiscColor(playerColor);
-//      }
-//    }
-//
-//    turnCounter++;
-//    passCounter = 0;
-//  }
-
-
   private void foo(Cell originCell, PlayerColor playerColor) {
     Map<String, List<Cell>> routesMap = getRunsForCell(originCell, playerColor);
 
     List<List<Cell>> validRuns = new ArrayList<>();
 
-    if (routesMap.get("ul") != null && !routesMap.get("ul").isEmpty()) {
-      List<Cell> run = routesMap.get("ul");
-      if (run.get(run.size() - 1).getColor() == playerColor) {
-        originCell.setDiscColor(playerColor);
-        run.add(0, originCell);
-        validRuns.add(run);
-      }
-    }
-    if (routesMap.get("ur") != null && !routesMap.get("ur").isEmpty()) {
-      List<Cell> run = routesMap.get("ur");
-      if (run.get(run.size() - 1).getColor() == playerColor) {
-        originCell.setDiscColor(playerColor);
-        run.add(0, originCell);
-        validRuns.add(run);
-      }
-    }
-    if (routesMap.get("l") != null && !routesMap.get("l").isEmpty()) {
-      List<Cell> run = routesMap.get("l");
-      if (run.get(run.size() - 1).getColor() == playerColor) {
-        originCell.setDiscColor(playerColor);
-        run.add(0, originCell);
-        validRuns.add(run);
-      }
-    }
-    if (routesMap.get("r") != null && !routesMap.get("r").isEmpty()) {
-      List<Cell> run = routesMap.get("r");
-      if (run.get(run.size() - 1).getColor() == playerColor) {
-        originCell.setDiscColor(playerColor);
-        run.add(0, originCell);
-        validRuns.add(run);
-      }
-    }
-    if (routesMap.get("bl") != null && !routesMap.get("bl").isEmpty()) {
-      List<Cell> run = routesMap.get("bl");
-      if (run.get(run.size() - 1).getColor() == playerColor) {
-        originCell.setDiscColor(playerColor);
-        run.add(0, originCell);
-        validRuns.add(run);
-      }
-    }
-    if (routesMap.get("br") != null && !routesMap.get("br").isEmpty()) {
-      List<Cell> run = routesMap.get("br");
-      if (run.get(run.size() - 1).getColor() == playerColor) {
+    String[] directions = {"ul", "ur", "l", "r", "bl", "br"};
+
+    for (String direction : directions) {
+      List<Cell> run = routesMap.get(direction);
+      if (run != null && !run.isEmpty() && run.get(run.size() - 1).getColor() == playerColor) {
         originCell.setDiscColor(playerColor);
         run.add(0, originCell);
         validRuns.add(run);
@@ -165,37 +96,20 @@ public class StandardGameLogic implements GameLogic {
   private Map<String, List<Cell>> getRunsForCell(Cell originCell, PlayerColor playerColor) {
     Map<String, List<Cell>> routesMap = new HashMap<>();
     PlayerColor oppositeColor = getOppositeColor(playerColor);
-    if (originCell.getUpperLeft() != null) {
-      if (originCell.getUpperLeft().getColor() == oppositeColor) {
-        routesMap.put("ul", traverseHelper("ul", playerColor, originCell.getUpperLeft()));
-      }
-    }
-    if (originCell.getUpperRight() != null) {
-      if (originCell.getUpperRight().getColor() == oppositeColor) {
-        routesMap.put("ur", traverseHelper("ur", playerColor, originCell.getUpperRight()));
-      }
-    }
-    if (originCell.getLeft() != null) {
-      if (originCell.getLeft().getColor() == oppositeColor) {
-        routesMap.put("l", traverseHelper("l", playerColor, originCell.getLeft()));
-      }
-    }
-    if (originCell.getRight() != null) {
-      if (originCell.getRight().getColor() == oppositeColor) {
-        routesMap.put("r", traverseHelper("r", playerColor, originCell.getRight()));
-      }
-    }
-    if (originCell.getBottomLeft() != null) {
-      if (originCell.getBottomLeft().getColor() == oppositeColor) {
-        routesMap.put("bl", traverseHelper("bl", playerColor, originCell.getBottomLeft()));
-      }
-    }
-    if (originCell.getBottomRight() != null) {
-      if (originCell.getBottomRight().getColor() == oppositeColor) {
-        routesMap.put("br", traverseHelper("br", playerColor, originCell.getBottomRight()));
-      }
-    }
+    checkAndAddDirection("ul", routesMap, originCell.getUpperLeft(), oppositeColor, playerColor);
+    checkAndAddDirection("ur", routesMap, originCell.getUpperRight(), oppositeColor, playerColor);
+    checkAndAddDirection("l", routesMap, originCell.getLeft(), oppositeColor, playerColor);
+    checkAndAddDirection("r", routesMap, originCell.getRight(), oppositeColor, playerColor);
+    checkAndAddDirection("bl", routesMap, originCell.getBottomLeft(), oppositeColor, playerColor);
+    checkAndAddDirection("br", routesMap, originCell.getBottomRight(), oppositeColor, playerColor);
     return routesMap;
+  }
+
+  private void checkAndAddDirection(String direction, Map<String, List<Cell>> routesMap, Cell cell,
+                                    PlayerColor oppositeColor, PlayerColor playerColor) {
+    if (cell != null && cell.getColor() == oppositeColor) {
+      routesMap.put(direction, traverseHelper(direction, playerColor, cell));
+    }
   }
 
   private List<Cell> traverseHelper(String dir, PlayerColor color, Cell currCell) {
