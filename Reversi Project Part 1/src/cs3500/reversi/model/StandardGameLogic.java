@@ -173,14 +173,8 @@ public class StandardGameLogic implements GameLogic {
     return currentRun;
   }
 
-
-  //TODO IMPLEMENT
   @Override
   public List<Cell> calculateValidMoves(PlayerColor color) {
-    return null;
-  }
-
-  private List<Cell> calculateValidMoves() {
     List<Cell> validMovesList = new ArrayList<>();
     for (List<Cell> row : board.getBoard()) {
       for (Cell cell : row) {
@@ -189,16 +183,10 @@ public class StandardGameLogic implements GameLogic {
         }
         if (cell.getColor() == PlayerColor.EMPTY) {
 
-          Map<String, List<Cell>> possibleBlackMoves = getRunsForCell(cell, PlayerColor.BLACK);
-          Map<String, List<Cell>> possibleWhiteMoves = getRunsForCell(cell, PlayerColor.WHITE);
+          Map<String, List<Cell>> possibleMoves = getRunsForCell(cell, color);
 
-          for (String key : possibleWhiteMoves.keySet()) {
-            if (possibleWhiteMoves.get(key).size() > 0) {
-              validMovesList.add(cell);
-            }
-          }
-          for (String key : possibleBlackMoves.keySet()) {
-            if (possibleBlackMoves.get(key).size() > 0) {
+          for (String key : possibleMoves.keySet()) {
+            if (possibleMoves.get(key).size() > 0) {
               validMovesList.add(cell);
             }
           }
@@ -211,8 +199,7 @@ public class StandardGameLogic implements GameLogic {
   private boolean playerPassCheck() {
     PlayerColor currentPlayerColor = (turnCounter % 2 == 0) ? PlayerColor.BLACK : PlayerColor.WHITE;
 
-//    return calculateValidMoves(currentPlayerColor).size() == 0;
-    return false;
+    return calculateValidMoves(currentPlayerColor).size() == 0;
   }
 
   @Override
@@ -221,7 +208,8 @@ public class StandardGameLogic implements GameLogic {
       return true;
     }
 
-    int validMovesOnBoard = calculateValidMoves().size();
+    int validMovesOnBoard = calculateValidMoves(PlayerColor.BLACK).size();
+    validMovesOnBoard += calculateValidMoves(PlayerColor.WHITE).size();
     if (validMovesOnBoard == 0) {
       return false;
     }
@@ -241,12 +229,13 @@ public class StandardGameLogic implements GameLogic {
 
   @Override
   public PlayerColor getWinnerColor() {
-    return null;
-  }
-
-  @Override
-  public Player getWinner() {
-    return null;
+    if (isGameOver()) {
+      Map<PlayerColor, Integer> colorScores = getScore();
+      return colorScores.get(PlayerColor.BLACK) > colorScores.get(PlayerColor.WHITE) ?
+              PlayerColor.BLACK : PlayerColor.WHITE;
+    } else {
+      throw new IllegalStateException("Cannot get the winner if the game isn't over.");
+    }
   }
 
   @Override

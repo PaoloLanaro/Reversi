@@ -43,7 +43,5 @@ public interface GameLogic {
 
   PlayerColor getWinnerColor();
 
-  Player getWinner();
-
   Map<PlayerColor, Integer> getScore();
 }
