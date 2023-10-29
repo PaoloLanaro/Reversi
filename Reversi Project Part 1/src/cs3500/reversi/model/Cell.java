@@ -65,11 +65,11 @@ public class Cell {
   }
 
   public Cell getBottomLeft() {
-    return bottomRight;
+    return bottomLeft;
   }
 
   public Cell getBottomRight() {
-    return bottomLeft;
+    return bottomRight;
   }
 
   /**
