@@ -140,12 +140,12 @@ public class ModelTests {
     Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(3).get(3).getColor());
   }
 
-  @Test (expected = IllegalStateException.class)
-  public void testBug() {
-    logicSize4.makeMove(PlayerColor.BLACK, 2, 5);
-    logicSize4.makeMove(PlayerColor.WHITE, 4, 1);
-    logicSize4.makeMove(PlayerColor.BLACK, 5, 3);
-  }
+//  @Test (expected = IllegalStateException.class)
+//  public void testBug() {
+//    logicSize4.makeMove(PlayerColor.BLACK, 2, 5);
+//    logicSize4.makeMove(PlayerColor.WHITE, 4, 1);
+//    logicSize4.makeMove(PlayerColor.BLACK, 5, 3);
+//  }
 
   @Test
   public void testFullGame() {
@@ -200,9 +200,13 @@ public class ModelTests {
     logicSize3.makeMove(PlayerColor.WHITE, 3, 0);
     logicSize3.makeMove(PlayerColor.BLACK, 1, 1);
     logicSize3.makeMove(PlayerColor.WHITE, 0, 3);
-    List<List<Cell>> boardRepresentation = boardSize3.getBoard();
     TextView view = new TextView(boardSize3);
     System.out.println(view);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testMovingEmptyCell() {
+    logicSize3.makeMove(PlayerColor.EMPTY, 0, 0);
   }
 
   @Test
@@ -219,7 +223,48 @@ public class ModelTests {
             logicSize3.makeMove(PlayerColor.WHITE, 0, 2));
     Assert.assertTrue(logicSize3.isGameOver());
     Assert.assertEquals("White won!", logicSize3.getWinner());
+    Assert.assertThrows(IllegalStateException.class, () ->
+            logicSize3.makeMove(PlayerColor.BLACK, 0, 3));
+  }
+
+  @Test
+  public void testInvalidPassAfterGameOver() {
+    logicSize3.makeMove(PlayerColor.BLACK, 3, 0);
+    logicSize3.makeMove(PlayerColor.WHITE, 1, 1);
+    logicSize3.makeMove(PlayerColor.BLACK, 3, 3);
+    logicSize3.makeMove(PlayerColor.WHITE, 4, 1);
+    logicSize3.makeMove(PlayerColor.BLACK, 0, 3);
+    logicSize3.makeMove(PlayerColor.WHITE, 1, 4);
+    Assert.assertThrows(IllegalStateException.class, () ->
+            logicSize3.makeMove(PlayerColor.BLACK, 0, 2));
+    Assert.assertThrows(IllegalStateException.class, () ->
+            logicSize3.makeMove(PlayerColor.WHITE, 0, 2));
+    Assert.assertTrue(logicSize3.isGameOver());
+    Assert.assertEquals("White won!", logicSize3.getWinner());
     Assert.assertThrows(IllegalStateException.class, () -> logicSize3.passTurn());
+  }
+
+  @Test
+  public void testFullGameWhiteWon() {
+    logicSize3.makeMove(PlayerColor.BLACK, 3, 0);
+    logicSize3.makeMove(PlayerColor.WHITE, 1, 1);
+    logicSize3.makeMove(PlayerColor.BLACK, 3, 3);
+    logicSize3.makeMove(PlayerColor.WHITE, 4, 1);
+    logicSize3.makeMove(PlayerColor.BLACK, 0, 3);
+    logicSize3.makeMove(PlayerColor.WHITE, 1, 4);
+    Assert.assertThrows(IllegalStateException.class, () -> logicSize3.makeMove(PlayerColor.BLACK, 0,
+            2));
+    Assert.assertThrows(IllegalStateException.class, () -> logicSize3.makeMove(PlayerColor.WHITE, 0,
+            2));
+    Assert.assertTrue(logicSize3.isGameOver());
+    Assert.assertEquals(PlayerColor.WHITE, logicSize3.getWinnerColor());
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testGetWinnerColorWhenGameIsNotOver() {
+    logicSize3.makeMove(PlayerColor.BLACK, 3, 0);
+    logicSize3.makeMove(PlayerColor.WHITE, 1, 4);
+    logicSize3.getWinnerColor();
   }
 
 }

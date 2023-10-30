@@ -244,9 +244,6 @@ public class StandardGameLogic implements GameLogic {
       Map<PlayerColor, Integer> colorScores = getScore();
       int blackScore = colorScores.get(PlayerColor.BLACK);
       int whiteScore = colorScores.get(PlayerColor.WHITE);
-      if (blackScore == whiteScore) {
-
-      }
       return  blackScore >  whiteScore ?
               PlayerColor.BLACK : PlayerColor.WHITE;
     } else {
