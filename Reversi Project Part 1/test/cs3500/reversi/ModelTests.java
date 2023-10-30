@@ -45,7 +45,6 @@ public class ModelTests {
     new StandardBoard(-1);
   }
 
-  //testing black moves
   @Test
   public void testValidBlackUpperLeftMove() {
     logicSize3.makeMove(PlayerColor.BLACK, 1, 1);
@@ -169,7 +168,7 @@ public class ModelTests {
     logicSize3.passTurn();
     logicSize3.passTurn();
     Assert.assertTrue(logicSize3.isGameOver());
-    Assert.assertEquals("Tied game!" ,logicSize3.getWinner());
+    Assert.assertEquals("Tied game!", logicSize3.getWinner());
   }
 
   @Test(expected = IllegalStateException.class)

@@ -24,12 +24,15 @@ public class StandardGameLogic implements GameLogic {
     if (isGameOver()) {
       throw new IllegalStateException("Tried to move on a finished game.");
     }
+    if (color == PlayerColor.EMPTY) {
+      throw new IllegalArgumentException("Cannot move an empty cell");
+    }
     if (turnCounter % 2 == 0 && color != PlayerColor.BLACK) {
       throw new IllegalStateException("It's black player's turn");
     }
     int maxLength = board.getBoard().size();
     if (row < 0 || col < 0 || row > maxLength - 1 || col > maxLength - 1) {
-      throw new IllegalArgumentException("Poo");
+      throw new IllegalArgumentException("Illegal row or column input");
     }
     Cell originCell = board.getBoard().get(row).get(col);
     if (originCell == null) {
