@@ -188,6 +188,11 @@ public class ModelTests {
     logicSize4.makeMove(PlayerColor.WHITE,2, 2);
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidMovePlaceOnNull() {
+    logicSize3.makeMove(PlayerColor.BLACK, 0, 0);
+  }
+
   @Test
   public void testIsGameOverFilledBoard() {
     logicSize3.makeMove(PlayerColor.BLACK, 4, 1);
@@ -201,5 +206,21 @@ public class ModelTests {
     System.out.println(view);
   }
 
+  @Test
+  public void testInvalidMoveAfterGameOver() {
+    logicSize3.makeMove(PlayerColor.BLACK, 3, 0);
+    logicSize3.makeMove(PlayerColor.WHITE, 1, 1);
+    logicSize3.makeMove(PlayerColor.BLACK, 3, 3);
+    logicSize3.makeMove(PlayerColor.WHITE, 4, 1);
+    logicSize3.makeMove(PlayerColor.BLACK, 0, 3);
+    logicSize3.makeMove(PlayerColor.WHITE, 1, 4);
+    Assert.assertThrows(IllegalStateException.class, () ->
+            logicSize3.makeMove(PlayerColor.BLACK, 0, 2));
+    Assert.assertThrows(IllegalStateException.class, () ->
+            logicSize3.makeMove(PlayerColor.WHITE, 0, 2));
+    Assert.assertTrue(logicSize3.isGameOver());
+    Assert.assertEquals("White won!", logicSize3.getWinner());
+    Assert.assertThrows(IllegalStateException.class, () -> logicSize3.passTurn());
+  }
 
 }
