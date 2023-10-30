@@ -40,7 +40,7 @@ public class StandardGameLogic implements GameLogic {
     }
     if (playerPassCheck()) {
       passTurn();
-      throw new IllegalStateException("Cannot make any move as there is no legal move to be made.");
+      throw new IllegalStateException("Cannot move, so your turn has been passed.");
     }
 
     foo(originCell, color);
@@ -126,6 +126,10 @@ public class StandardGameLogic implements GameLogic {
       return currentRun;
     }
 
+    if (currCell.getColor() == PlayerColor.EMPTY) {
+      return currentRun;
+    }
+
     switch (dir) {
       case "ul":
         if (currCell.getUpperLeft() == null) {
@@ -186,6 +190,10 @@ public class StandardGameLogic implements GameLogic {
           Map<String, List<Cell>> possibleMoves = getRunsForCell(cell, color);
 
           for (String key : possibleMoves.keySet()) {
+            List<Cell> run = possibleMoves.get(key);
+            if (run.get(run.size() - 1).getColor() == getOppositeColor(color)) {
+              continue;
+            }
             if (possibleMoves.get(key).size() > 0) {
               validMovesList.add(cell);
             }
@@ -231,10 +239,29 @@ public class StandardGameLogic implements GameLogic {
   public PlayerColor getWinnerColor() {
     if (isGameOver()) {
       Map<PlayerColor, Integer> colorScores = getScore();
-      return colorScores.get(PlayerColor.BLACK) > colorScores.get(PlayerColor.WHITE) ?
+      int blackScore = colorScores.get(PlayerColor.BLACK);
+      int whiteScore = colorScores.get(PlayerColor.WHITE);
+      if (blackScore == whiteScore) {
+
+      }
+      return  blackScore >  whiteScore ?
               PlayerColor.BLACK : PlayerColor.WHITE;
     } else {
       throw new IllegalStateException("Cannot get the winner if the game isn't over.");
+    }
+  }
+
+  public String getWinner() {
+    if (isGameOver()) {
+      Map<PlayerColor, Integer> colorScores = getScore();
+      int blackScore = colorScores.get(PlayerColor.BLACK);
+      int whiteScore = colorScores.get(PlayerColor.WHITE);
+      if (blackScore == whiteScore) {
+        return "Tied game!";
+      }
+      return  blackScore >  whiteScore ? "Black won!" : "White won!";
+    } else {
+      throw new IllegalStateException("lksadfj");
     }
   }
 

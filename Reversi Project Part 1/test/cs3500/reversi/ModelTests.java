@@ -62,22 +62,8 @@ public class ModelTests {
   @Test
   public void testValidBottomRightMove() {
     logicSize3.makeMove(PlayerColor.BLACK, 3, 3);
-    List<List<Cell>> boardRepresentation =  boardSize3.getBoard();
+    List<List<Cell>> boardRepresentation = boardSize3.getBoard();
     Assert.assertEquals(PlayerColor.BLACK, boardRepresentation.get(3).get(3).getColor());
-  }
-
-  // TODO: IMPLEMENT THESE CHECKS
-
-  @Test (expected = IllegalStateException.class)
-  public void testValidLeftMove() {
-    logicSize3.makeMove(PlayerColor.BLACK, 3, 3);
-    List<List<Cell>> boardRepresentation =  boardSize3.getBoard();
-    System.out.println(viewSize3);
-    logicSize3.makeMove(PlayerColor.WHITE, 0, 3);
-//    Assert.assertEquals(PlayerColor.BLACK, boardRepresentation.get(3).get(0).getColor());
-    System.out.println(viewSize3);
-    logicSize3.makeMove(PlayerColor.BLACK, 2, 2);
-    System.out.println(viewSize3);
   }
 
   @Test
@@ -97,6 +83,42 @@ public class ModelTests {
   @Test (expected = IllegalStateException.class)
   public void testWhitePlayerFirstThrowsISE() {
     logicSize3.makeMove(PlayerColor.WHITE, 3, 0);
+  }
+
+  @Test (expected = IllegalStateException.class)
+  public void testBug() {
+    logicSize4.makeMove(PlayerColor.BLACK, 2, 5);
+    logicSize4.makeMove(PlayerColor.WHITE, 4, 1);
+    logicSize4.makeMove(PlayerColor.BLACK, 5, 3);
+  }
+
+  @Test
+  public void testFullGame() {
+    logicSize3.makeMove(PlayerColor.BLACK, 3, 0);
+    logicSize3.makeMove(PlayerColor.WHITE, 1, 1);
+    logicSize3.makeMove(PlayerColor.BLACK, 3, 3);
+    logicSize3.makeMove(PlayerColor.WHITE, 4, 1);
+    logicSize3.makeMove(PlayerColor.BLACK, 0, 3);
+    logicSize3.makeMove(PlayerColor.WHITE, 1, 4);
+    Assert.assertThrows(IllegalStateException.class, () -> logicSize3.makeMove(PlayerColor.BLACK, 0,
+            2));
+    Assert.assertThrows(IllegalStateException.class, () -> logicSize3.makeMove(PlayerColor.WHITE, 0,
+            2));
+    Assert.assertTrue(logicSize3.isGameOver());
+    Assert.assertEquals("White won!", logicSize3.getWinner());
+  }
+
+  @Test
+  public void testDoublePass() {
+    logicSize3.passTurn();
+    logicSize3.passTurn();
+    Assert.assertTrue(logicSize3.isGameOver());
+    Assert.assertEquals("Tied game!" ,logicSize3.getWinner());
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testWhiteMoveFirst() {
+    logicSize3.makeMove(PlayerColor.WHITE, 0, 2);
   }
 
 }
