@@ -45,6 +45,7 @@ public class ModelTests {
     new StandardBoard(-1);
   }
 
+  //testing black moves
   @Test
   public void testValidBlackUpperLeftMove() {
     logicSize3.makeMove(PlayerColor.BLACK, 1, 1);
@@ -95,8 +96,6 @@ public class ModelTests {
     logicSize3.makeMove(PlayerColor.BLACK, 3, 3);
     logicSize3.makeMove(PlayerColor.WHITE, 0, 3);
     List<List<Cell>> boardRepresentation = boardSize3.getBoard();
-    TextView view = new TextView(boardSize3);
-    System.out.println(view);
     Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(0).get(3).getColor());
   }
 
@@ -105,8 +104,6 @@ public class ModelTests {
     logicSize3.makeMove(PlayerColor.BLACK, 3, 0);
     logicSize3.makeMove(PlayerColor.WHITE, 1, 4);
     List<List<Cell>> boardRepresentation = boardSize3.getBoard();
-    TextView view = new TextView(boardSize3);
-    System.out.println(view);
     Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(1).get(4).getColor());
   }
 
@@ -115,8 +112,6 @@ public class ModelTests {
     logicSize4.makeMove(PlayerColor.BLACK, 2, 2);
     logicSize4.makeMove(PlayerColor.WHITE, 2, 1);
     List<List<Cell>> boardRepresentation = boardSize4.getBoard();
-    TextView view = new TextView(boardSize4);
-    System.out.println(view);
     Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(2).get(1).getColor());
   }
 
@@ -126,11 +121,8 @@ public class ModelTests {
     logicSize4.makeMove(PlayerColor.WHITE, 4, 1);
     logicSize4.makeMove(PlayerColor.BLACK, 5, 2);
     logicSize4.makeMove(PlayerColor.WHITE, 4, 4);
-    //Big issue moving x to an invalid position not a sandwich
     List<List<Cell>> boardRepresentation = boardSize4.getBoard();
-    TextView view = new TextView(boardSize4);
-    System.out.println(view);
-//    Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(0).get(3).getColor());
+    Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(4).get(4).getColor());
   }
 
   @Test
@@ -138,8 +130,6 @@ public class ModelTests {
     logicSize3.makeMove(PlayerColor.BLACK, 3, 3);
     logicSize3.makeMove(PlayerColor.WHITE, 0, 3);
     List<List<Cell>> boardRepresentation = boardSize3.getBoard();
-    TextView view = new TextView(boardSize3);
-    System.out.println(view);
     Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(0).get(3).getColor());
   }
 
@@ -148,8 +138,6 @@ public class ModelTests {
     logicSize3.makeMove(PlayerColor.BLACK, 3, 0);
     logicSize3.makeMove(PlayerColor.WHITE, 3, 3);
     List<List<Cell>> boardRepresentation = boardSize3.getBoard();
-    TextView view = new TextView(boardSize3);
-    System.out.println(view);
     Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(3).get(3).getColor());
   }
 
@@ -188,5 +176,30 @@ public class ModelTests {
   public void testWhiteMoveFirst() {
     logicSize3.makeMove(PlayerColor.WHITE, 0, 2);
   }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidMoveOutOfBounds() {
+    logicSize3.makeMove(PlayerColor.BLACK, -1, -1);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testInvalidMoveAlreadyOccupied() {
+    logicSize4.makeMove(PlayerColor.BLACK, 2, 2);
+    logicSize4.makeMove(PlayerColor.WHITE,2, 2);
+  }
+
+  @Test
+  public void testIsGameOverFilledBoard() {
+    logicSize3.makeMove(PlayerColor.BLACK, 4, 1);
+    logicSize3.makeMove(PlayerColor.WHITE, 3, 3);
+    logicSize3.makeMove(PlayerColor.BLACK, 1, 4);
+    logicSize3.makeMove(PlayerColor.WHITE, 3, 0);
+    logicSize3.makeMove(PlayerColor.BLACK, 1, 1);
+    logicSize3.makeMove(PlayerColor.WHITE, 0, 3);
+    List<List<Cell>> boardRepresentation = boardSize3.getBoard();
+    TextView view = new TextView(boardSize3);
+    System.out.println(view);
+  }
+
 
 }

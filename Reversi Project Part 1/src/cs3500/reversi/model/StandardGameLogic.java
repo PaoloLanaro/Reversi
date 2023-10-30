@@ -36,7 +36,7 @@ public class StandardGameLogic implements GameLogic {
       throw new IllegalArgumentException("Invalid move attempt, trying to place on null");
     }
     if (originCell.getColor() != PlayerColor.EMPTY) {
-      throw new IllegalArgumentException("Tried to play on a non-empty cell");
+      throw new IllegalStateException("Tried to play on a non-empty cell");
     }
     if (playerPassCheck()) {
       passTurn();
@@ -194,7 +194,7 @@ public class StandardGameLogic implements GameLogic {
             if (run.get(run.size() - 1).getColor() == getOppositeColor(color)) {
               continue;
             }
-            if (possibleMoves.get(key).size() > 0) {
+            if (!possibleMoves.get(key).isEmpty()) {
               validMovesList.add(cell);
             }
           }
@@ -207,7 +207,7 @@ public class StandardGameLogic implements GameLogic {
   private boolean playerPassCheck() {
     PlayerColor currentPlayerColor = (turnCounter % 2 == 0) ? PlayerColor.BLACK : PlayerColor.WHITE;
 
-    return calculateValidMoves(currentPlayerColor).size() == 0;
+    return calculateValidMoves(currentPlayerColor).isEmpty();
   }
 
   @Override
@@ -261,7 +261,7 @@ public class StandardGameLogic implements GameLogic {
       }
       return  blackScore >  whiteScore ? "Black won!" : "White won!";
     } else {
-      throw new IllegalStateException("lksadfj");
+      throw new IllegalStateException("Can't get winner if the game is not over.");
     }
   }
 
