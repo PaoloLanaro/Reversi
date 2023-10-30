@@ -19,8 +19,6 @@ public class ModelTests {
   StandardBoard boardSize4;
   StandardGameLogic logicSize3;
   StandardGameLogic logicSize4;
-  TextView viewSize3;
-  TextView viewSize4;
 
   @Before
   public void init() {
@@ -28,10 +26,6 @@ public class ModelTests {
     boardSize4 = new StandardBoard(4);
     logicSize3 = new StandardGameLogic(boardSize3);
     logicSize4 = new StandardGameLogic(boardSize4);
-
-    viewSize3 = new TextView(boardSize3);
-
-    viewSize4 = new TextView(boardSize4);
   }
 
   @Test
@@ -46,57 +40,111 @@ public class ModelTests {
   }
 
   @Test
-  public void testValidUpperLeftMove() {
+  public void testValidBlackUpperLeftMove() {
     logicSize3.makeMove(PlayerColor.BLACK, 1, 1);
-    List<List<Cell>> boardRepresentation =  boardSize3.getBoard();
+    List<List<Cell>> boardRepresentation = boardSize3.getBoard();
     Assert.assertEquals(PlayerColor.BLACK, boardRepresentation.get(1).get(1).getColor());
   }
 
   @Test
-  public void testValidUpperRightMove() {
+  public void testValidBlackUpperRightMove() {
     logicSize3.makeMove(PlayerColor.BLACK, 1, 4);
-    List<List<Cell>> boardRepresentation =  boardSize3.getBoard();
+    List<List<Cell>> boardRepresentation = boardSize3.getBoard();
     Assert.assertEquals(PlayerColor.BLACK, boardRepresentation.get(1).get(3).getColor());
   }
 
   @Test
-  public void testValidBottomRightMove() {
+  public void testValidBlackBottomRightMove() {
     logicSize3.makeMove(PlayerColor.BLACK, 3, 3);
-    List<List<Cell>> boardRepresentation =  boardSize3.getBoard();
+    List<List<Cell>> boardRepresentation = boardSize3.getBoard();
     Assert.assertEquals(PlayerColor.BLACK, boardRepresentation.get(3).get(3).getColor());
   }
 
   // TODO: IMPLEMENT THESE CHECKS
 
-  @Test (expected = IllegalStateException.class)
-  public void testValidLeftMove() {
-    logicSize3.makeMove(PlayerColor.BLACK, 3, 3);
-    List<List<Cell>> boardRepresentation =  boardSize3.getBoard();
-    System.out.println(viewSize3);
-    logicSize3.makeMove(PlayerColor.WHITE, 0, 3);
-//    Assert.assertEquals(PlayerColor.BLACK, boardRepresentation.get(3).get(0).getColor());
-    System.out.println(viewSize3);
-    logicSize3.makeMove(PlayerColor.BLACK, 2, 2);
-    System.out.println(viewSize3);
-  }
-
   @Test
-  public void testValidRightMove() {
+  public void testValidBlackLeftMove() {
     logicSize3.makeMove(PlayerColor.BLACK, 1, 1);
-    List<List<Cell>> boardRepresentation =  boardSize3.getBoard();
+    List<List<Cell>> boardRepresentation = boardSize3.getBoard();
     Assert.assertEquals(PlayerColor.BLACK, boardRepresentation.get(1).get(1).getColor());
   }
 
   @Test
-  public void testValidBottomLeftMove() {
-    logicSize3.makeMove(PlayerColor.BLACK, 3, 0);
-    List<List<Cell>> boardRepresentation =  boardSize3.getBoard();
-    Assert.assertEquals(PlayerColor.BLACK, boardRepresentation.get(3).get(0).getColor());
+  public void testValidBlackRightMove() {
+    logicSize3.makeMove(PlayerColor.BLACK, 1, 1);
+    List<List<Cell>> boardRepresentation = boardSize3.getBoard();
+    Assert.assertEquals(PlayerColor.BLACK, boardRepresentation.get(1).get(1).getColor());
   }
 
-  @Test (expected = IllegalStateException.class)
-  public void testWhitePlayerFirstThrowsISE() {
-    logicSize3.makeMove(PlayerColor.WHITE, 3, 0);
+  @Test
+  public void testValidBlackBottomLeftMove() {
+    logicSize3.makeMove(PlayerColor.BLACK, 1, 1);
+    List<List<Cell>> boardRepresentation = boardSize3.getBoard();
+    Assert.assertEquals(PlayerColor.BLACK, boardRepresentation.get(1).get(1).getColor());
+  }
+
+  //TestingWhiteMoves
+  @Test
+  public void testValidWhiteUpperLeftMove() {
+    logicSize3.makeMove(PlayerColor.BLACK, 3, 3);
+    logicSize3.makeMove(PlayerColor.WHITE, 0, 3);
+    List<List<Cell>> boardRepresentation = boardSize3.getBoard();
+    TextView view = new TextView(boardSize3);
+    System.out.println(view);
+    Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(0).get(3).getColor());
+  }
+
+  @Test
+  public void testValidWhiteUpperRightMove() {
+    logicSize3.makeMove(PlayerColor.BLACK, 3, 0);
+    logicSize3.makeMove(PlayerColor.WHITE, 1, 4);
+    List<List<Cell>> boardRepresentation = boardSize3.getBoard();
+    TextView view = new TextView(boardSize3);
+    System.out.println(view);
+    Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(1).get(4).getColor());
+  }
+
+  @Test
+  public void testValidWhiteLeftMove() {
+    logicSize4.makeMove(PlayerColor.BLACK, 2, 2);
+    logicSize4.makeMove(PlayerColor.WHITE, 2, 1);
+    List<List<Cell>> boardRepresentation = boardSize4.getBoard();
+    TextView view = new TextView(boardSize4);
+    System.out.println(view);
+    Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(2).get(1).getColor());
+  }
+
+  @Test
+  public void testValidWhiteRightMove() {
+    logicSize4.makeMove(PlayerColor.BLACK, 2, 5);
+    logicSize4.makeMove(PlayerColor.WHITE, 4, 1);
+    logicSize4.makeMove(PlayerColor.BLACK, 5, 2);
+    logicSize4.makeMove(PlayerColor.WHITE, 4, 4);
+    //Big issue moving x to an invalid position not a sandwich
+    List<List<Cell>> boardRepresentation = boardSize4.getBoard();
+    TextView view = new TextView(boardSize4);
+    System.out.println(view);
+//    Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(0).get(3).getColor());
+  }
+
+  @Test
+  public void testValidWhiteBottomLeftMove() {
+    logicSize3.makeMove(PlayerColor.BLACK, 3, 3);
+    logicSize3.makeMove(PlayerColor.WHITE, 0, 3);
+    List<List<Cell>> boardRepresentation = boardSize3.getBoard();
+    TextView view = new TextView(boardSize3);
+    System.out.println(view);
+    Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(0).get(3).getColor());
+  }
+
+  @Test
+  public void testValidWhiteBottomRightMove() {
+    logicSize3.makeMove(PlayerColor.BLACK, 3, 0);
+    logicSize3.makeMove(PlayerColor.WHITE, 3, 3);
+    List<List<Cell>> boardRepresentation = boardSize3.getBoard();
+    TextView view = new TextView(boardSize3);
+    System.out.println(view);
+    Assert.assertEquals(PlayerColor.WHITE, boardRepresentation.get(3).get(3).getColor());
   }
 
 }

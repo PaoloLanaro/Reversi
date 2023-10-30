@@ -126,6 +126,10 @@ public class StandardGameLogic implements GameLogic {
       return currentRun;
     }
 
+    if (currCell.getColor() == PlayerColor.EMPTY) {
+      return currentRun;
+    }
+
     switch (dir) {
       case "ul":
         if (currCell.getUpperLeft() == null) {
