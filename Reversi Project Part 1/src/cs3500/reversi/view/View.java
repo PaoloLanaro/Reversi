@@ -2,7 +2,7 @@ package cs3500.reversi.view;
 
 import java.io.IOException;
 
-import cs3500.reversi.model.Board;
+import cs3500.reversi.model.ReadOnlyReversi;
 
 /**
  * Represents a view for a Reversi game. Views are responsible for rendering and updating
@@ -23,5 +23,5 @@ public interface View {
    *
    * @param board the game board to update.
    */
-  void updateBoard(Board board);
+  void updateBoard(ReadOnlyReversi board);
 }

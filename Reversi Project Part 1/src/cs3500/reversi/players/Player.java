@@ -1,6 +1,7 @@
-package cs3500.reversi.model;
+package cs3500.reversi.players;
 
-import cs3500.reversi.players.PlacedColor;
+import cs3500.reversi.model.DiscColor;
+import cs3500.reversi.model.ReadOnlyReversi;
 
 /**
  * Represents a player in a Reversi game. Players can make moves on the game board and
@@ -14,7 +15,7 @@ public interface Player {
    *
    * @param board the game board on which to make a move.
    */
-  void makeMove(Board board);
+  void makeMove(ReadOnlyReversi board);
 
   /**
    * Retrieves the color associated with the player. The player color indicates
@@ -22,5 +23,5 @@ public interface Player {
    *
    * @return the player's color as a {@link PlacedColor}.
    */
-  PlayerColor getColor();
+  DiscColor getColor();
 }

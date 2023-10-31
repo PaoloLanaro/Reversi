@@ -1,27 +1,26 @@
 package cs3500.reversi.players;
 
-import cs3500.reversi.model.Board;
-import cs3500.reversi.model.Player;
-import cs3500.reversi.model.PlayerColor;
+import cs3500.reversi.model.ReadOnlyReversi;
+import cs3500.reversi.model.DiscColor;
 
 /**
  *
  */
 public class HumanPlayer extends AbstractPlayer {
 
-  private final PlayerColor color;
+  private final DiscColor color;
 
-  public HumanPlayer(PlayerColor color) {
+  public HumanPlayer(DiscColor color) {
     this.color = color;
   }
 
   @Override
-  public void makeMove(Board board) {
+  public void makeMove(ReadOnlyReversi board) {
 
   }
 
   @Override
-  public PlayerColor getColor() {
+  public DiscColor getColor() {
     return color;
   }
 }

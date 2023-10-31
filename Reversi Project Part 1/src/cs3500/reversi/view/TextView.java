@@ -1,9 +1,8 @@
 package cs3500.reversi.view;
 
 import java.io.IOException;
-import java.util.List;
 
-import cs3500.reversi.model.Board;
+import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.Cell;
 
 /**
@@ -12,14 +11,14 @@ import cs3500.reversi.model.Cell;
 public class TextView extends AbstractView {
 
   private final Appendable out;
-  private final Board board;
+  private final ReadOnlyReversi board;
 
-  public TextView(Appendable out, Board board) {
+  public TextView(Appendable out, ReadOnlyReversi board) {
     this.out = out;
     this.board = board;
   }
 
-  public TextView(Board board) {
+  public TextView(ReadOnlyReversi board) {
     this.out = System.out;
     this.board = board;
   }
@@ -30,7 +29,7 @@ public class TextView extends AbstractView {
   }
 
   @Override
-  public void updateBoard(Board board) {
+  public void updateBoard(ReadOnlyReversi board) {
 
   }
 
