@@ -201,7 +201,6 @@ public class ModelTests {
     logicSize3.makeMove(PlayerColor.BLACK, 1, 1);
     logicSize3.makeMove(PlayerColor.WHITE, 0, 3);
     TextView view = new TextView(boardSize3);
-    System.out.println(view);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -242,6 +241,7 @@ public class ModelTests {
     Assert.assertTrue(logicSize3.isGameOver());
     Assert.assertEquals("White won!", logicSize3.getWinner());
     Assert.assertThrows(IllegalStateException.class, () -> logicSize3.passTurn());
+    System.out.println(viewSize3);
   }
 
   @Test
