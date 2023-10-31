@@ -197,7 +197,7 @@ public class BasicReversi implements MutableReversi {
     return initialList;
   }
 
-  private static void setStarterDiscs(int middleRow, List<List<Cell>> initialList) {
+  private void setStarterDiscs(int middleRow, List<List<Cell>> initialList) {
     initialList.get(middleRow).get(middleRow - 1).setDiscColor(DiscColor.WHITE);
     initialList.get(middleRow - 1).get(middleRow + 1).setDiscColor(DiscColor.WHITE);
     initialList.get(middleRow + 1).get(middleRow).setDiscColor(DiscColor.WHITE);
@@ -207,7 +207,7 @@ public class BasicReversi implements MutableReversi {
     initialList.get(middleRow + 1).get(middleRow - 1).setDiscColor(DiscColor.BLACK);
   }
 
-  private static void nullSetSpaghetti(int diameter, int middleRow, List<List<Cell>> initialList) {
+  private void nullSetSpaghetti(int diameter, int middleRow, List<List<Cell>> initialList) {
     for (int row = 0; row < diameter; row++) {
       for (int col = 0; col < diameter; col++) {
         if (row < middleRow) {
@@ -220,7 +220,7 @@ public class BasicReversi implements MutableReversi {
     }
   }
 
-  private static void initializeMatrix(int diameter, List<List<Cell>> initialList) {
+  private void initializeMatrix(int diameter, List<List<Cell>> initialList) {
     for (int row = 0; row < diameter; row++) {
       initialList.add(new ArrayList<>(diameter));
       for (int col = 0; col < diameter; col++) {
@@ -231,7 +231,7 @@ public class BasicReversi implements MutableReversi {
   }
 
   // Set hexagonal neighbors for each cell
-  private static void setCellNeighbors(int diameter, List<List<Cell>> initialList) {
+  private void setCellNeighbors(int diameter, List<List<Cell>> initialList) {
     for (int row = 0; row < diameter; row++) {
       for (int col = 0; col < diameter; col++) {
         Cell currentCell = initialList.get(row).get(col);
@@ -278,7 +278,7 @@ public class BasicReversi implements MutableReversi {
     }
   }
 
-  private static void nonMiddleHelper(boolean nullSet, List<List<Cell>> finalBoard, int row,
+  private void nonMiddleHelper(boolean nullSet, List<List<Cell>> finalBoard, int row,
                                       int col) {
     if (nullSet) {
       finalBoard.get(row).set(col, null);
@@ -311,7 +311,7 @@ public class BasicReversi implements MutableReversi {
     int validMovesOnBoard = getValidMoves(DiscColor.BLACK).size();
     validMovesOnBoard += getValidMoves(DiscColor.WHITE).size();
     if (validMovesOnBoard == 0) {
-      return false;
+      return true;
     }
 
     for (List<Cell> row : board) {

@@ -122,7 +122,6 @@ public class ModelTests {
   public void testValidWhiteBottomLeftMove() {
     model3.makeMove(3, 3);
     model3.makeMove(0, 3);
-    System.out.println(viewSize3);
     List<List<Cell>> boardRepresentation = model3.getBoard();
     Assert.assertEquals(DiscColor.WHITE, boardRepresentation.get(0).get(3).getColor());
   }
@@ -131,7 +130,6 @@ public class ModelTests {
   public void testValidWhiteBottomRightMove() {
     model3.makeMove(3, 0);
     model3.makeMove(3, 3);
-    System.out.println(viewSize3);
     List<List<Cell>> boardRepresentation = model3.getBoard();
     Assert.assertEquals(DiscColor.WHITE, boardRepresentation.get(3).get(3).getColor());
   }
@@ -237,7 +235,6 @@ public class ModelTests {
     Assert.assertTrue(model3.isGameOver());
     Assert.assertEquals("White won!", model3.getWinner());
     Assert.assertThrows(IllegalStateException.class, () -> model3.passTurn());
-    System.out.println(viewSize3);
   }
 
   @Test
@@ -277,8 +274,32 @@ public class ModelTests {
             " _ X O _ \n" +
             "  _ _ _ \n";
     Assert.assertEquals(expected, viewSize3.toString());
+    Assert.assertEquals(3, model3.getScore().get(DiscColor.BLACK).intValue());
+    Assert.assertEquals(3, model3.getScore().get(DiscColor.WHITE).intValue());
+
   }
 
+  @Test
+  public void testCantMutateByReversiGetValidMovesMethod() {
+    List<Cell> validMoves = model3.getValidMoves(DiscColor.BLACK);
+    for (Cell cell : validMoves) {
+      cell.setDiscColor(DiscColor.BLACK);
+    }
+    Assert.assertEquals(3, model3.getScore().get(DiscColor.BLACK).intValue());
+    Assert.assertEquals(3, model3.getScore().get(DiscColor.WHITE).intValue());
 
+  }
+
+  @Test
+  public void testFullGameBlackWon() {
+    model3.makeMove(1, 4);
+    model3.makeMove(4, 1);
+    model3.makeMove(3, 0);
+    model3.makeMove(1, 1);
+    model3.makeMove(3, 3);
+    model3.makeMove(0, 3);
+    Assert.assertTrue(model3.isGameOver());
+    Assert.assertEquals(DiscColor.BLACK, model3.getWinnerColor());
+  }
 
 }
