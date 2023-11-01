@@ -14,7 +14,7 @@ public interface MutableReversi extends ReadOnlyReversi {
    *
    * @param row the 0-indexed integer for the row to make the move on.
    * @param col the 0-indexed integer for the column to make the move on.
-   * @throws IllegalStateException    if the move is not allowed on the current board.
+   * @throws IllegalStateException    if move isn't allowed on the current board, or game is over.
    * @throws IllegalArgumentException if either {@code row} or {@code col} are not valid arguments.
    */
   void makeMove(int row, int col);

@@ -69,6 +69,8 @@ public interface ReadOnlyReversi {
    * @param row row to move current players disc to.
    * @param col column to move current players disc to.
    * @return boolean representation of whether the move is valid.
+   * @throws IllegalArgumentException if row or col are out of bounds.
+   * @throws IllegalStateException if the move is not allowed.
    */
   boolean isValidMove(int row, int col);
 
