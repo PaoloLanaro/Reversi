@@ -26,14 +26,6 @@ public interface ReadOnlyReversi {
   boolean isGameOver();
 
   /**
-   * Gets the winner of the game.
-   *
-   * @return Whichever player won the game, or {@code null} if no winner could be determined.
-   * @throws IllegalStateException if the game isn't over.
-   */
-  DiscColor getWinnerColor();
-
-  /**
    * Gets the current score of the game.
    * This is represented as a map of {@link DiscColor} to Integer,
    * where Integer is the score associated with that specific {@link DiscColor},
@@ -41,7 +33,27 @@ public interface ReadOnlyReversi {
    *
    * @return a map of {@link DiscColor} to Integer.
    */
+
   Map<DiscColor, Integer> getScore();
 
+  /**
+   * Returns a String representation of the winner of the game.
+   *
+   * @return a string declaring the winning color or a draw.
+   * @throws IllegalStateException if the game is not over.
+   */
+  String getWinner();
+
+  /**
+   * Looks for the valid moves available to a player with the specified {@link DiscColor}.
+   * A valid move is a sequence of {@link Cell} objects representing the path of cells that
+   * can be swapped to the specified player's color if the move is made. The path starts
+   * from an empty cell and ends with a cell of the specified color.
+   *
+   * @param color The {@link DiscColor} of the player for whom to find valid moves.
+   * @return A list of {@link Cell} objects representing the valid moves available to the player.
+   * Each {@link Cell} in the list corresponds to a potential move that the player can make.
+   */
   List<Cell> getValidMoves(DiscColor color);
+
 }

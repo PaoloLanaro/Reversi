@@ -279,6 +279,17 @@ public class ModelTests {
     Assert.assertEquals(expected, viewSize3.toString());
   }
 
-
+  @Test
+  public void testFullGameBlackWon() {
+    model3.makeMove(1, 4);
+    model3.makeMove(4, 1);
+    model3.makeMove(3, 0);
+    model3.makeMove(1, 1);
+    model3.makeMove(3, 3);
+    model3.makeMove(0, 3);
+    Assert.assertTrue(model3.isGameOver());
+    Assert.assertEquals("Black won!", model3.getWinner());
+    Assert.assertEquals(DiscColor.BLACK, model3.getWinnerColor());
+  }
 
 }

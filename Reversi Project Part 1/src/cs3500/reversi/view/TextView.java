@@ -6,18 +6,30 @@ import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.Cell;
 
 /**
- *
+ * A text-based view for a Reversi game, displaying the game board using characters.
+ * Empty cells are represented by '_', black discs by 'X', and white discs by 'O'.
  */
 public class TextView extends AbstractView {
 
   private final Appendable out;
   private final ReadOnlyReversi board;
 
+  /**
+   * Constructs a TextView with a custom output stream and a read-only Reversi board.
+   *
+   * @param out   The output stream to write the game board to.
+   * @param board The read-only Reversi board to display.
+   */
   public TextView(Appendable out, ReadOnlyReversi board) {
     this.out = out;
     this.board = board;
   }
 
+  /**
+   * Constructs a TextView with the standard output stream and a read-only Reversi board.
+   *
+   * @param board The read-only Reversi board to display.
+   */
   public TextView(ReadOnlyReversi board) {
     this.out = System.out;
     this.board = board;
@@ -26,11 +38,6 @@ public class TextView extends AbstractView {
   @Override
   public void renderBoard() throws IOException {
     out.append(toString()).append(System.lineSeparator());
-  }
-
-  @Override
-  public void updateBoard(ReadOnlyReversi board) {
-
   }
 
   @Override

@@ -6,13 +6,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Represents a basic implementation of a basic hexagon Reversi Game. Implements the MutableReversi
+ * interface to give methods for making moves, passing turns, and checking game state. The game is
+ * played on a hex grid with a board size variable.
+ */
 public class BasicReversi implements MutableReversi {
-  private int passCounter;
-  private DiscColor turn;
-  private final List<List<Cell>> board;
-  private final int initSize;
+  private int passCounter; // Counter for consecutive passes
+  private DiscColor turn; // Current player's turn (BLACK or WHITE)
+  private final List<List<Cell>> board; // 2D list representing the game board
+  private final int initSize; // Initial size of the board
+  private static final String UPPER_LEFT = "ul";
+  private static final String UPPER_RIGHT = "ur";
+  private static final String LEFT = "l";
+  private static final String RIGHT = "r";
+  private static final String BOTTOM_LEFT = "bl";
+  private static final String BOTTOM_RIGHT = "br";
 
-  public BasicReversi (int initSize) {
+  /**
+   * Constructs a new BasicReversi with a specified initial board size.
+   *
+   * @param initSize side length of the board.
+   * @throws IllegalArgumentException if the initial board size is less than or equal to 2.
+   */
+  public BasicReversi(int initSize) {
     turn = DiscColor.BLACK;
     if (initSize <= 2) {
       throw new IllegalArgumentException("Top side length of the board cannot be less than or " +
@@ -68,7 +85,7 @@ public class BasicReversi implements MutableReversi {
 
     List<List<Cell>> validRuns = new ArrayList<>();
 
-    String[] directions = {"ul", "ur", "l", "r", "bl", "br"};
+    String[] directions = {UPPER_LEFT, UPPER_RIGHT, LEFT, RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT};
 
     for (String direction : directions) {
       List<Cell> run = routesMap.get(direction);
@@ -95,12 +112,17 @@ public class BasicReversi implements MutableReversi {
   private Map<String, List<Cell>> getRunsForCell(Cell originCell, DiscColor playerColor) {
     Map<String, List<Cell>> routesMap = new HashMap<>();
     DiscColor oppositeColor = getOppositeColor(playerColor);
-    checkAndAddDirection("ul", routesMap, originCell.getUpperLeft(), oppositeColor, playerColor);
-    checkAndAddDirection("ur", routesMap, originCell.getUpperRight(), oppositeColor, playerColor);
-    checkAndAddDirection("l", routesMap, originCell.getLeft(), oppositeColor, playerColor);
-    checkAndAddDirection("r", routesMap, originCell.getRight(), oppositeColor, playerColor);
-    checkAndAddDirection("bl", routesMap, originCell.getBottomLeft(), oppositeColor, playerColor);
-    checkAndAddDirection("br", routesMap, originCell.getBottomRight(), oppositeColor, playerColor);
+    checkAndAddDirection(UPPER_LEFT, routesMap, originCell.getUpperLeft(), oppositeColor,
+            playerColor);
+    checkAndAddDirection(UPPER_RIGHT, routesMap, originCell.getUpperRight(), oppositeColor,
+            playerColor);
+    checkAndAddDirection(LEFT, routesMap, originCell.getLeft(), oppositeColor,
+            playerColor);
+    checkAndAddDirection(RIGHT, routesMap, originCell.getRight(), oppositeColor, playerColor);
+    checkAndAddDirection(BOTTOM_LEFT, routesMap, originCell.getBottomLeft(), oppositeColor,
+            playerColor);
+    checkAndAddDirection(BOTTOM_RIGHT, routesMap, originCell.getBottomRight(), oppositeColor,
+            playerColor);
     return routesMap;
   }
 
@@ -130,42 +152,42 @@ public class BasicReversi implements MutableReversi {
     }
 
     switch (dir) {
-      case "ul":
+      case UPPER_LEFT:
         if (currCell.getUpperLeft() == null) {
           return;
         }
         currentRun.add(currCell);
         traverse(dir, originalColor, currCell.getUpperLeft(), currentRun);
         break;
-      case "ur":
+      case UPPER_RIGHT:
         if (currCell.getUpperRight() == null) {
           return;
         }
         currentRun.add(currCell);
         traverse(dir, originalColor, currCell.getUpperRight(), currentRun);
         break;
-      case "l":
+      case LEFT:
         if (currCell.getLeft() == null) {
           return;
         }
         currentRun.add(currCell);
         traverse(dir, originalColor, currCell.getLeft(), currentRun);
         break;
-      case "r":
+      case RIGHT:
         if (currCell.getRight() == null) {
           return;
         }
         currentRun.add(currCell);
         traverse(dir, originalColor, currCell.getRight(), currentRun);
         break;
-      case "bl":
+      case BOTTOM_LEFT:
         if (currCell.getBottomLeft() == null) {
           return;
         }
         currentRun.add(currCell);
         traverse(dir, originalColor, currCell.getBottomLeft(), currentRun);
         break;
-      case "br":
+      case BOTTOM_RIGHT:
         if (currCell.getBottomRight() == null) {
           return;
         }
@@ -188,7 +210,7 @@ public class BasicReversi implements MutableReversi {
 
     initializeMatrix(diameter, initialList);
 
-    nullSetSpaghetti(diameter, middleRow, initialList);
+    nonMiddleRowNullSetHelper(diameter, middleRow, initialList);
 
     setCellNeighbors(diameter, initialList);
 
@@ -197,7 +219,7 @@ public class BasicReversi implements MutableReversi {
     return initialList;
   }
 
-  private static void setStarterDiscs(int middleRow, List<List<Cell>> initialList) {
+  private void setStarterDiscs(int middleRow, List<List<Cell>> initialList) {
     initialList.get(middleRow).get(middleRow - 1).setDiscColor(DiscColor.WHITE);
     initialList.get(middleRow - 1).get(middleRow + 1).setDiscColor(DiscColor.WHITE);
     initialList.get(middleRow + 1).get(middleRow).setDiscColor(DiscColor.WHITE);
@@ -207,7 +229,7 @@ public class BasicReversi implements MutableReversi {
     initialList.get(middleRow + 1).get(middleRow - 1).setDiscColor(DiscColor.BLACK);
   }
 
-  private static void nullSetSpaghetti(int diameter, int middleRow, List<List<Cell>> initialList) {
+  private void nonMiddleRowNullSetHelper(int diameter, int middleRow, List<List<Cell>> initialList) {
     for (int row = 0; row < diameter; row++) {
       for (int col = 0; col < diameter; col++) {
         if (row < middleRow) {
@@ -220,7 +242,7 @@ public class BasicReversi implements MutableReversi {
     }
   }
 
-  private static void initializeMatrix(int diameter, List<List<Cell>> initialList) {
+  private void initializeMatrix(int diameter, List<List<Cell>> initialList) {
     for (int row = 0; row < diameter; row++) {
       initialList.add(new ArrayList<>(diameter));
       for (int col = 0; col < diameter; col++) {
@@ -231,55 +253,31 @@ public class BasicReversi implements MutableReversi {
   }
 
   // Set hexagonal neighbors for each cell
-  private static void setCellNeighbors(int diameter, List<List<Cell>> initialList) {
+  private Cell getNeighborCell(List<List<Cell>> initialList, int row, int col) {
+    try {
+      return Objects.requireNonNull(initialList.get(row).get(col));
+    } catch (NullPointerException | IndexOutOfBoundsException e) {
+      return null;
+    }
+  }
+
+  private void setCellNeighbors(int diameter, List<List<Cell>> initialList) {
     for (int row = 0; row < diameter; row++) {
       for (int col = 0; col < diameter; col++) {
         Cell currentCell = initialList.get(row).get(col);
-        if (currentCell == null) {
-          continue;
+        if (currentCell != null) {
+          currentCell.setUpperLeft(getNeighborCell(initialList, row - 1, col));
+          currentCell.setUpperRight(getNeighborCell(initialList, row - 1, col + 1));
+          currentCell.setLeft(getNeighborCell(initialList, row, col - 1));
+          currentCell.setRight(getNeighborCell(initialList, row, col + 1));
+          currentCell.setBottomLeft(getNeighborCell(initialList, row + 1, col - 1));
+          currentCell.setBottomRight(getNeighborCell(initialList, row + 1, col));
         }
-        try {
-          currentCell.setUpperLeft(Objects.requireNonNull(initialList.get(row - 1).get(col)));
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-          currentCell.setBottomLeft(null);
-        }
-
-        try {
-          currentCell.setUpperRight(Objects.requireNonNull(initialList.get(row - 1).get(col + 1)));
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-          currentCell.setBottomRight(null);
-        }
-
-        try {
-          currentCell.setLeft(Objects.requireNonNull(initialList.get(row).get(col - 1)));
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-          currentCell.setLeft(null);
-        }
-
-        try {
-          currentCell.setRight(Objects.requireNonNull(initialList.get(row).get(col + 1)));
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-          currentCell.setRight(null);
-        }
-
-        try {
-          currentCell.setBottomLeft(Objects.requireNonNull(initialList.get(row + 1).get(col - 1)));
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-          currentCell.setBottomLeft(null);
-        }
-
-        try {
-          currentCell.setBottomRight(Objects.requireNonNull(initialList.get(row + 1).get(col)));
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-          currentCell.setBottomRight(null);
-        }
-
       }
     }
   }
 
-  private static void nonMiddleHelper(boolean nullSet, List<List<Cell>> finalBoard, int row,
-                                      int col) {
+  private void nonMiddleHelper(boolean nullSet, List<List<Cell>> finalBoard, int row, int col) {
     if (nullSet) {
       finalBoard.get(row).set(col, null);
     }
@@ -311,7 +309,7 @@ public class BasicReversi implements MutableReversi {
     int validMovesOnBoard = getValidMoves(DiscColor.BLACK).size();
     validMovesOnBoard += getValidMoves(DiscColor.WHITE).size();
     if (validMovesOnBoard == 0) {
-      return false;
+      return true;
     }
 
     for (List<Cell> row : board) {
@@ -327,7 +325,12 @@ public class BasicReversi implements MutableReversi {
     return true;
   }
 
-  @Override
+  /**
+   * Gets the winner of the game.
+   *
+   * @return Whichever player won the game, or {@code null} if no winner could be determined.
+   * @throws IllegalStateException if the game isn't over.
+   */
   public DiscColor getWinnerColor() {
     if (isGameOver()) {
       Map<DiscColor, Integer> colorScores = getScore();
@@ -363,6 +366,8 @@ public class BasicReversi implements MutableReversi {
     return playerToScoreMap;
   }
 
+
+  @Override
   public String getWinner() {
     if (isGameOver()) {
       Map<DiscColor, Integer> colorScores = getScore();
@@ -403,4 +408,5 @@ public class BasicReversi implements MutableReversi {
     }
     return validMovesList;
   }
+
 }
