@@ -61,6 +61,7 @@ public class BasicReversi implements MutableReversi {
   }
 
   private void switchTurn() {
+    // Switches the turn from BLACK to WHITE and vice versa.
     turn = turn == DiscColor.BLACK ? DiscColor.WHITE : DiscColor.BLACK;
   }
 
@@ -81,21 +82,18 @@ public class BasicReversi implements MutableReversi {
     }
   }
 
-
-
   private void setValidDiscs(Cell originCell, DiscColor playerColor) {
+    // Finds and sets valid discs based on the player's color and origin cell.
     Map<String, List<Cell>> routesMap = getRunsForCell(originCell, playerColor);
-
     List<List<Cell>> validRuns = new ArrayList<>();
-
     validRunChecker(originCell, playerColor, routesMap, validRuns);
 
+    // If there are no valid runs, the move is not valid.
     if (validRuns.isEmpty()) {
       throw new IllegalStateException("Not a valid move");
     }
-
+    // Flips the discs for all valid runs.
     flipValidDiscRuns(playerColor, validRuns);
-
     passCounter = 0;
   }
 
@@ -109,6 +107,7 @@ public class BasicReversi implements MutableReversi {
 
   private void validRunChecker(Cell originCell, DiscColor playerColor, Map<String,
           List<Cell>> routesMap, List<List<Cell>> validRuns) {
+    // Checks and adds valid runs to the validRuns list.
     for (String key : routesMap.keySet()) {
       List<Cell> run = routesMap.get(key);
       if (run != null && !run.isEmpty() && run.get(run.size() - 1).getColor() == playerColor) {
@@ -120,6 +119,7 @@ public class BasicReversi implements MutableReversi {
   }
 
   private Map<String, List<Cell>> getRunsForCell(Cell originCell, DiscColor playerColor) {
+    // Computes and returns possible runs for the given cell and player color.
     Map<String, List<Cell>> routesMap = new HashMap<>();
     DiscColor oppositeColor = getOppositeColor(playerColor);
     checkAndAddDirection(UPPER_LEFT, routesMap, originCell.getUpperLeft(), oppositeColor,
@@ -139,6 +139,7 @@ public class BasicReversi implements MutableReversi {
   // Method to traverse in a given direction and add cells in given direction to a list
   private void checkAndAddDirection(String direction, Map<String, List<Cell>> routesMap, Cell cell,
                                     DiscColor oppositeColor, DiscColor playerColor) {
+    // Checks the given direction and adds cells to the routesMap if they form a valid run.
     if (cell != null && cell.getColor() == oppositeColor) {
       routesMap.put(direction, traverse(direction, playerColor, cell));
     }
