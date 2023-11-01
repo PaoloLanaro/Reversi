@@ -302,4 +302,14 @@ public class ModelTests {
     Assert.assertEquals(DiscColor.BLACK, model3.getWinnerColor());
   }
 
+  @Test
+  public void testPassingWorks() {
+    model3.passTurn();
+    model3.makeMove(1, 4);
+    int blackScore = model3.getScore().get(DiscColor.BLACK);
+    int whiteScore = model3.getScore().get(DiscColor.WHITE);
+    Assert.assertEquals(2, blackScore);
+    Assert.assertEquals(5, whiteScore);
+  }
+
 }
