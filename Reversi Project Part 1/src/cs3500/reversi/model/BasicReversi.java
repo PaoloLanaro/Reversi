@@ -59,7 +59,7 @@ public class BasicReversi implements MutableReversi {
       passTurn();
       throw new IllegalStateException("Cannot move, so your turn has been passed.");
     }
-
+    
     setValidDiscs(originCell, turn);
     turn = turn == DiscColor.BLACK ? DiscColor.WHITE : DiscColor.BLACK;
   }
