@@ -56,4 +56,20 @@ public interface ReadOnlyReversi {
    */
   List<Cell> getValidMoves(DiscColor color);
 
+  /**
+   * This method will get the current players turn.
+   *
+   * @return the current players turn as a string representation.
+   */
+  String getTurn();
+
+  /**
+   * Checks if the disc placement is valid in the current game state.
+   *
+   * @param row row to move current players disc to.
+   * @param col column to move current players disc to.
+   * @return boolean representation of whether the move is valid.
+   */
+  boolean isValidMove(int row, int col);
+
 }

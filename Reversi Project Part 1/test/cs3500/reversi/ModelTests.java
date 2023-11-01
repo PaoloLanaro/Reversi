@@ -119,6 +119,8 @@ public class ModelTests {
     model4.makeMove(4, 1);
     model4.makeMove(5, 2);
     model4.makeMove(4, 4);
+    model4.makeMove(2, 2);
+    model4.makeMove(1, 4);
 
     List<List<Cell>> boardRepresentation = model4.getBoard();
     Assert.assertEquals(DiscColor.WHITE, boardRepresentation.get(4).get(4).getColor());
@@ -246,15 +248,7 @@ public class ModelTests {
     Assert.assertThrows(IllegalStateException.class, () -> model3.makeMove(0, 2));
     Assert.assertThrows(IllegalStateException.class, () -> model3.makeMove(0, 2));
     Assert.assertTrue(model3.isGameOver());
-    Assert.assertEquals(DiscColor.WHITE, model3.getWinnerColor());
-  }
-
-  @Test(expected = IllegalStateException.class)
-  public void testGetWinnerColorWhenGameIsNotOver() {
-    model3.makeMove(3, 0);
-    model3.makeMove(1, 4);
-
-    model3.getWinnerColor();
+    Assert.assertEquals("White won!", model3.getWinner());
   }
 
   @Test(expected = IllegalStateException.class)
@@ -291,7 +285,6 @@ public class ModelTests {
 
     Assert.assertTrue(model3.isGameOver());
     Assert.assertEquals("Black won!", model3.getWinner());
-    Assert.assertEquals(DiscColor.BLACK, model3.getWinnerColor());
   }
 
   @Test
@@ -304,6 +297,44 @@ public class ModelTests {
 
     Assert.assertEquals(2, blackScore);
     Assert.assertEquals(5, whiteScore);
+  }
+
+  @Test
+  public void testIsValidMoveOnInitialGame() {
+    Assert.assertTrue(model3.isValidMove(0, 3));
+  }
+
+  @Test
+  public void testIsValidMoveInMiddleOfGame() {
+    model3.makeMove(1, 4);
+    model3.makeMove(4, 1);
+    model3.makeMove(3, 0);
+    model3.makeMove(1, 1);
+    Assert.assertTrue(model3.isValidMove(3, 3));
+    model3.makeMove(3, 3);
+    Assert.assertTrue(model3.isValidMove(0, 3));
+    model3.makeMove(0, 3);
+    Assert.assertTrue(model3.isGameOver());
+  }
+
+  @Test
+  public void testIsValidMoveInvalidMove() {
+    Assert.assertThrows(IllegalArgumentException.class, () -> model3.isValidMove(0, 0));
+    Assert.assertFalse(model3.isValidMove(0, 2));
+    Assert.assertFalse(model3.isValidMove(0, 4));
+    Assert.assertFalse(model3.isValidMove(2, 0));
+    Assert.assertFalse(model3.isValidMove(4, 0));
+  }
+
+  @Test
+  public void testGetTurnBlackTurn() {
+    Assert.assertEquals("Black's turn", model3.getTurn());
+  }
+
+  @Test
+  public void testGetTurnWhiteTurn() {
+    model3.makeMove(0, 3);
+    Assert.assertEquals("White's turn", model3.getTurn());
   }
 
 }

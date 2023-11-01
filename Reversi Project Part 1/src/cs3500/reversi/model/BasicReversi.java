@@ -16,12 +16,12 @@ public class BasicReversi implements MutableReversi {
   private DiscColor turn; // Current player's turn (BLACK or WHITE).
   private final List<List<Cell>> board; // 2D list representing the game board.
   private final int initSize; // Initial size of the board.
-  private static final String UPPER_LEFT = "ul";
-  private static final String UPPER_RIGHT = "ur";
-  private static final String LEFT = "l";
-  private static final String RIGHT = "r";
-  private static final String BOTTOM_LEFT = "bl";
-  private static final String BOTTOM_RIGHT = "br";
+  private final String UPPER_LEFT = "ul";
+  private final String UPPER_RIGHT = "ur";
+  private final String LEFT = "l";
+  private final String RIGHT = "r";
+  private final String BOTTOM_LEFT = "bl";
+  private final String BOTTOM_RIGHT = "br";
 
   /**
    * Constructs a new BasicReversi with a specified initial board size.
@@ -44,22 +44,13 @@ public class BasicReversi implements MutableReversi {
     if (isGameOver()) {
       throw new IllegalStateException("Tried to move on a finished game.");
     }
-    int maxLength = board.size();
-    if (row < 0 || col < 0 || row > maxLength - 1 || col > maxLength - 1) {
-      throw new IllegalArgumentException("Illegal row or column input");
-    }
-    Cell originCell = board.get(row).get(col);
-    if (originCell == null) {
-      throw new IllegalArgumentException("Invalid move attempt, trying to place on null");
-    }
-    if (originCell.getColor() != DiscColor.EMPTY) {
-      throw new IllegalStateException("Tried to play on a non-empty cell");
-    }
+    isValidMove(row, col);
     if (requiredPlayerPassCheck()) {
       passTurn();
       throw new IllegalStateException("Cannot move, so your turn has been passed.");
     }
 
+    Cell originCell = board.get(row).get(col);
     setValidDiscs(originCell, turn);
     switchTurn();
   }
@@ -85,33 +76,41 @@ public class BasicReversi implements MutableReversi {
     }
   }
 
+
+
   private void setValidDiscs(Cell originCell, DiscColor playerColor) {
     Map<String, List<Cell>> routesMap = getRunsForCell(originCell, playerColor);
 
     List<List<Cell>> validRuns = new ArrayList<>();
 
-    String[] directions = {UPPER_LEFT, UPPER_RIGHT, LEFT, RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT};
+    validRunChecker(originCell, playerColor, routesMap, validRuns);
 
-    for (String direction : directions) {
-      List<Cell> run = routesMap.get(direction);
+    if (validRuns.isEmpty()) {
+      throw new IllegalStateException("Not a valid move");
+    }
+
+    flipValidDiscRuns(playerColor, validRuns);
+
+    passCounter = 0;
+  }
+
+  private void flipValidDiscRuns(DiscColor playerColor, List<List<Cell>> validRuns) {
+    for (List<Cell> singleRun : validRuns) {
+      for (Cell runCell : singleRun) {
+        runCell.setDiscColor(playerColor);
+      }
+    }
+  }
+
+  private void validRunChecker(Cell originCell, DiscColor playerColor, Map<String, List<Cell>> routesMap, List<List<Cell>> validRuns) {
+    for (String key : routesMap.keySet()) {
+      List<Cell> run = routesMap.get(key);
       if (run != null && !run.isEmpty() && run.get(run.size() - 1).getColor() == playerColor) {
         originCell.setDiscColor(playerColor);
         run.add(0, originCell);
         validRuns.add(run);
       }
     }
-
-    if (validRuns.isEmpty()) {
-      throw new IllegalStateException("Not a valid move");
-    }
-
-    for (List<Cell> singleRun : validRuns) {
-      for (Cell runCell : singleRun) {
-        runCell.setDiscColor(playerColor);
-      }
-    }
-
-    passCounter = 0;
   }
 
   private Map<String, List<Cell>> getRunsForCell(Cell originCell, DiscColor playerColor) {
@@ -131,21 +130,24 @@ public class BasicReversi implements MutableReversi {
     return routesMap;
   }
 
+  // Method to traverse in a given direction and add cells in given direction to a list
   private void checkAndAddDirection(String direction, Map<String, List<Cell>> routesMap, Cell cell,
                                     DiscColor oppositeColor, DiscColor playerColor) {
     if (cell != null && cell.getColor() == oppositeColor) {
-      routesMap.put(direction, traverseHelper(direction, playerColor, cell));
+      routesMap.put(direction, traverse(direction, playerColor, cell));
     }
   }
 
-  private List<Cell> traverseHelper(String dir, DiscColor color, Cell currCell) {
+  // Method that calls recursive method helper
+  private List<Cell> traverse(String dir, DiscColor color, Cell currCell) {
     List<Cell> routeList = new ArrayList<>();
-    traverse(dir, color, currCell, routeList);
+    traverseHelper(dir, color, currCell, routeList);
     return routeList;
   }
 
-  private void traverse(String dir, DiscColor originalColor, Cell currCell,
-                        List<Cell> currentRun) {
+  // Recursive method helper to traverse cells in a given direction and add said cells to a list
+  private void traverseHelper(String dir, DiscColor originalColor, Cell currCell,
+                              List<Cell> currentRun) {
     if (currCell.getColor() == originalColor) {
       currentRun.add(currCell);
       return;
@@ -161,42 +163,42 @@ public class BasicReversi implements MutableReversi {
           return;
         }
         currentRun.add(currCell);
-        traverse(dir, originalColor, currCell.getUpperLeft(), currentRun);
+        traverseHelper(dir, originalColor, currCell.getUpperLeft(), currentRun);
         break;
       case UPPER_RIGHT:
         if (currCell.getUpperRight() == null) {
           return;
         }
         currentRun.add(currCell);
-        traverse(dir, originalColor, currCell.getUpperRight(), currentRun);
+        traverseHelper(dir, originalColor, currCell.getUpperRight(), currentRun);
         break;
       case LEFT:
         if (currCell.getLeft() == null) {
           return;
         }
         currentRun.add(currCell);
-        traverse(dir, originalColor, currCell.getLeft(), currentRun);
+        traverseHelper(dir, originalColor, currCell.getLeft(), currentRun);
         break;
       case RIGHT:
         if (currCell.getRight() == null) {
           return;
         }
         currentRun.add(currCell);
-        traverse(dir, originalColor, currCell.getRight(), currentRun);
+        traverseHelper(dir, originalColor, currCell.getRight(), currentRun);
         break;
       case BOTTOM_LEFT:
         if (currCell.getBottomLeft() == null) {
           return;
         }
         currentRun.add(currCell);
-        traverse(dir, originalColor, currCell.getBottomLeft(), currentRun);
+        traverseHelper(dir, originalColor, currCell.getBottomLeft(), currentRun);
         break;
       case BOTTOM_RIGHT:
         if (currCell.getBottomRight() == null) {
           return;
         }
         currentRun.add(currCell);
-        traverse(dir, originalColor, currCell.getBottomRight(), currentRun);
+        traverseHelper(dir, originalColor, currCell.getBottomRight(), currentRun);
         break;
     }
   }
@@ -328,24 +330,6 @@ public class BasicReversi implements MutableReversi {
     return true;
   }
 
-  /**
-   * Gets the winner of the game.
-   *
-   * @return Whichever player won the game, or {@code null} if no winner could be determined.
-   * @throws IllegalStateException if the game isn't over.
-   */
-  public DiscColor getWinnerColor() {
-    if (isGameOver()) {
-      Map<DiscColor, Integer> colorScores = getScore();
-      int blackScore = colorScores.get(DiscColor.BLACK);
-      int whiteScore = colorScores.get(DiscColor.WHITE);
-      return blackScore > whiteScore ?
-              DiscColor.BLACK : DiscColor.WHITE;
-    } else {
-      throw new IllegalStateException("Cannot get the winner if the game isn't over.");
-    }
-  }
-
   @Override
   public Map<DiscColor, Integer> getScore() {
     Map<DiscColor, Integer> playerToScoreMap = new HashMap<>();
@@ -409,6 +393,35 @@ public class BasicReversi implements MutableReversi {
       }
     }
     return validMovesList;
+  }
+
+  @Override
+  public String getTurn() {
+    return turn == DiscColor.BLACK ? "Black's turn" : "White's turn";
+  }
+
+  @Override
+  public boolean isValidMove(int row, int col) {
+    if (row < 0 || col < 0 || row > board.size() - 1 || col > board.size() - 1) {
+      throw new IllegalArgumentException("Invalid row and column input");
+    }
+    Cell originCell = board.get(row).get(col);
+    if (originCell == null) {
+      throw new IllegalArgumentException("Invalid move attempt, trying to place on null");
+    }
+    if (originCell.getColor() != DiscColor.EMPTY) {
+      throw new IllegalStateException("Tried to play on a non-empty cell");
+    }
+    Map<String, List<Cell>> runsForCell = getRunsForCell(originCell, turn);
+    List<List<Cell>> validRuns = new ArrayList<>();
+    for(String key : runsForCell.keySet()) {
+      List<Cell> run = runsForCell.get(key);
+      if (run != null && !run.isEmpty() && run.get(run.size() - 1).getColor() == turn) {
+        validRuns.add(run);
+      }
+    }
+
+    return !validRuns.isEmpty();
   }
 
 }
