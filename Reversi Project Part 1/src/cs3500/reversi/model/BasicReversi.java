@@ -61,6 +61,10 @@ public class BasicReversi implements MutableReversi {
     }
 
     setValidDiscs(originCell, turn);
+    switchTurn();
+  }
+
+  private void switchTurn() {
     turn = turn == DiscColor.BLACK ? DiscColor.WHITE : DiscColor.BLACK;
   }
 
@@ -70,6 +74,7 @@ public class BasicReversi implements MutableReversi {
       throw new IllegalStateException("Can't pass a player's move when the game is already over");
     }
     passCounter++;
+    switchTurn();
   }
 
   private DiscColor getOppositeColor(DiscColor color) {

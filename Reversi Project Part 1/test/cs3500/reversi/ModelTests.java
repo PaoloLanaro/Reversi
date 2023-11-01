@@ -122,7 +122,6 @@ public class ModelTests {
   public void testValidWhiteBottomLeftMove() {
     model3.makeMove(3, 3);
     model3.makeMove(0, 3);
-    System.out.println(viewSize3);
     List<List<Cell>> boardRepresentation = model3.getBoard();
     Assert.assertEquals(DiscColor.WHITE, boardRepresentation.get(0).get(3).getColor());
   }
@@ -131,7 +130,6 @@ public class ModelTests {
   public void testValidWhiteBottomRightMove() {
     model3.makeMove(3, 0);
     model3.makeMove(3, 3);
-    System.out.println(viewSize3);
     List<List<Cell>> boardRepresentation = model3.getBoard();
     Assert.assertEquals(DiscColor.WHITE, boardRepresentation.get(3).get(3).getColor());
   }
@@ -189,7 +187,6 @@ public class ModelTests {
     model3.makeMove(3, 0);
     model3.makeMove( 1, 1);
     model3.makeMove( 0, 3);
-    TextView view = new TextView(model3);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -230,7 +227,6 @@ public class ModelTests {
     Assert.assertTrue(model3.isGameOver());
     Assert.assertEquals("White won!", model3.getWinner());
     Assert.assertThrows(IllegalStateException.class, () -> model3.passTurn());
-    System.out.println(viewSize3);
   }
 
   @Test
@@ -270,6 +266,19 @@ public class ModelTests {
             " _ X O _ \n" +
             "  _ _ _ \n";
     Assert.assertEquals(expected, viewSize3.toString());
+    Assert.assertEquals(3, model3.getScore().get(DiscColor.BLACK).intValue());
+    Assert.assertEquals(3, model3.getScore().get(DiscColor.WHITE).intValue());
+  }
+
+  @Test
+  public void testCantMutateByReversiGetValidMovesMethod() {
+    List<Cell> validMoves = model3.getValidMoves(DiscColor.BLACK);
+    for (Cell cell : validMoves) {
+      cell.setDiscColor(DiscColor.BLACK);
+    }
+    Assert.assertEquals(3, model3.getScore().get(DiscColor.BLACK).intValue());
+    Assert.assertEquals(3, model3.getScore().get(DiscColor.WHITE).intValue());
+
   }
 
   @Test
@@ -283,6 +292,16 @@ public class ModelTests {
     Assert.assertTrue(model3.isGameOver());
     Assert.assertEquals("Black won!", model3.getWinner());
     Assert.assertEquals(DiscColor.BLACK, model3.getWinnerColor());
+  }
+
+  @Test
+  public void testPassingWorks() {
+    model3.passTurn();
+    model3.makeMove(1, 4);
+    int blackScore = model3.getScore().get(DiscColor.BLACK);
+    int whiteScore = model3.getScore().get(DiscColor.WHITE);
+    Assert.assertEquals(2, blackScore);
+    Assert.assertEquals(5, whiteScore);
   }
 
 }
