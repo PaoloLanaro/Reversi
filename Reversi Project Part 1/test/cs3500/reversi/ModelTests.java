@@ -136,13 +136,6 @@ public class ModelTests {
     Assert.assertEquals(DiscColor.WHITE, boardRepresentation.get(3).get(3).getColor());
   }
 
-//  @Test (expected = IllegalStateException.class)
-//  public void testBug() {
-//    model4.makeMove(PlayerColor.BLACK, 2, 5);
-//    model4.makeMove(PlayerColor.WHITE, 4, 1);
-//    model4.makeMove(PlayerColor.BLACK, 5, 3);
-//  }
-
   @Test
   public void testFullGame() {
     model3.makeMove(3, 0);

@@ -12,10 +12,10 @@ import java.util.Objects;
  * played on a hex grid with a board size variable.
  */
 public class BasicReversi implements MutableReversi {
-  private int passCounter; // Counter for consecutive passes
-  private DiscColor turn; // Current player's turn (BLACK or WHITE)
-  private final List<List<Cell>> board; // 2D list representing the game board
-  private final int initSize; // Initial size of the board
+  private int passCounter; // Counter for consecutive passes.
+  private DiscColor turn; // Current player's turn (BLACK or WHITE).
+  private final List<List<Cell>> board; // 2D list representing the game board.
+  private final int initSize; // Initial size of the board.
   private static final String UPPER_LEFT = "ul";
   private static final String UPPER_RIGHT = "ur";
   private static final String LEFT = "l";
@@ -59,7 +59,7 @@ public class BasicReversi implements MutableReversi {
       passTurn();
       throw new IllegalStateException("Cannot move, so your turn has been passed.");
     }
-    
+
     setValidDiscs(originCell, turn);
     turn = turn == DiscColor.BLACK ? DiscColor.WHITE : DiscColor.BLACK;
   }
