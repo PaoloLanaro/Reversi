@@ -1,5 +1,5 @@
 package cs3500.reversi.model;
-//hi
+
 public interface MutableReversi extends ReadOnlyReversi {
 
   /**

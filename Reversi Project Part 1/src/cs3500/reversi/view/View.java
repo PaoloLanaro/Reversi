@@ -1,7 +1,7 @@
 package cs3500.reversi.view;
 
 import java.io.IOException;
-//hi
+
 /**
  * Represents a view for a Reversi game. Views are responsible for rendering and updating
  * the game board to provide a visual representation of the game state.
