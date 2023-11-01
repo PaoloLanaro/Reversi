@@ -144,7 +144,6 @@ public class BasicReversi implements MutableReversi {
     return routeList;
   }
 
-
   private void traverse(String dir, DiscColor originalColor, Cell currCell,
                         List<Cell> currentRun) {
     if (currCell.getColor() == originalColor) {
@@ -201,7 +200,6 @@ public class BasicReversi implements MutableReversi {
         break;
     }
   }
-
 
   private boolean requiredPlayerPassCheck() {
     return getValidMoves(turn).isEmpty();
@@ -370,7 +368,6 @@ public class BasicReversi implements MutableReversi {
     }
     return playerToScoreMap;
   }
-
 
   @Override
   public String getWinner() {
