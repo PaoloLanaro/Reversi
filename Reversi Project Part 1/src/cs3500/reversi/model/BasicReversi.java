@@ -14,7 +14,6 @@ import java.util.Objects;
  * Class Invariant:
  * <p>
  * 1. The passCounter should always be between 0 and 2.
- *
  */
 public class BasicReversi implements MutableReversi {
   private int passCounter; // Counter for consecutive passes.
@@ -423,7 +422,7 @@ public class BasicReversi implements MutableReversi {
     }
     Map<String, List<Cell>> runsForCell = getRunsForCell(originCell, turn);
     List<List<Cell>> validRuns = new ArrayList<>();
-    for(String key : runsForCell.keySet()) {
+    for (String key : runsForCell.keySet()) {
       List<Cell> run = runsForCell.get(key);
       if (run != null && !run.isEmpty() && run.get(run.size() - 1).getColor() == turn) {
         validRuns.add(run);
