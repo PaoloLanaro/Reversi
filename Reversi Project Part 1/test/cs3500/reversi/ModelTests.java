@@ -11,6 +11,9 @@ import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.view.TextView;
 import cs3500.reversi.model.BasicReversi;
 
+/**
+ * Tests for model implementations of the reversi game.
+ */
 public class ModelTests {
   BasicReversi model3;
   BasicReversi model4;
@@ -24,11 +27,6 @@ public class ModelTests {
 
     viewSize3 = new TextView(model3);
     viewSize4 = new TextView(model4);
-  }
-
-  @Test
-  public void testModelStarts() {
-    new BasicReversi(6);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -187,16 +185,6 @@ public class ModelTests {
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidMovePlaceOnNull() {
     model3.makeMove(0, 0);
-  }
-
-  @Test
-  public void testIsGameOverFilledBoard() {
-    model3.makeMove(4, 1);
-    model3.makeMove(3, 3);
-    model3.makeMove(1, 4);
-    model3.makeMove(3, 0);
-    model3.makeMove(1, 1);
-    model3.makeMove(0, 3);
   }
 
   @Test(expected = IllegalArgumentException.class)

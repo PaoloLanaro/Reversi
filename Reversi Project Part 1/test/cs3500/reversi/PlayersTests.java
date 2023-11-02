@@ -1,10 +1,8 @@
 package cs3500.reversi;
 
-import org.junit.Test;
-
+/**
+ * Tests for the players implementations.
+ */
 public class PlayersTests {
-  @Test
-  public void testHumanPlayer() {
-
-  }
+  // empty, waiting for future assignments
 }

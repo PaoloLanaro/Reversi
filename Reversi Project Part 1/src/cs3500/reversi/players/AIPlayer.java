@@ -1,19 +1,8 @@
 package cs3500.reversi.players;
 
-import cs3500.reversi.model.ReadOnlyReversi;
-import cs3500.reversi.model.DiscColor;
-
 /**
- *
+ * An implementation of the Player interface that represents an AI player.
  */
 public class AIPlayer extends AbstractPlayer {
-  @Override
-  public void makeMove(ReadOnlyReversi board) {
-
-  }
-
-  @Override
-  public DiscColor getColor() {
-    return null;
-  }
+  // empty, waiting for future assignments
 }

@@ -1,5 +1,9 @@
 package cs3500.reversi.model;
 
+/**
+ * Represents a mutable reversi game.
+ * Contains methods that will mutate the reversi game.
+ */
 public interface MutableReversi extends ReadOnlyReversi {
 
   /**

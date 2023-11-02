@@ -21,7 +21,7 @@ public interface Player {
    * Retrieves the color associated with the player. The player color indicates
    * whether the player is playing as black or white in the game.
    *
-   * @return the player's color as a {@link PlacedColor}.
+   * @return the player's color as a {@link DiscColor}.
    */
   DiscColor getColor();
 }

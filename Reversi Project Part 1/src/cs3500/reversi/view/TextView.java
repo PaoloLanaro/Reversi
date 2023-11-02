@@ -87,6 +87,9 @@ public class TextView extends AbstractView {
       case WHITE:
         boardRepresentation.append('O');
         boardRepresentation.append(' ');
+        break;
+      default:
+        throw new IllegalStateException("Cell color is null. Not allowed");
     }
   }
 }

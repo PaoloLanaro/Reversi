@@ -1,10 +1,8 @@
 package cs3500.reversi;
 
-import org.junit.Test;
-
+/**
+ * Tests for the controller implementation for reversi.
+ */
 public class ControllerTests {
-  @Test
-  public void testControllerStarts() {
-
-  }
+  // empty, waiting for future assignments
 }

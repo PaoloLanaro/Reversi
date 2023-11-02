@@ -1,26 +1,8 @@
 package cs3500.reversi.players;
 
-import cs3500.reversi.model.ReadOnlyReversi;
-import cs3500.reversi.model.DiscColor;
-
 /**
- *
+ * An implementation of the Player interface which represents a human player.
  */
 public class HumanPlayer extends AbstractPlayer {
-
-  private final DiscColor color;
-
-  public HumanPlayer(DiscColor color) {
-    this.color = color;
-  }
-
-  @Override
-  public void makeMove(ReadOnlyReversi board) {
-
-  }
-
-  @Override
-  public DiscColor getColor() {
-    return color;
-  }
+  // empty, waiting for future assignments
 }

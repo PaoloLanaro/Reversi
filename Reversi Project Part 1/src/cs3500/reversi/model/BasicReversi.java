@@ -10,10 +10,10 @@ import java.util.Objects;
  * Represents a basic implementation of a basic hexagon Reversi Game. Implements the MutableReversi
  * interface to give methods for making moves, passing turns, and checking game state. The game is
  * played on a hex grid with a board size variable.
- * <p>
- * Class Invariant:
- * <p>
- * 1. The passCounter should always be between 0 and 2.
+ *
+ * <p>Class Invariant:
+ *
+ * <p>1. The passCounter should always be between 0 and 2.
  */
 public class BasicReversi implements MutableReversi {
   private int passCounter; // Counter for consecutive passes.
@@ -206,6 +206,10 @@ public class BasicReversi implements MutableReversi {
         currentRun.add(currCell);
         traverseHelper(dir, originalColor, currCell.getBottomRight(), currentRun);
         break;
+      default:
+        // There should never be a case where someone calls traverseHelper without the above
+        // string, so we tried implementing a new error we found while looking through auto-fill.
+        throw new IllegalCallerException("Fatal error");
     }
   }
 

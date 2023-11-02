@@ -6,7 +6,12 @@ package cs3500.reversi.model;
  */
 public class Cell {
   private DiscColor color;
-  private Cell upperLeft, upperRight, left, right, bottomLeft, bottomRight;
+  private Cell upperLeft;
+  private Cell upperRight;
+  private Cell left;
+  private Cell right;
+  private Cell bottomLeft;
+  private Cell bottomRight;
 
   /**
    * Constructs a new Cell with an initial state of empty.

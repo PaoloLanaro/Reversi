@@ -1,7 +1,7 @@
 After discussing, we came up with a MVCP structure for this project. This program will follow the
 MVC design pattern for the most part, with the edition of a dedicated players directory for
 modularity of different types of players. It also simplifies testing so that we can have dedicated
-player tests to make sure those classes work, while still keeping a relatively good looking file
+player tests to make sure those classes work, while still keeping a relatively good-looking file
 structure. Although the players could go in the model, we chose to make it its own directory as we
 intend to make an AI to play the game. We chose to represent the board with List<List<Cell>> because
 the https://www.redblobgames.com/grids/hexagons/ showed a way to represent the board using a 2d

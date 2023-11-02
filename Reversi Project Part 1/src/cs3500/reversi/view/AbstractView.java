@@ -8,7 +8,7 @@ import java.io.IOException;
 public abstract class AbstractView implements View {
   @Override
   public void renderBoard() throws IOException {
-
+    // empty, waiting for future assignments
   }
 
 }

@@ -6,6 +6,9 @@ import org.junit.Test;
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.view.TextView;
 
+/**
+ * Tests for the view components of the project.
+ */
 public class ViewTests {
 
   @Test
