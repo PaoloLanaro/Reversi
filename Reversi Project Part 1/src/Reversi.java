@@ -1,12 +1,11 @@
-/**
- * The main class for this project.
- */
-public class Reversi {
-  /**
-   * The main method for the Reversi game.
-   * @param args command line args.
-   */
+import cs3500.reversi.model.BasicReversi;
+import cs3500.reversi.view.IView;
+import cs3500.reversi.view.ReversiGraphicsView;
+
+public final class Reversi {
   public static void main(String[] args) {
-    // empty, waiting for future assignments
+    BasicReversi model = new BasicReversi(3);
+    IView view = new ReversiGraphicsView(model);
+    view.setVisible(true);
   }
 }

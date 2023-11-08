@@ -1,5 +1,6 @@
 package cs3500.reversi.model;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,11 +44,30 @@ public class BasicReversi implements MutableReversi {
     board = initBoard();
   }
 
+  //copy constructor
+  public BasicReversi(BasicReversi other) {
+    this.passCounter = other.passCounter;
+    this.turn = other.turn == DiscColor.BLACK ? DiscColor.BLACK : DiscColor.WHITE;
+
+    this.board = new ArrayList<>();
+    for (int row = 0; row < other.board.size(); row++) {
+      this.board.add(new ArrayList<>());
+      for (int cell = 0; cell < other.board.get(row).size(); cell++) {
+        Cell otherCell = other.board.get(row).get(cell);
+        Cell newCell = new Cell(otherCell);
+        this.board.get(row).add(newCell);
+      }
+    }
+
+    this.initSize = other.initSize;
+  }
+
   @Override
   public void makeMove(int row, int col) {
     if (isGameOver()) {
       throw new IllegalStateException("Tried to move on a finished game.");
     }
+    illegalRowColCheck(row, col);
     isValidMove(row, col);
     if (requiredPlayerPassCheck()) {
       passTurn();
@@ -414,9 +434,7 @@ public class BasicReversi implements MutableReversi {
 
   @Override
   public boolean isValidMove(int row, int col) {
-    if (row < 0 || col < 0 || row > board.size() - 1 || col > board.size() - 1) {
-      throw new IllegalArgumentException("Invalid row and column input");
-    }
+    illegalRowColCheck(row, col);
     Cell originCell = board.get(row).get(col);
     if (originCell == null) {
       throw new IllegalArgumentException("Invalid move attempt, trying to place on null");
@@ -434,6 +452,26 @@ public class BasicReversi implements MutableReversi {
     }
 
     return !validRuns.isEmpty();
+  }
+
+  private void illegalRowColCheck(int row, int col) {
+    if (row < 0 || col < 0 || row > board.size() - 1 || col > board.size() - 1) {
+      throw new IndexOutOfBoundsException("Invalid row and column input.");
+    }
+    if (board.get(row).get(col) == null) {
+      throw new IllegalArgumentException("Row and column are not in the board of playable cells.");
+    }
+  }
+
+  @Override
+  public int getSideLength() {
+    return initSize;
+  }
+
+  @Override
+  public DiscColor getCellColor(int row, int col) {
+    illegalRowColCheck(row, col);
+    return board.get(row).get(col).getColor();
   }
 
 }

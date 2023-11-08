@@ -9,7 +9,7 @@ import cs3500.reversi.model.Cell;
  * A text-based view for a Reversi game, displaying the game board using characters.
  * Empty cells are represented by '_', black discs by 'X', and white discs by 'O'.
  */
-public class TextView extends AbstractView {
+public class TextView {
 
   private final Appendable out;
   private final ReadOnlyReversi board;
@@ -33,11 +33,6 @@ public class TextView extends AbstractView {
   public TextView(ReadOnlyReversi board) {
     this.out = System.out;
     this.board = board;
-  }
-
-  @Override
-  public void renderBoard() throws IOException {
-    out.append(toString()).append(System.lineSeparator());
   }
 
   @Override

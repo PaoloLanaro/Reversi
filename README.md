@@ -31,3 +31,10 @@ src/cs3500/reversi/model/BasicReversi.java: Contains the implementation of the B
 src/cs3500/reversi/model/Cell.java: Contains the Cell class representing a hexagonal grid cell. \
 src/cs3500/reversi/model/DiscColor.java: Enum defining the possible colors of the discs.
     
+
+# Changes for part 2
+We chose to add BasicReversi.getCellColor(int, int); as the handout required us to add this. \
+We also added BasicReversi.getSideLength(); for the same reason. \
+We added a copy constructor to BasicReversi so that copying a BasicReversi object for any reason \
+was done correctly. We could use this copy constructor to add another layer of protection against \
+the view mutating the model in any way. 

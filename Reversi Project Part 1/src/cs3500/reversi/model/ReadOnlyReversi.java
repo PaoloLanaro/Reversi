@@ -52,7 +52,7 @@ public interface ReadOnlyReversi {
    *
    * @param color The {@link DiscColor} of the player for whom to find valid moves.
    * @return A list of {@link Cell} objects representing the valid moves available to the player.
-   *         Each {@link Cell} in the list corresponds to a potential move that the player can make.
+   * Each {@link Cell} in the list corresponds to a potential move that the player can make.
    */
   List<Cell> getValidMoves(DiscColor color);
 
@@ -74,4 +74,20 @@ public interface ReadOnlyReversi {
    */
   boolean isValidMove(int row, int col);
 
+  /**
+   * Gets the integer representation of one of the sides of the hexagon in {@link Cell}s.
+   * Think just one side length of the perimeter of a hexagon shape.
+   *
+   * @return side length integer.
+   */
+  int getSideLength();
+
+  /**
+   * Gets the contents of the specified cell.
+   *
+   * @param row the row that should be checked.
+   * @param col the column that should be checked.
+   * @return The {@link DiscColor} of the cell.
+   */
+  DiscColor getCellColor(int row, int col);
 }
