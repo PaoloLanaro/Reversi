@@ -474,4 +474,9 @@ public class BasicReversi implements MutableReversi {
     return board.get(row).get(col).getColor();
   }
 
+  @Override
+  public Cell getCellAt(int row, int col) {
+    return new Cell(board.get(row).get(col));
+  }
+
 }

@@ -90,4 +90,13 @@ public interface ReadOnlyReversi {
    * @return The {@link DiscColor} of the cell.
    */
   DiscColor getCellColor(int row, int col);
+
+  /**
+   * Get the cell at the coordinate points in the 2D array.
+   *
+   * @param row the row to get the cell from.
+   * @param col the column to get the cell from.
+   * @return The {@link Cell} at that location.
+   */
+  Cell getCellAt(int row, int col);
 }
