@@ -1,53 +1,18 @@
-//package cs3500.reversi.view;
-//
-//import java.awt.*;
-//
-//import java.awt.geom.Point2D;
-//import java.util.List;
-//
-//import javax.swing.*;
-//
-//import cs3500.reversi.model.Cell;
-//import cs3500.reversi.model.ReadOnlyReversi;
-//
-//public class ReversiPanel extends JPanel {
-//
-//  private final ReadOnlyReversi model;
-//
-//  public ReversiPanel(ReadOnlyReversi model) {
-//    this.model = model;
-//    this.setPreferredSize(new Dimension(500, 500));
-//    this.setBackground(Color.DARK_GRAY);
-//  }
-//
-//  private void drawBoard(Graphics2D g2d) {
-//    List<List<Cell>> gameBoard = model.getBoard();
-//    drawHexagon(g2d);
-//  }
-//
-//  private void drawHexagon(Graphics2D g2d) {
-//
-//  }
-//
-//  @Override
-//  protected void paintComponent(Graphics g) {
-//    super.paintComponent(g);
-//
-//    Graphics2D g2d = (Graphics2D) g.create();
-//
-//    drawBoard(g2d);
-//  }
-//
-//
-//}
-
-
 package cs3500.reversi.view;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
+import java.util.HashMap;
+import java.util.Map;
+import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.Polygon;
+import java.awt.Point;
+import java.awt.Graphics;
+import java.awt.Shape;
+
+import java.util.List;
 
 import javax.swing.*;
 
@@ -57,11 +22,16 @@ import cs3500.reversi.model.ReadOnlyReversi;
 
 public class ReversiPanel extends JPanel {
 
-  private final ReadOnlyReversi model;
+  private static ReadOnlyReversi model;
   private final int HEXAGON_RADIUS = 27;
   private final int hexagonWidth = (int) (Math.sqrt(3) * HEXAGON_RADIUS); // Width based on
   // pointy-top orientation
   private final int hexagonHeight = 2 * HEXAGON_RADIUS; // Height based on pointy-top orientation
+
+  private static Map<Hexagon, Cell> map;
+
+  private static List<List<Cell>> underlyingBoard;
+
   public ReversiPanel(ReadOnlyReversi model) {
     this.model = model;
     int sideLength = model.getSideLength();
@@ -69,6 +39,8 @@ public class ReversiPanel extends JPanel {
     int panelHeight = sideLength * (hexagonHeight + 1);
     this.setMinimumSize(new Dimension(panelWidth, panelHeight));
     this.setBackground(Color.DARK_GRAY);
+    map = new HashMap<>();
+    underlyingBoard = model.getBoard();
   }
 
   // draws full board (onion wrapper)
@@ -95,7 +67,7 @@ public class ReversiPanel extends JPanel {
     currentPoint = new Point2D.Double(initLayerX, initLayerY);
 
     while (timesActionRepeated < model.getSideLength()) {
-      //
+
       for (int i = 0; i < timesActionRepeated; i++) {
         currentCell = currentCell.getBottomLeft();
 
@@ -207,5 +179,56 @@ public class ReversiPanel extends JPanel {
     Graphics2D g2d = (Graphics2D) g.create();
 
     drawBoard(model.getCellAt(model.getSideLength() - 1, model.getSideLength() - 1), g2d);
+  }
+
+  static boolean isPointOnHexagon(Point pt) {
+    for (Hexagon hexagon : map.keySet()) {
+      if (hexagon.getHexagon().contains(pt)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  static int getRowFromPoint(Point pt) {
+    Cell clickedCell = null;
+    for(Hexagon hexagon : map.keySet()) {
+      if (hexagon.getHexagon().contains(pt)) {
+        clickedCell = map.get(hexagon);
+      }
+    }
+    int clickedRow = -1;
+    for (int row = 0; row < model.getSideLength() * 2 - 1; row++) {
+      for (int col = 0; col < model.getSideLength() * 2 - 1; col++) {
+        if (underlyingBoard.get(row).get(col) == null) {
+          continue;
+        }
+        if (underlyingBoard.get(row).get(col) == clickedCell) {
+          clickedRow = row;
+        }
+      }
+    }
+    return clickedRow;
+  }
+
+  static int getColFromPoint(Point pt) {
+    Cell clickedCell = null;
+    for(Hexagon hexagon : map.keySet()) {
+      if (hexagon.getHexagon().contains(pt)) {
+        clickedCell = map.get(hexagon);
+      }
+    }
+    int clickedCol = -1;
+    for (int row = 0; row < model.getSideLength() * 2 - 1; row++) {
+      for (int col = 0; col < model.getSideLength() * 2 - 1; col++) {
+        if (underlyingBoard.get(row).get(col) == null) {
+          continue;
+        }
+        if (underlyingBoard.get(row).get(col) == clickedCell) {
+          clickedCol = row;
+        }
+      }
+    }
+    return clickedCol;
   }
 }
