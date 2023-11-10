@@ -9,10 +9,13 @@ import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.ReadOnlyReversi;
 
 public class ReversiMouseAdapter extends MouseAdapter {
-  private final ReversiController controller;
+  //  private final ReversiController controller;
+  private ReversiPanel reversiPanel;
 
-  public ReversiMouseAdapter(ReversiController controller) {
-    this.controller = controller;
+  public ReversiMouseAdapter(ReversiPanel reversiPanel) {
+//    this.controller = controller;
+    this.reversiPanel = reversiPanel;
+
   }
 
   @Override
@@ -22,6 +25,28 @@ public class ReversiMouseAdapter extends MouseAdapter {
     int row = ReversiPanel.getRowFromPoint(point);
     int col = ReversiPanel.getColFromPoint(point);
 
-    controller.handleCellClick(row, col);
+    System.out.println(row + " " + col);
+
+
+    // handle changing hexagon to blue
+
+//    controller.handleCellClick(row, col);
+//    reversiPanel.drawBlueTile(point);
+    Hexagon clickedHexagon = reversiPanel.getHexagonAtPoint(point);
+    if (clickedHexagon != null && clickedHexagon.equals(reversiPanel.getSelectedBlueTile())) {
+      // Reset the selected blue tile
+      reversiPanel.resetSelectedBlueTile();
+    } else {
+      // Check if the clicked hexagon is already cyan
+      if (clickedHexagon != null && reversiPanel.isHexagonCyan(clickedHexagon)) {
+        // Reset the selected blue tile
+        reversiPanel.resetSelectedBlueTile();
+      } else {
+        // Handle changing hexagon to blue
+        reversiPanel.drawBlueTile(point);
+      }
+
+    }
+
   }
 }

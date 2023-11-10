@@ -8,4 +8,6 @@ public interface IView {
 
   void setVisible(boolean visible);
 
+  void refresh();
+
 }

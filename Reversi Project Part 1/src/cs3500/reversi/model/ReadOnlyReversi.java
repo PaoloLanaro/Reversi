@@ -99,4 +99,8 @@ public interface ReadOnlyReversi {
    * @return The {@link Cell} at that location.
    */
   Cell getCellAt(int row, int col);
+
+  int getColFromCell(Cell cell);
+
+  int getRowFromCell(Cell cell);
 }

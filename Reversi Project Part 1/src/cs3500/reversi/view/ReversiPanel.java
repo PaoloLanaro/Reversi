@@ -1,16 +1,10 @@
 package cs3500.reversi.view;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.Map;
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.Polygon;
-import java.awt.Point;
-import java.awt.Graphics;
-import java.awt.Shape;
 
 import java.util.List;
 
@@ -31,6 +25,10 @@ public class ReversiPanel extends JPanel {
   private static Map<Hexagon, Cell> map;
 
   private static List<List<Cell>> underlyingBoard;
+  private Hexagon selectedBlueTile;
+
+  private boolean isBlueTileSelected;
+
 
   public ReversiPanel(ReadOnlyReversi model) {
     this.model = model;
@@ -41,6 +39,7 @@ public class ReversiPanel extends JPanel {
     this.setBackground(Color.DARK_GRAY);
     map = new HashMap<>();
     underlyingBoard = model.getBoard();
+    this.addMouseListener(new ReversiMouseAdapter(this));
   }
 
   // draws full board (onion wrapper)
@@ -53,6 +52,7 @@ public class ReversiPanel extends JPanel {
     // creates "middle (onion layer 0) hexagon" and draws it
     Hexagon middleHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS);
     drawHexagon(g2d, middleCell, middleHexagon.getHexagon(), middleHexagon.getCenter());
+    map.put(middleHexagon, middleCell);
 
     // update the currentCell to the first new "onion" layer
     Cell currentCell = middleCell.getRight();
@@ -78,6 +78,8 @@ public class ReversiPanel extends JPanel {
 
         Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS);
 
+        map.put(currentHexagon, currentCell);
+
         drawHexagon(g2d, currentCell, currentHexagon.getHexagon(), currentHexagon.getCenter());
       }
       for (int i = 0; i < timesActionRepeated; i++) {
@@ -89,6 +91,8 @@ public class ReversiPanel extends JPanel {
         currentPoint = new Point2D.Double(newX, newY);
 
         Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS);
+
+        map.put(currentHexagon, currentCell);
 
         drawHexagon(g2d, currentCell, currentHexagon.getHexagon(), currentHexagon.getCenter());
       }
@@ -102,6 +106,8 @@ public class ReversiPanel extends JPanel {
 
         Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS);
 
+        map.put(currentHexagon, currentCell);
+
         drawHexagon(g2d, currentCell, currentHexagon.getHexagon(), currentHexagon.getCenter());
       }
       for (int i = 0; i < timesActionRepeated; i++) {
@@ -113,6 +119,8 @@ public class ReversiPanel extends JPanel {
         currentPoint = new Point2D.Double(newX, newY);
 
         Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS);
+
+        map.put(currentHexagon, currentCell);
 
         drawHexagon(g2d, currentCell, currentHexagon.getHexagon(), currentHexagon.getCenter());
       }
@@ -126,6 +134,8 @@ public class ReversiPanel extends JPanel {
 
         Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS);
 
+        map.put(currentHexagon, currentCell);
+
         drawHexagon(g2d, currentCell, currentHexagon.getHexagon(), currentHexagon.getCenter());
       }
       for (int i = 0; i < timesActionRepeated; i++) {
@@ -137,6 +147,8 @@ public class ReversiPanel extends JPanel {
         currentPoint = new Point2D.Double(newX, newY);
 
         Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS);
+
+        map.put(currentHexagon, currentCell);
 
         drawHexagon(g2d, currentCell, currentHexagon.getHexagon(), currentHexagon.getCenter());
       }
@@ -161,8 +173,8 @@ public class ReversiPanel extends JPanel {
 
     g2d.setColor(color);
 
-    int circleX = (int) centerPoint.getX() - 13;
-    int circleY = (int) centerPoint.getY() - 13;
+    int circleX = (int) centerPoint.getX() - (int) Math.ceil(HEXAGON_RADIUS / (double) 2);
+    int circleY = (int) centerPoint.getY() - (int) Math.ceil(HEXAGON_RADIUS / (double) 2);
 
     Shape circle = new Ellipse2D.Double(circleX, circleY, HEXAGON_RADIUS, HEXAGON_RADIUS);
 
@@ -178,7 +190,21 @@ public class ReversiPanel extends JPanel {
 
     Graphics2D g2d = (Graphics2D) g.create();
 
-    drawBoard(model.getCellAt(model.getSideLength() - 1, model.getSideLength() - 1), g2d);
+    Cell middleCell = underlyingBoard.get(model.getSideLength() - 1).get(model.getSideLength() - 1);
+
+    map.clear();
+
+    drawBoard(middleCell, g2d);
+
+    if (selectedBlueTile != null) {
+      g2d.setColor(Color.CYAN);
+      g2d.fill(selectedBlueTile.getHexagon());
+    }
+//    if (isBlueTileSelected && selectedBlueTile != null) {
+//      g2d.setColor(Color.CYAN);
+//      g2d.fill(selectedBlueTile.getHexagon());
+//    }
+    g2d.dispose();
   }
 
   static boolean isPointOnHexagon(Point pt) {
@@ -192,43 +218,112 @@ public class ReversiPanel extends JPanel {
 
   static int getRowFromPoint(Point pt) {
     Cell clickedCell = null;
-    for(Hexagon hexagon : map.keySet()) {
+    for (Hexagon hexagon : map.keySet()) {
       if (hexagon.getHexagon().contains(pt)) {
         clickedCell = map.get(hexagon);
       }
     }
-    int clickedRow = -1;
     for (int row = 0; row < model.getSideLength() * 2 - 1; row++) {
       for (int col = 0; col < model.getSideLength() * 2 - 1; col++) {
         if (underlyingBoard.get(row).get(col) == null) {
           continue;
         }
         if (underlyingBoard.get(row).get(col) == clickedCell) {
-          clickedRow = row;
+          return row;
         }
       }
     }
-    return clickedRow;
+    try {
+      return model.getRowFromCell(clickedCell);
+    } catch (IllegalArgumentException e) {
+      // can't throw apparently
+      return -1;
+    }
   }
 
   static int getColFromPoint(Point pt) {
     Cell clickedCell = null;
-    for(Hexagon hexagon : map.keySet()) {
+    for (Hexagon hexagon : map.keySet()) {
       if (hexagon.getHexagon().contains(pt)) {
         clickedCell = map.get(hexagon);
       }
     }
-    int clickedCol = -1;
     for (int row = 0; row < model.getSideLength() * 2 - 1; row++) {
       for (int col = 0; col < model.getSideLength() * 2 - 1; col++) {
         if (underlyingBoard.get(row).get(col) == null) {
           continue;
         }
         if (underlyingBoard.get(row).get(col) == clickedCell) {
-          clickedCol = row;
+          return col;
         }
       }
     }
-    return clickedCol;
+    try {
+      return model.getColFromCell(clickedCell);
+    } catch (IllegalArgumentException e) {
+      // cant throw an exception apparently
+      return -1;
+    }
   }
+
+  // Helper method to get the hexagon at a specific point
+  public Hexagon getHexagonAtPoint(Point point) {
+    for (Hexagon hexagon : map.keySet()) {
+      if (hexagon.getHexagon().contains(point)) {
+        return hexagon;
+      }
+    }
+    return null;
+  }
+
+  public void drawBlueTile(Point point) {
+    Hexagon clickedHexagon = getHexagonAtPoint(point);
+    if (clickedHexagon != null) {
+      Cell clickedCell = map.get(clickedHexagon);
+      // Check if the clicked cell is unoccupied
+      if (clickedCell != null && clickedCell.getColor() == DiscColor.EMPTY) {
+        // Update the state to mark the new cell as the selected blue tile
+        selectedBlueTile = clickedHexagon;
+        isBlueTileSelected = true;
+        // Trigger a repaint to reflect the updated state
+        repaint();
+      }
+    }
+  }
+
+//  public void drawBlueTile(Point point) {
+//    Hexagon clickedHexagon = getHexagonAtPoint(point);
+//    if (clickedHexagon != null) {
+//      Cell clickedCell = map.get(clickedHexagon);
+//      // Check if the clicked cell is unoccupied
+//      if (clickedCell != null && clickedCell.getColor() == DiscColor.EMPTY) {
+//        if (isBlueTileSelected && clickedHexagon.equals(selectedBlueTile)) {
+//          // If the hexagon is already selected, toggle it off
+//          selectedBlueTile = null;
+//          isBlueTileSelected = false;
+//        } else {
+//          // Otherwise, select the hexagon
+//          selectedBlueTile = clickedHexagon;
+//          isBlueTileSelected = true;
+//        }
+//        // Trigger a repaint to reflect the updated state
+//        repaint();
+//      }
+//    }
+//  }
+
+  public void resetSelectedBlueTile() {
+    isBlueTileSelected = false;
+    repaint();
+  }
+
+  public boolean isHexagonCyan(Hexagon hexagon) {
+    return hexagon != null && hexagon.equals(selectedBlueTile) &&
+            getGraphics() != null && getGraphics().getColor() == Color.CYAN;
+  }
+
+  public Hexagon getSelectedBlueTile() {
+    return selectedBlueTile;
+  }
+
 }

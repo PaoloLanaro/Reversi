@@ -247,9 +247,9 @@ public class BasicReversi implements MutableReversi {
 
     nonMiddleRowNullSetHelper(diameter, middleRow, initialList);
 
-    setCellNeighbors(diameter, initialList);
-
     setStarterDiscs(middleRow, initialList);
+
+    setCellNeighbors(diameter, initialList);
 
     return initialList;
   }
@@ -425,6 +425,36 @@ public class BasicReversi implements MutableReversi {
       }
     }
     return validMovesList;
+  }
+
+  public int getRowFromCell(Cell cell) {
+    int diameter = initSize * 2 - 1;
+    for (int row = 0; row < diameter; row++) {
+      for (int col = 0; col < diameter; col++) {
+        if (board.get(row).get(col) == null) {
+          continue;
+        }
+        if (board.get(row).get(col) == cell) {
+          return row;
+        }
+      }
+    }
+    throw new IllegalArgumentException("This cell is not in the board");
+  }
+
+  public int getColFromCell(Cell cell) {
+    int diameter = initSize * 2 - 1;
+    for (int row = 0; row < diameter; row++) {
+      for (int col = 0; col < diameter; col++) {
+        if (board.get(row).get(col) == null) {
+          continue;
+        }
+        if (board.get(row).get(col) == cell) {
+          return col;
+        }
+      }
+    }
+    throw new IllegalArgumentException("This cell is not in the board");
   }
 
   @Override
