@@ -47,12 +47,16 @@ public class BasicReversi implements MutableReversi {
   //copy constructor
   public BasicReversi(BasicReversi other) {
     this.passCounter = other.passCounter;
-    this.turn = other.turn == DiscColor.BLACK ? DiscColor.BLACK : DiscColor.WHITE;
+    this.turn = other.turn;
 
     this.board = new ArrayList<>();
     for (int row = 0; row < other.board.size(); row++) {
       this.board.add(new ArrayList<>());
       for (int cell = 0; cell < other.board.get(row).size(); cell++) {
+        if (other.board.get(row).get(cell) == null) {
+          this.board.add(null);
+          continue;
+        }
         Cell otherCell = other.board.get(row).get(cell);
         Cell newCell = new Cell(otherCell);
         this.board.get(row).add(newCell);
@@ -60,6 +64,24 @@ public class BasicReversi implements MutableReversi {
     }
 
     this.initSize = other.initSize;
+  }
+
+  protected BasicReversi(List<List<Cell>> otherBoard, DiscColor currentColor) {
+    this.board = new ArrayList<>();
+    for (int row = 0; row < otherBoard.size(); row++) {
+      this.board.add(new ArrayList<>());
+      for (int cell = 0; cell < otherBoard.get(row).size(); cell++) {
+        if (otherBoard.get(row).get(cell) == null) {
+          this.board.add(null);
+          continue;
+        }
+        Cell otherCell = otherBoard.get(row).get(cell);
+        Cell newCell = new Cell(otherCell);
+        this.board.get(row).add(newCell);
+      }
+    }
+    this.initSize = otherBoard.size() / 2 + 1;
+    this.turn = currentColor;
   }
 
   @Override
@@ -94,11 +116,7 @@ public class BasicReversi implements MutableReversi {
   }
 
   private DiscColor getOppositeColor(DiscColor color) {
-    if (color == DiscColor.WHITE) {
-      return DiscColor.BLACK;
-    } else {
-      return DiscColor.WHITE;
-    }
+    return color == DiscColor.WHITE ? DiscColor.BLACK : DiscColor.WHITE;
   }
 
   private void setValidDiscs(Cell originCell, DiscColor playerColor) {

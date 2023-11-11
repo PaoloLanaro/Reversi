@@ -1,10 +1,12 @@
 package cs3500.reversi.view;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.security.KeyPair;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,13 +27,10 @@ public class ReversiPanel extends JPanel {
   private final int hexagonHeight = 2 * HEXAGON_RADIUS; // Height based on pointy-top orientation
 
   private static Map<Hexagon, Cell> map;
-  //m private final List<Hexagon> hexagonList;
-  // private final List<Cell> cellList;
+  private final List<Hexagon> hexagonList;
+  private final List<Cell> cellList;
 
   private static List<List<Cell>> underlyingBoard;
-  private Hexagon selectedBlueTile;
-
-  private boolean isBlueTileSelected;
 
 
   public ReversiPanel(ReadOnlyReversi model) {
@@ -44,6 +43,10 @@ public class ReversiPanel extends JPanel {
     map = new HashMap<>();
     underlyingBoard = model.getBoard();
     this.addMouseListener(new MouseAdapter());
+    this.addKeyListener(new KeyboardAdapter());
+    this.setFocusable(true);
+    this.hexagonList = new ArrayList<>();
+    this.cellList = new ArrayList<>();
   }
 
   // draws full board (onion wrapper)
@@ -56,7 +59,9 @@ public class ReversiPanel extends JPanel {
     // creates "middle (onion layer 0) hexagon" and draws it
     Hexagon middleHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, Color.LIGHT_GRAY);
     drawHexagon(g2d, middleCell, middleHexagon, middleHexagon.getCenter());
-    map.put(middleHexagon, middleCell);
+    hexagonList.add(middleHexagon);
+    cellList.add(middleCell);
+//    map.put(middleHexagon, middleCell);
 
     // update the currentCell to the first new "onion" layer
     Cell currentCell = middleCell.getRight();
@@ -82,7 +87,9 @@ public class ReversiPanel extends JPanel {
 
         Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, convertColor(currentCell));
 
-        map.put(currentHexagon, currentCell);
+        hexagonList.add(currentHexagon);
+        cellList.add(currentCell);
+//        map.put(currentHexagon, currentCell);
 
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
@@ -96,7 +103,9 @@ public class ReversiPanel extends JPanel {
 
         Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, convertColor(currentCell));
 
-        map.put(currentHexagon, currentCell);
+        hexagonList.add(currentHexagon);
+        cellList.add(currentCell);
+//        map.put(currentHexagon, currentCell);
 
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
@@ -110,7 +119,9 @@ public class ReversiPanel extends JPanel {
 
         Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, convertColor(currentCell));
 
-        map.put(currentHexagon, currentCell);
+        hexagonList.add(currentHexagon);
+        cellList.add(currentCell);
+//        map.put(currentHexagon, currentCell);
 
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
@@ -124,7 +135,9 @@ public class ReversiPanel extends JPanel {
 
         Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, convertColor(currentCell));
 
-        map.put(currentHexagon, currentCell);
+        hexagonList.add(currentHexagon);
+        cellList.add(currentCell);
+//        map.put(currentHexagon, currentCell);
 
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
@@ -138,7 +151,9 @@ public class ReversiPanel extends JPanel {
 
         Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, convertColor(currentCell));
 
-        map.put(currentHexagon, currentCell);
+        hexagonList.add(currentHexagon);
+        cellList.add(currentCell);
+//        map.put(currentHexagon, currentCell);
 
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
@@ -152,7 +167,9 @@ public class ReversiPanel extends JPanel {
 
         Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, convertColor(currentCell));
 
-        map.put(currentHexagon, currentCell);
+        hexagonList.add(currentHexagon);
+        cellList.add(currentCell);
+//        map.put(currentHexagon, currentCell);
 
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
@@ -203,129 +220,132 @@ public class ReversiPanel extends JPanel {
   }
 
   private void updateBoard(Cell middleCell, Graphics2D g2d) {
-    // updates existing board. you would still have to draw out the whole board in onion layer
-    // with rotating center position or it won't scale with the window.
+    int listCounter = 0;
+    // set the current "onion layer" to the first layer
+    int timesActionRepeated = 1;
+    // get initial, MIDDLE, (x, y) --- BASED OFF OF THE CURRENT PANELS WIDTH AND HEIGHT
+    Point2D currentPoint = new Point2D.Double((double) getWidth() / 2, (double) getHeight() / 2);
 
-//    // set the current "onion layer" to the first layer
-//    int timesActionRepeated = 1;
-//    // get initial, MIDDLE, (x, y) --- BASED OFF OF THE CURRENT PANELS WIDTH AND HEIGHT
-//    Point2D currentPoint = new Point2D.Double((double) getWidth() / 2, (double) getHeight() / 2);
-//
-//    // creates "middle (onion layer 0) hexagon" and draws it
-//    Hexagon middleHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, Color.LIGHT_GRAY);
-//    drawHexagon(g2d, middleCell, middleHexagon, middleHexagon.getCenter());
-//    map.put(middleHexagon, middleCell);
-//
-//    // update the currentCell to the first new "onion" layer
-//    Cell currentCell = middleCell.getRight();
-//
-//    // sets math for offsets from one cell to another
-//    double vert = HEXAGON_RADIUS * (double) 3 / (double) 2;
-//    double horiz = Math.sqrt(3) * HEXAGON_RADIUS;
-//
-//    double initLayerX = currentPoint.getX() + horiz;
-//    double initLayerY = currentPoint.getY();
-//
-//    currentPoint = new Point2D.Double(initLayerX, initLayerY);
-//
-//    while (timesActionRepeated < model.getSideLength()) {
-//
-//      for (int i = 0; i < timesActionRepeated; i++) {
-//        currentCell = currentCell.getBottomLeft();
-//
-//        double newX = currentPoint.getX() - horiz / 2;
-//        double newY = currentPoint.getY() + vert;
-//
-//        currentPoint = new Point2D.Double(newX, newY);
-//
-//        Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, convertColor(currentCell));
-//
-//        map.put(currentHexagon, currentCell);
-//
-//        drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
-//      }
-//      for (int i = 0; i < timesActionRepeated; i++) {
-//        currentCell = currentCell.getLeft();
-//
-//        double newX = currentPoint.getX() - horiz;
-//        double newY = currentPoint.getY();
-//
-//        currentPoint = new Point2D.Double(newX, newY);
-//
-//        Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, convertColor(currentCell));
-//
-//        map.put(currentHexagon, currentCell);
-//
-//        drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
-//      }
-//      for (int i = 0; i < timesActionRepeated; i++) {
-//        currentCell = currentCell.getUpperLeft();
-//
-//        double newX = currentPoint.getX() - horiz / 2;
-//        double newY = currentPoint.getY() - vert;
-//
-//        currentPoint = new Point2D.Double(newX, newY);
-//
-//        Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, convertColor(currentCell));
-//
-//        map.put(currentHexagon, currentCell);
-//
-//        drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
-//      }
-//      for (int i = 0; i < timesActionRepeated; i++) {
-//        currentCell = currentCell.getUpperRight();
-//
-//        double newX = currentPoint.getX() + horiz / 2;
-//        double newY = currentPoint.getY() - vert;
-//
-//        currentPoint = new Point2D.Double(newX, newY);
-//
-//        Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, convertColor(currentCell));
-//
-//        map.put(currentHexagon, currentCell);
-//
-//        drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
-//      }
-//      for (int i = 0; i < timesActionRepeated; i++) {
-//        currentCell = currentCell.getRight();
-//
-//        double newX = currentPoint.getX() + horiz;
-//        double newY = currentPoint.getY();
-//
-//        currentPoint = new Point2D.Double(newX, newY);
-//
-//        Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, convertColor(currentCell));
-//
-//        map.put(currentHexagon, currentCell);
-//
-//        drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
-//      }
-//      for (int i = 0; i < timesActionRepeated; i++) {
-//        currentCell = currentCell.getBottomRight();
-//
-//        double newX = currentPoint.getX() + horiz / 2;
-//        double newY = currentPoint.getY() + vert;
-//
-//        currentPoint = new Point2D.Double(newX, newY);
-//
-//        Hexagon currentHexagon = new Hexagon(currentPoint, HEXAGON_RADIUS, convertColor(currentCell));
-//
-//        map.put(currentHexagon, currentCell);
-//
-//        drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
-//      }
-//      currentCell = currentCell.getRight();
-//
-//      double newX = currentPoint.getX() + horiz;
-//      double newY = currentPoint.getY();
-//
-//      currentPoint = new Point2D.Double(newX, newY);
-//      timesActionRepeated++;
-//    }
+    // get "middle (onion layer 0) hexagon" and draws it
+    Hexagon middleHexagon = hexagonList.get(listCounter);
+    middleHexagon.updateHexagon(currentPoint);
+    drawHexagon(g2d, middleCell, middleHexagon, middleHexagon.getCenter());
 
-    for (Hexagon hexagon : map.keySet()) {
-      drawHexagon(g2d, map.get(hexagon), hexagon, hexagon.getCenter());
+    listCounter++;
+
+    // update the currentCell to the first new "onion" layer
+    Cell currentCell = middleCell.getRight();
+
+    // sets math for offsets from one cell to another
+    double vert = HEXAGON_RADIUS * (double) 3 / (double) 2;
+    double horiz = Math.sqrt(3) * HEXAGON_RADIUS;
+
+    double initLayerX = currentPoint.getX() + horiz;
+    double initLayerY = currentPoint.getY();
+
+    currentPoint = new Point2D.Double(initLayerX, initLayerY);
+
+    while (timesActionRepeated < model.getSideLength()) {
+
+      for (int i = 0; i < timesActionRepeated; i++) {
+        currentCell = currentCell.getBottomLeft();
+
+        double newX = currentPoint.getX() - horiz / 2;
+        double newY = currentPoint.getY() + vert;
+
+        currentPoint = new Point2D.Double(newX, newY);
+
+        Hexagon currentHexagon = hexagonList.get(listCounter);
+        currentHexagon.updateHexagon(currentPoint);
+
+        listCounter++;
+
+        drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
+      }
+      for (int i = 0; i < timesActionRepeated; i++) {
+        currentCell = currentCell.getLeft();
+
+        double newX = currentPoint.getX() - horiz;
+        double newY = currentPoint.getY();
+
+        currentPoint = new Point2D.Double(newX, newY);
+
+        Hexagon currentHexagon = hexagonList.get(listCounter);
+        currentHexagon.updateHexagon(currentPoint);
+
+        listCounter++;
+
+        drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
+      }
+      for (int i = 0; i < timesActionRepeated; i++) {
+        currentCell = currentCell.getUpperLeft();
+
+        double newX = currentPoint.getX() - horiz / 2;
+        double newY = currentPoint.getY() - vert;
+
+        currentPoint = new Point2D.Double(newX, newY);
+
+        Hexagon currentHexagon = hexagonList.get(listCounter);
+        currentHexagon.updateHexagon(currentPoint);
+
+        listCounter++;
+
+        drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
+      }
+      for (int i = 0; i < timesActionRepeated; i++) {
+        currentCell = currentCell.getUpperRight();
+
+        double newX = currentPoint.getX() + horiz / 2;
+        double newY = currentPoint.getY() - vert;
+
+        currentPoint = new Point2D.Double(newX, newY);
+
+        Hexagon currentHexagon = hexagonList.get(listCounter);
+        currentHexagon.updateHexagon(currentPoint);
+
+        listCounter++;
+
+        drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
+      }
+      for (int i = 0; i < timesActionRepeated; i++) {
+        currentCell = currentCell.getRight();
+
+        double newX = currentPoint.getX() + horiz;
+        double newY = currentPoint.getY();
+
+        currentPoint = new Point2D.Double(newX, newY);
+
+        Hexagon currentHexagon = hexagonList.get(listCounter);
+        currentHexagon.updateHexagon(currentPoint);
+
+        listCounter++;
+
+        drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
+      }
+      for (int i = 0; i < timesActionRepeated; i++) {
+        currentCell = currentCell.getBottomRight();
+
+        double newX = currentPoint.getX() + horiz / 2;
+        double newY = currentPoint.getY() + vert;
+
+        currentPoint = new Point2D.Double(newX, newY);
+
+        Hexagon currentHexagon = hexagonList.get(listCounter);
+        currentHexagon.updateHexagon(currentPoint);
+
+        listCounter++;
+
+        drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
+      }
+      currentCell = currentCell.getRight();
+
+      double newX = currentPoint.getX() + horiz;
+      double newY = currentPoint.getY();
+
+      currentPoint = new Point2D.Double(newX, newY);
+      timesActionRepeated++;
     }
+
 
   }
 
@@ -337,16 +357,16 @@ public class ReversiPanel extends JPanel {
 
     Cell middleCell = underlyingBoard.get(model.getSideLength() - 1).get(model.getSideLength() - 1);
 
-//    if (!map.isEmpty()) {
-//      updateBoard(middleCell, g2d);
-//    } else {
+    if (!hexagonList.isEmpty()) {
+      updateBoard(middleCell, g2d);
+    } else {
       drawBoard(middleCell, g2d);
-//    }
+    }
 
     g2d.dispose();
   }
 
-  static int getRowFromPoint(Point pt) {
+  private int getRowFromPoint(Point pt) {
     Cell clickedCell = getCellFromPoint(pt);
     Integer row = getCellInt(clickedCell, true);
     if (row != null) return row;
@@ -358,7 +378,7 @@ public class ReversiPanel extends JPanel {
     }
   }
 
-  static int getColFromPoint(Point pt) {
+  private int getColFromPoint(Point pt) {
     Cell clickedCell = getCellFromPoint(pt);
     Integer col = getCellInt(clickedCell, false);
     if (col != null) return col;
@@ -379,7 +399,7 @@ public class ReversiPanel extends JPanel {
         if (underlyingBoard.get(row).get(col) == clickedCell) {
           if (isRow) {
             return row;
-          } else  {
+          } else {
             return col;
           }
         }
@@ -388,21 +408,12 @@ public class ReversiPanel extends JPanel {
     return null;
   }
 
-  // Helper method to get the hexagon at a specific point
-  public Hexagon getHexagonAtPoint(Point point) {
-    for (Hexagon hexagon : map.keySet()) {
-      if (hexagon.getHexagon().contains(point)) {
-        return hexagon;
-      }
-    }
-    return null;
-  }
-
-  private static Cell getCellFromPoint(Point point) {
+  private Cell getCellFromPoint(Point point) {
     Cell clickedCell = null;
-    for (Hexagon hexagon : map.keySet()) {
-      if (hexagon.getHexagon().contains(point)) {
-        clickedCell = map.get(hexagon);
+
+    for (int hexagon = 0; hexagon < hexagonList.size(); hexagon++) {
+      if (hexagonList.get(hexagon).getHexagon().contains(point)) {
+        clickedCell = cellList.get(hexagon);
       }
     }
     return clickedCell;
@@ -414,7 +425,7 @@ public class ReversiPanel extends JPanel {
     Hexagon cyanAlreadyHexagon = null;
     boolean hexagonClicked = false;
 
-    for (Hexagon hexagon : map.keySet()) {
+    for (Hexagon hexagon : hexagonList) {
       if (hexagon.getColor() == Color.CYAN) {
         cyanAlreadyExists = true;
         cyanAlreadyHexagon = hexagon;
@@ -430,7 +441,7 @@ public class ReversiPanel extends JPanel {
       }
     }
     if (!hexagonClicked) {
-      for (Hexagon hexagon : map.keySet()) {
+      for (Hexagon hexagon : hexagonList) {
         if (hexagon.getColor() == Color.CYAN) {
           hexagon.setColor(Color.LIGHT_GRAY);
         }
@@ -448,14 +459,53 @@ public class ReversiPanel extends JPanel {
     public void mouseClicked(MouseEvent mouseEvent) {
       Point point = mouseEvent.getPoint();
 
-      int row = ReversiPanel.getRowFromPoint(point);
-      int col = ReversiPanel.getColFromPoint(point);
+      int row = getRowFromPoint(point);
+      int col = getColFromPoint(point);
 
       System.out.println(row + " " + col);
 
       drawBlueTile(point, Color.CYAN);
     }
 
+  }
+
+  private class KeyboardAdapter extends java.awt.event.KeyAdapter {
+
+    @Override
+    public void keyPressed(KeyEvent event) {
+      switch (event.getKeyCode()) {
+        case KeyEvent.VK_ENTER:
+          System.out.println("Make move");
+          repaint();
+          break;
+        case KeyEvent.VK_BACK_SPACE:
+          System.out.println("Pass turn");
+        case KeyEvent.VK_U:
+          System.out.println("Upper left");
+          repaint();
+          break;
+        case KeyEvent.VK_I:
+          System.out.println("Upper right");
+          repaint();
+          break;
+        case KeyEvent.VK_H:
+          System.out.println("Left");
+          repaint();
+          break;
+        case KeyEvent.VK_K:
+          System.out.println("Right");
+          repaint();
+          break;
+        case KeyEvent.VK_N:
+          System.out.println("Bottom left");
+          repaint();
+          break;
+        case KeyEvent.VK_M:
+          System.out.println("Bottom right");
+          repaint();
+          break;
+      }
+    }
   }
 
 }

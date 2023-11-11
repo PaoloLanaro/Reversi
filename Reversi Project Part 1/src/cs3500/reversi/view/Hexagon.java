@@ -9,9 +9,9 @@ import java.util.Objects;
 public class Hexagon {
   private final int radius;
 
-  private final Point2D center;
+  private Point2D center;
 
-  private final Polygon hexagon;
+  private Polygon hexagon;
   private Color color;
 
   public Hexagon(Point2D center, int radius, Color color) {
@@ -59,5 +59,10 @@ public class Hexagon {
 
   public Color getColor() {
     return color;
+  }
+
+  public void updateHexagon(Point2D center) {
+    this.center = center;
+    this.hexagon = createHexagon();
   }
 }

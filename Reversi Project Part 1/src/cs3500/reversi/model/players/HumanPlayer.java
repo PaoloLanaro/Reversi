@@ -1,4 +1,4 @@
-package cs3500.reversi.players;
+package cs3500.reversi.model.players;
 
 /**
  * An implementation of the Player interface which represents a human player.

@@ -1,4 +1,4 @@
-package cs3500.reversi.players;
+package cs3500.reversi.model.players;
 
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
