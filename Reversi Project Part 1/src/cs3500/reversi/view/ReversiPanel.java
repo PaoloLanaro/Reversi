@@ -214,9 +214,6 @@ public class ReversiPanel extends JPanel {
 
       g2d.fill(circle);
     }
-
-    g2d.setColor(Color.BLACK);
-    g2d.drawPolygon(hexagon.getHexagon());
   }
 
   private void updateBoard(Cell middleCell, Graphics2D g2d) {
@@ -345,7 +342,6 @@ public class ReversiPanel extends JPanel {
       currentPoint = new Point2D.Double(newX, newY);
       timesActionRepeated++;
     }
-
 
   }
 
