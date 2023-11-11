@@ -10,11 +10,11 @@ import cs3500.reversi.model.ReadOnlyReversi;
 
 public class ReversiMouseAdapter extends MouseAdapter {
   //  private final ReversiController controller;
-  private ReversiPanel reversiPanel;
+//  private ReversiPanel reversiPanel;
 
-  public ReversiMouseAdapter(ReversiPanel reversiPanel) {
+  public ReversiMouseAdapter() {
 //    this.controller = controller;
-    this.reversiPanel = reversiPanel;
+//    this.reversiPanel = reversiPanel;
 
   }
 
@@ -27,26 +27,30 @@ public class ReversiMouseAdapter extends MouseAdapter {
 
     System.out.println(row + " " + col);
 
+//    drawBlueTile(point, Color.CYAN);
+
 
     // handle changing hexagon to blue
 
 //    controller.handleCellClick(row, col);
 //    reversiPanel.drawBlueTile(point);
-    Hexagon clickedHexagon = reversiPanel.getHexagonAtPoint(point);
-    if (clickedHexagon != null && clickedHexagon.equals(reversiPanel.getSelectedBlueTile())) {
-      // Reset the selected blue tile
-      reversiPanel.resetSelectedBlueTile();
-    } else {
-      // Check if the clicked hexagon is already cyan
-      if (clickedHexagon != null && reversiPanel.isHexagonCyan(clickedHexagon)) {
-        // Reset the selected blue tile
-        reversiPanel.resetSelectedBlueTile();
-      } else {
-        // Handle changing hexagon to blue
-        reversiPanel.drawBlueTile(point);
-      }
-
-    }
+//    Hexagon clickedHexagon = reversiPanel.getHexagonAtPoint(point);
+//    if (clickedHexagon != null && clickedHexagon.equals(reversiPanel.getSelectedBlueTile())) {
+//      // Reset the selected blue tile
+//      reversiPanel.resetSelectedBlueTile();
+//    } else {
+//      // Check if the clicked hexagon is already cyan
+//      if (clickedHexagon != null && reversiPanel.isHexagonCyan(clickedHexagon)) {
+//        // Reset the selected blue tile
+//        reversiPanel.resetSelectedBlueTile();
+//      } else {
+//        // Handle changing hexagon to blue
+//        reversiPanel.drawBlueTile(point);
+//      }
+//
+//    }
 
   }
+
+
 }

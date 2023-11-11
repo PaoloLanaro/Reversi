@@ -1,5 +1,6 @@
 package cs3500.reversi.view;
 
+import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.awt.Polygon;
 import java.util.Arrays;
@@ -11,12 +12,16 @@ public class Hexagon {
   private final Point2D center;
 
   private final Polygon hexagon;
+  private Color color;
 
-  public Hexagon(Point2D center, int radius) {
+  public Hexagon(Point2D center, int radius, Color color) {
     this.center = center;
     this.radius = radius;
     this.hexagon = createHexagon();
+    this.color = color;
   }
+
+
 
   private Polygon createHexagon() {
     Polygon polygon = new Polygon();
@@ -46,5 +51,13 @@ public class Hexagon {
 
   public Polygon getHexagon() {
     return hexagon;
+  }
+
+  public void setColor(Color color) {
+    this.color = color;
+  }
+
+  public Color getColor() {
+    return color;
   }
 }
