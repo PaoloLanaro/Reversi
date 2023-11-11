@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.awt.Polygon;
 import java.util.Arrays;
-import java.util.Objects;
 
 public class Hexagon {
   private final int radius;

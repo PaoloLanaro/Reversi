@@ -5,14 +5,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.DiscColor;
@@ -20,17 +19,16 @@ import cs3500.reversi.model.ReadOnlyReversi;
 
 public class ReversiPanel extends JPanel {
 
-  private static ReadOnlyReversi model;
+  private final ReadOnlyReversi model;
   private final int HEXAGON_RADIUS = 27;
   private final int hexagonWidth = (int) (Math.sqrt(3) * HEXAGON_RADIUS); // Width based on
   // pointy-top orientation
   private final int hexagonHeight = 2 * HEXAGON_RADIUS; // Height based on pointy-top orientation
 
-  private static Map<Hexagon, Cell> map;
   private final List<Hexagon> hexagonList;
   private final List<Cell> cellList;
 
-  private static List<List<Cell>> underlyingBoard;
+  private final List<List<Cell>> underlyingBoard;
 
 
   public ReversiPanel(ReadOnlyReversi model) {
@@ -40,7 +38,6 @@ public class ReversiPanel extends JPanel {
     int panelHeight = sideLength * (hexagonHeight + 1);
     this.setMinimumSize(new Dimension(panelWidth, panelHeight));
     this.setBackground(Color.DARK_GRAY);
-    map = new HashMap<>();
     underlyingBoard = model.getBoard();
     this.addMouseListener(new MouseAdapter());
     this.addKeyListener(new KeyboardAdapter());
@@ -214,6 +211,9 @@ public class ReversiPanel extends JPanel {
 
       g2d.fill(circle);
     }
+
+    g2d.setColor(Color.BLACK);
+    g2d.draw(hexagon.getHexagon());
   }
 
   private void updateBoard(Cell middleCell, Graphics2D g2d) {
@@ -386,7 +386,7 @@ public class ReversiPanel extends JPanel {
     }
   }
 
-  private static Integer getCellInt(Cell clickedCell, boolean isRow) {
+  private Integer getCellInt(Cell clickedCell, boolean isRow) {
     for (int row = 0; row < model.getSideLength() * 2 - 1; row++) {
       for (int col = 0; col < model.getSideLength() * 2 - 1; col++) {
         if (underlyingBoard.get(row).get(col) == null) {
