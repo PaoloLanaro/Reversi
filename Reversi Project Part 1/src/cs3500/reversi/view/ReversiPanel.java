@@ -1,6 +1,9 @@
 package cs3500.reversi.view;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -44,6 +47,8 @@ public class ReversiPanel extends JPanel {
     map = new HashMap<>();
     underlyingBoard = model.getBoard();
     this.addMouseListener(new MouseAdapter());
+    this.addKeyListener(new KeyAdapter());
+    this.setFocusable(true);
   }
 
   // draws full board (onion wrapper)
@@ -186,10 +191,29 @@ public class ReversiPanel extends JPanel {
         g2d.fill(hexagon.getHexagon());
       }
     }
+    drawCircle(g2d, cell, centerPoint);
+//    if (cell.getColor() != DiscColor.EMPTY) {
+//      Color color = cell.getColor() == DiscColor.WHITE ? Color.WHITE :
+//              cell.getColor() == DiscColor.BLACK ? Color.BLACK : Color.LIGHT_GRAY;
+//      g2d.setColor(color);
+//      int circleX = (int) centerPoint.getX() - (int) Math.ceil(HEXAGON_RADIUS / (double) 2);
+//      int circleY = (int) centerPoint.getY() - (int) Math.ceil(HEXAGON_RADIUS / (double) 2);
+//
+//      Shape circle = new Ellipse2D.Double(circleX, circleY, HEXAGON_RADIUS, HEXAGON_RADIUS);
+//
+//      g2d.fill(circle);
+//    }
+
+    g2d.setColor(Color.BLACK);
+    g2d.drawPolygon(hexagon.getHexagon());
+  }
+
+  private void drawCircle(Graphics2D g2d, Cell cell, Point2D centerPoint) {
     if (cell.getColor() != DiscColor.EMPTY) {
       Color color = cell.getColor() == DiscColor.WHITE ? Color.WHITE :
               cell.getColor() == DiscColor.BLACK ? Color.BLACK : Color.LIGHT_GRAY;
       g2d.setColor(color);
+
       int circleX = (int) centerPoint.getX() - (int) Math.ceil(HEXAGON_RADIUS / (double) 2);
       int circleY = (int) centerPoint.getY() - (int) Math.ceil(HEXAGON_RADIUS / (double) 2);
 
@@ -197,9 +221,6 @@ public class ReversiPanel extends JPanel {
 
       g2d.fill(circle);
     }
-
-    g2d.setColor(Color.BLACK);
-    g2d.drawPolygon(hexagon.getHexagon());
   }
 
   private void updateBoard(Cell middleCell, Graphics2D g2d) {
@@ -337,11 +358,11 @@ public class ReversiPanel extends JPanel {
 
     Cell middleCell = underlyingBoard.get(model.getSideLength() - 1).get(model.getSideLength() - 1);
 
-//    if (!map.isEmpty()) {
-//      updateBoard(middleCell, g2d);
-//    } else {
-      drawBoard(middleCell, g2d);
-//    }
+    if (!map.isEmpty()) {
+      updateBoard(middleCell, g2d);
+    } else {
+        drawBoard(middleCell, g2d);
+    }
 
     g2d.dispose();
   }
@@ -379,7 +400,7 @@ public class ReversiPanel extends JPanel {
         if (underlyingBoard.get(row).get(col) == clickedCell) {
           if (isRow) {
             return row;
-          } else  {
+          } else {
             return col;
           }
         }
@@ -409,7 +430,7 @@ public class ReversiPanel extends JPanel {
   }
 
   public void drawBlueTile(Point point, Color color) {
-    Hexagon clickedHexagon;
+    //Hexagon clickedHexagon;
     boolean cyanAlreadyExists = false;
     Hexagon cyanAlreadyHexagon = null;
     boolean hexagonClicked = false;
@@ -421,11 +442,15 @@ public class ReversiPanel extends JPanel {
       }
       if (hexagon.getHexagon().contains(point)) {
         if (hexagon.getColor() == Color.CYAN) {
-          clickedHexagon = hexagon;
-          clickedHexagon.setColor(Color.LIGHT_GRAY);
+//          clickedHexagon = hexagon;
+//          clickedHexagon.setColor(Color.LIGHT_GRAY);
+          selectedBlueTile = hexagon;
+          selectedBlueTile.setColor(Color.LIGHT_GRAY);
         }
-        clickedHexagon = hexagon;
-        clickedHexagon.setColor(color);
+//        clickedHexagon = hexagon;
+//        clickedHexagon.setColor(color);
+        selectedBlueTile = hexagon;
+        selectedBlueTile.setColor(color);
         hexagonClicked = true;
       }
     }
@@ -442,6 +467,33 @@ public class ReversiPanel extends JPanel {
     repaint();
   }
 
+  private void temporaryDrawCircle(Graphics2D g2d, Cell cell, Point2D centerPoint, Color discColor) {
+    g2d.setColor(discColor);
+
+    int circleX = (int) centerPoint.getX() - (int) Math.ceil(HEXAGON_RADIUS / (double) 2);
+    int circleY = (int) centerPoint.getY() - (int) Math.ceil(HEXAGON_RADIUS / (double) 2);
+
+    Shape circle = new Ellipse2D.Double(circleX, circleY, HEXAGON_RADIUS, HEXAGON_RADIUS);
+
+    g2d.fill(circle);
+  }
+
+  // Additional method to confirm the color change and add a circle
+  private void confirmColorChange() {
+//    if (isBlueTileSelected && selectedBlueTile != null) {
+//      Cell cell = map.get(selectedBlueTile);
+//      if (cell != null && selectedBlueTile.getColor() == Color.CYAN) {
+//        selectedBlueTile.setColor(Color.LIGHT_GRAY);
+//        drawCircle(getGraphics(), cell, selectedBlueTile.getCenter());
+//        isBlueTileSelected = false;
+//        selectedBlueTile = null;
+//      }
+//      repaint();
+//    }
+  }
+
+
+
   private class MouseAdapter extends java.awt.event.MouseAdapter {
 
     @Override
@@ -454,6 +506,22 @@ public class ReversiPanel extends JPanel {
       System.out.println(row + " " + col);
 
       drawBlueTile(point, Color.CYAN);
+    }
+
+  }
+
+  private class KeyAdapter extends java.awt.event.KeyAdapter {
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+      if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        confirmColorChange();
+        System.out.println("make move");
+        repaint();
+      } else if (e.getKeyCode() == KeyEvent.VK_P) {
+        System.out.println("pass");
+        repaint();
+      }
     }
 
   }
