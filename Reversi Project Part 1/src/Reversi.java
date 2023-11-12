@@ -4,7 +4,7 @@ import cs3500.reversi.view.ReversiGraphicsView;
 
 public final class Reversi {
   public static void main(String[] args) {
-    BasicReversi model = new BasicReversi(3);
+    BasicReversi model = new BasicReversi(6);
     IView view = new ReversiGraphicsView(model);
     view.setVisible(true);
   }

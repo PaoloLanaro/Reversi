@@ -1,19 +1,19 @@
 package cs3500.reversi.model;
 
 public class RowCol {
-  private final int x;
-  private final int y;
+  private final int row;
+  private final int col;
 
-  public RowCol(int x, int y) {
-    this.x = x;
-    this.y = y;
+  public RowCol(int row, int col) {
+    this.row = row;
+    this.col = col;
   }
 
   public int row() {
-    return this.y;
+    return this.col;
   }
 
   public int col() {
-    return this.x;
+    return this.row;
   }
 }

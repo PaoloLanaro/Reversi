@@ -6,14 +6,14 @@ import java.awt.Polygon;
 import java.util.Arrays;
 
 public class Hexagon {
-  private final int radius;
+  private double radius;
 
   private Point2D center;
 
   private Polygon hexagon;
   private Color color;
 
-  public Hexagon(Point2D center, int radius, Color color) {
+  public Hexagon(Point2D center, double radius, Color color) {
     this.center = center;
     this.radius = radius;
     this.hexagon = createHexagon();
@@ -63,5 +63,9 @@ public class Hexagon {
   public void updateHexagon(Point2D center) {
     this.center = center;
     this.hexagon = createHexagon();
+  }
+
+  public void setRadius(double radius) {
+    this.radius = radius;
   }
 }
