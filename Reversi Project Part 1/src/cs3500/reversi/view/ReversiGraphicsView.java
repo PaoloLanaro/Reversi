@@ -32,7 +32,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
 
   @Override
   public void setListener(ActionListener actionListener) {
-
+    //for controller.
   }
 
   @Override

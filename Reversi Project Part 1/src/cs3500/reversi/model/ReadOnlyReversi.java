@@ -100,7 +100,19 @@ public interface ReadOnlyReversi {
    */
   Cell getCellAt(int row, int col);
 
+  /**
+   * Gets the column index of the specified cell.
+   *
+   * @param cell The {@link Cell} for which to get the column index.
+   * @return The column index of the cell.
+   */
   int getColFromCell(Cell cell);
 
+  /**
+   * Gets the row index of the specified cell.
+   *
+   * @param cell The {@link Cell} for which to get the row index.
+   * @return The row index of the cell.
+   */
   int getRowFromCell(Cell cell);
 }
