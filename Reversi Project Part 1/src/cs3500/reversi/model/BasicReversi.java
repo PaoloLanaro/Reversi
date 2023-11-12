@@ -1,6 +1,5 @@
 package cs3500.reversi.model;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
