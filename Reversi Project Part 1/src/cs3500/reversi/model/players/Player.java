@@ -1,5 +1,6 @@
 package cs3500.reversi.model.players;
 
+import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
 
@@ -15,7 +16,7 @@ public interface Player {
    *
    * @param board the game board on which to make a move.
    */
-  void makeMove(ReadOnlyReversi board);
+  void makeMove(BasicReversi board);
 
   /**
    * Retrieves the color associated with the player. The player color indicates

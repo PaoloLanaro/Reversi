@@ -10,7 +10,7 @@ public class MaxPointStrategy implements Strategy {
   private ReadOnlyReversi model;
 
   @Override
-  public Optional<RowCol> chooseMove(ReadOnlyReversi model, DiscColor forWhom) {
+  public Optional<RowCol> chooseMove(BasicReversi model, DiscColor forWhom) {
     this.model = model;
 
     Map<Cell, RowCol> validMoves = new HashMap<>();
