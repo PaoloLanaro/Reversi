@@ -43,28 +43,13 @@ public class BasicReversi implements MutableReversi {
     board = initBoard();
   }
 
-  //copy constructor
-  public BasicReversi(BasicReversi other) {
-    this.passCounter = other.passCounter;
-    this.turn = other.turn;
-
-    this.board = new ArrayList<>();
-    for (int row = 0; row < other.board.size(); row++) {
-      this.board.add(new ArrayList<>());
-      for (int cell = 0; cell < other.board.get(row).size(); cell++) {
-        if (other.board.get(row).get(cell) == null) {
-          this.board.add(null);
-          continue;
-        }
-        Cell otherCell = other.board.get(row).get(cell);
-        Cell newCell = new Cell(otherCell);
-        this.board.get(row).add(newCell);
-      }
-    }
-
-    this.initSize = other.initSize;
-  }
-
+  /**
+   * A protected visibility that constructs a {@link BasicReversi}
+   * model with a pre-made board of {@link Cell}s.
+   *
+   * @param otherBoard the 2D {@link List} of {@link Cell}s that the game should be initialized to.
+   * @param currentColor the current {@link DiscColor} representation of the player.
+   */
   protected BasicReversi(List<List<Cell>> otherBoard, DiscColor currentColor) {
     this.board = new ArrayList<>();
     for (int row = 0; row < otherBoard.size(); row++) {

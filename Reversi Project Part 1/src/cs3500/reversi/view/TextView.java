@@ -1,7 +1,5 @@
 package cs3500.reversi.view;
 
-import java.io.IOException;
-
 import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.Cell;
 

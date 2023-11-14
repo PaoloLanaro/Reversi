@@ -1,14 +1,23 @@
 package cs3500.reversi.model;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Creates a mock for the purpose of testing and getting output messages confirming
+ * that moves are actually working. This is made to support the use of {@link Strategy}s.
+ */
 public class MockBasicReversi extends BasicReversi {
 
   private final List<List<Cell>> mockBoard;
   private final Appendable out;
 
+  /**
+   * The constructor for this mock class.
+   *
+   * @param size the initial size you wish one of the sides of the board to be "long".
+   *             This will be the amount of hexagons on each "side".
+   * @param out the appendable that messages will be added to.
+   */
   public MockBasicReversi(int size, Appendable out) {
     super(size);
     this.mockBoard = super.getBoard();

@@ -5,6 +5,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * A {@link Strategy} which simply tries to flip the most tiles in one move.
+ * If there are multiple moves that capture the same number of pieces,
+ * this class breaks ties by choosing the move with the uppermost-leftmost coordinate,
+ * where uppermost is weighted more than leftmost.
+ */
 public class MaxPointStrategy implements Strategy {
 
   private ReadOnlyReversi model;
@@ -45,7 +51,7 @@ public class MaxPointStrategy implements Strategy {
       // Simulate the move by updating the copied board directly
       List<List<Cell>> originalBoard = model.getBoard();
       BasicReversi basicReversi = new BasicReversi(originalBoard, forWhom);
-      basicReversi.makeMove(move.row(), move.col());
+      basicReversi.makeMove(move.getRow(), move.getCol());
 
       // Calculate the score after the simulated move
       int score = basicReversi.getScore().get(forWhom);
@@ -58,11 +64,10 @@ public class MaxPointStrategy implements Strategy {
       }
 
       if (score == maxScore) {
-        // TODO SEE IF THIS IS AN ISSUE
-        if (move.row() < bestMove.row()) {
+        if (move.getRow() < bestMove.getRow()) {
           bestMove = move;
         }
-        if (move.row() == bestMove.row() && move.col() <= bestMove.col()) {
+        if (move.getRow() == bestMove.getRow() && move.getCol() <= bestMove.getCol()) {
           bestMove = move;
         }
       }

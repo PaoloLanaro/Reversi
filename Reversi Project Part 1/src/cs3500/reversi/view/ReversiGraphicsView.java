@@ -40,7 +40,4 @@ public class ReversiGraphicsView extends JFrame implements IView {
   public void refresh() {
     this.repaint();
   }
-
-
-  // empty, waiting for future assignments
 }

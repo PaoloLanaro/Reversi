@@ -15,16 +15,25 @@ import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
 
+/**
+ * The JPanel which represents the actual Reversi board. This class
+ * creates the full board and allows for mouse and keyboard input to indicate
+ * "moves".
+ */
 public class ReversiPanel extends JPanel {
 
   private final ReadOnlyReversi model;
   private double hexagonRadius;
   private final List<Hexagon> hexagonList;
   private final List<Cell> cellList;
-
   private final List<List<Cell>> underlyingBoard;
 
-
+  /**
+   * Constructs the {@link ReversiPanel}.
+   * This constructor will set up all the JPanel background programming.
+   *
+   * @param model the {@link ReadOnlyReversi} model which you wish to represent in the JPanel
+   */
   public ReversiPanel(ReadOnlyReversi model) {
     this.model = model;
     this.setMinimumSize(new Dimension(800, 800));
@@ -357,7 +366,7 @@ public class ReversiPanel extends JPanel {
     return clickedCell;
   }
 
-  public void drawBlueTile(Point point, Color color) {
+  private void drawBlueTile(Point point, Color color) {
     Hexagon clickedHexagon;
     boolean cyanAlreadyExists = false;
     Hexagon cyanAlreadyHexagon = null;

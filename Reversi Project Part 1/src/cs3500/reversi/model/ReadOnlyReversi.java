@@ -1,6 +1,6 @@
 package cs3500.reversi.model;
 
-import java.util.List;
+import  java.util.List;
 import java.util.Map;
 
 /**

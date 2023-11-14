@@ -37,6 +37,11 @@ public class Cell {
     bottomRight = otherCell.bottomRight;
   }
 
+  /**
+   * Constructor for the {@link Cell} object which simply sets the color of this {@link Cell}.
+   *
+   * @param color the color you wish the {@link Cell} to be.
+   */
   public Cell(DiscColor color) {
     this.color = color;
   }
