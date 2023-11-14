@@ -15,7 +15,7 @@ import java.util.Objects;
  *
  * <p>1. The passCounter should always be between 0 and 2.
  */
-public class BasicReversi implements MutableReversi {
+public final class BasicReversi implements MutableReversi {
   private int passCounter; // Counter for consecutive passes.
   private DiscColor turn; // Current player's turn (BLACK or WHITE).
   private final List<List<Cell>> board; // 2D list representing the game board.

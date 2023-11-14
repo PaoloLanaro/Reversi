@@ -19,6 +19,7 @@ public class MockMaxPointTest {
   StringBuilder out;
   MockBasicReversi mock;
 
+
   @Before
   public void init() {
     basicModel = new BasicReversi(4);
@@ -33,8 +34,62 @@ public class MockMaxPointTest {
   public void testInitialMaxPointStratTieBreak() {
     Optional<RowCol> rowCol = basicStrategy.chooseMove(basicModel, DiscColor.BLACK);
     mock.makeMove(rowCol.get().getRow(), rowCol.get().getCol());
+    System.out.println(out.toString());
     Assert.assertTrue(out.toString().contains("Moved to row: 1 col: 4\n" +
             "Valid move.\n"));
+  }
+
+  @Test
+  public void makeMaxPointStrategyForWhite() {
+    Optional<RowCol> firstBlackMove = basicStrategy.chooseMove(basicModel, DiscColor.BLACK);
+    mock.makeMove(firstBlackMove.get().getRow(), firstBlackMove.get().getCol());
+    basicModel.makeMove(1, 4);
+    Optional<RowCol> firstWhiteMove = basicStrategy.chooseMove(basicModel, DiscColor.WHITE);
+    mock.makeMove(firstWhiteMove.get().getRow(), firstWhiteMove.get().getCol());
+    Assert.assertEquals(out.toString(), "Moved to row: 1 col: 4\n" +
+            "Valid move.\n" +
+            "Moved to row: 0 col: 5\n" +
+            "Valid move.\n");
+  }
+
+  @Test
+  public void makeMultipleMovesMaxPointStrategyEndOnBlackMove() {
+    Optional<RowCol> firstBlackMove = basicStrategy.chooseMove(basicModel, DiscColor.BLACK);
+    mock.makeMove(firstBlackMove.get().getRow(), firstBlackMove.get().getCol());
+    basicModel.makeMove(1, 4);
+    Optional<RowCol> firstWhiteMove = basicStrategy.chooseMove(basicModel, DiscColor.WHITE);
+    mock.makeMove(firstWhiteMove.get().getRow(), firstWhiteMove.get().getCol());
+    basicModel.makeMove(0, 5);
+    Optional<RowCol> secondBlackMove = basicStrategy.chooseMove(basicModel, DiscColor.BLACK);
+    mock.makeMove(secondBlackMove.get().getRow(), secondBlackMove.get().getCol());
+    Assert.assertEquals(out.toString(), "Moved to row: 1 col: 4\n" +
+            "Valid move.\n" +
+            "Moved to row: 0 col: 5\n" +
+            "Valid move.\n" +
+            "Moved to row: 2 col: 2\n" + "Valid move.\n");
+  }
+
+  @Test
+  public void makeMultipleMovesMaxPointStrategyEndOnWhiteMove() {
+    Optional<RowCol> firstBlackMove = basicStrategy.chooseMove(basicModel, DiscColor.BLACK);
+    mock.makeMove(firstBlackMove.get().getRow(), firstBlackMove.get().getCol());
+    basicModel.makeMove(1, 4);
+    Optional<RowCol> firstWhiteMove = basicStrategy.chooseMove(basicModel, DiscColor.WHITE);
+    mock.makeMove(firstWhiteMove.get().getRow(), firstWhiteMove.get().getCol());
+    basicModel.makeMove(0, 5);
+    Optional<RowCol> secondBlackMove = basicStrategy.chooseMove(basicModel, DiscColor.BLACK);
+    mock.makeMove(secondBlackMove.get().getRow(), secondBlackMove.get().getCol());
+    basicModel.makeMove(2, 2);
+    Optional<RowCol> secondWhiteMove = basicStrategy.chooseMove(basicModel, DiscColor.WHITE);
+    mock.makeMove(secondWhiteMove.get().getRow(), secondWhiteMove.get().getCol());
+    Assert.assertEquals(out.toString(), "Moved to row: 1 col: 4\n" +
+            "Valid move.\n" +
+            "Moved to row: 0 col: 5\n" +
+            "Valid move.\n" +
+            "Moved to row: 2 col: 2\n" +
+            "Valid move.\n" +
+            "Moved to row: 4 col: 1\n" +
+            "Valid move.\n");
   }
 
 }

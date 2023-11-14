@@ -409,17 +409,16 @@ public class ReversiPanel extends JPanel {
       int row = getRowFromPoint(point);
       int col = getColFromPoint(point);
 
-      boolean alreadyFilled =
-              underlyingBoard.get(row).get(col).getColor() == DiscColor.BLACK ||
-                      (underlyingBoard.get(row).get(col).getColor() == DiscColor.WHITE);
-
-      if (alreadyFilled) {
-        System.out.println("Board already filled at: (" + row + ", " + col + ")");
-      } else {
-        System.out.println("(" + row + ", " + col + ")");
-      }
-
-
+//      boolean alreadyFilled =
+//              underlyingBoard.get(row).get(col).getColor() == DiscColor.BLACK ||
+//                      (underlyingBoard.get(row).get(col).getColor() == DiscColor.WHITE);
+//
+//      if (alreadyFilled) {
+//        System.out.println("Board already filled at: (" + row + ", " + col + ")");
+//      } else {
+//        System.out.println("(" + row + ", " + col + ")");
+//      }
+      System.out.println("(" + row + ", " + col + ")");
 
       drawBlueTile(point, Color.CYAN);
     }
