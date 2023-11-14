@@ -7,33 +7,32 @@ import java.util.Map;
 public class MockBasicReversi extends BasicReversi {
 
   private final List<List<Cell>> mockBoard;
-  private final Map<DiscColor, Integer> mockScore;
   private final Appendable out;
 
-  public MockBasicReversi(int size, List<List<Cell>> mockBoard, Map<DiscColor, Integer> mockScore,
-                          Appendable out) {
+  public MockBasicReversi(int size, Appendable out) {
     super(size);
     this.mockBoard = super.getBoard();
-    this.mockScore = new HashMap<>(mockScore);
     this.out = out;
   }
 
   private void appendHelper(String appendable) {
     try {
-      out.append(appendable);
+      out.append(appendable).append('\n');
     } catch (Exception e) {
-      System.out.println("lost connection with appendable.");
+      System.out.println("cant append to appendable.");
     }
   }
 
   @Override
   public void passTurn() {
     appendHelper("Passed turn.");
+    super.passTurn();
   }
 
   @Override
   public void makeMove(int row, int col) {
     appendHelper("Moved to row: " + row + " col: " + col);
+    super.makeMove(row, col);
   }
 
   @Override
@@ -41,8 +40,12 @@ public class MockBasicReversi extends BasicReversi {
     if (row < 0 || col < 0 || row > mockBoard.size() || col > mockBoard.size()) {
       appendHelper("Invalid move.");
     }
-    appendHelper("Valid move.");
-    return true;
+    if (super.isValidMove(row, col)) {
+      appendHelper("Valid move.");
+    } else {
+      appendHelper("Invalid move.");
+    }
+    return super.isValidMove(row, col);
   }
 
   @Override
@@ -52,14 +55,12 @@ public class MockBasicReversi extends BasicReversi {
 
   @Override
   public Map<DiscColor, Integer> getScore() {
-    DiscColor mockTurn = DiscColor.EMPTY;
     if (getTurn().equals("Black's turn")) {
-      mockTurn = DiscColor.BLACK;
-    } else if (getTurn().equals("White's turn")) {
-      mockTurn = DiscColor.WHITE;
+      appendHelper("Score: " + super.getScore().get(DiscColor.BLACK));
+    } else {
+      appendHelper("Score: " + super.getScore().get(DiscColor.WHITE));
     }
-    appendHelper("Score: " + mockScore.get(mockTurn));
-    return mockScore;
+    return super.getScore();
   }
 
 }

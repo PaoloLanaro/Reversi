@@ -10,10 +10,10 @@ public class RowCol {
   }
 
   public int row() {
-    return this.col;
+    return this.row;
   }
 
   public int col() {
-    return this.row;
+    return this.col;
   }
 }

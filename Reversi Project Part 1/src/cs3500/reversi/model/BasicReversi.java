@@ -71,15 +71,16 @@ public class BasicReversi implements MutableReversi {
       this.board.add(new ArrayList<>());
       for (int cell = 0; cell < otherBoard.get(row).size(); cell++) {
         if (otherBoard.get(row).get(cell) == null) {
-          this.board.add(null);
+          this.board.get(row).add(null);
           continue;
         }
         Cell otherCell = otherBoard.get(row).get(cell);
-        Cell newCell = new Cell(otherCell);
+        Cell newCell = new Cell(otherCell.getColor());
         this.board.get(row).add(newCell);
       }
     }
     this.initSize = otherBoard.size() / 2 + 1;
+    setCellNeighbors(otherBoard.size(), this.board);
     this.turn = currentColor;
   }
 
@@ -431,6 +432,9 @@ public class BasicReversi implements MutableReversi {
 
           for (String key : possibleMoves.keySet()) {
             List<Cell> run = possibleMoves.get(key);
+            if (run.size() == 0) {
+              continue;
+            }
             if (run.get(run.size() - 1).getColor() == getOppositeColor(color)) {
               continue;
             }
@@ -487,7 +491,7 @@ public class BasicReversi implements MutableReversi {
       throw new IllegalArgumentException("Invalid move attempt, trying to place on null");
     }
     if (originCell.getColor() != DiscColor.EMPTY) {
-      throw new IllegalStateException("Tried to play on a non-empty cell");
+      return false;
     }
     Map<String, List<Cell>> runsForCell = getRunsForCell(originCell, turn);
     List<List<Cell>> validRuns = new ArrayList<>();

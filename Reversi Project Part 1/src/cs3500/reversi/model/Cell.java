@@ -27,13 +27,18 @@ public class Cell {
    * @param otherCell The Cell to copy the state from.
    */
   public Cell(Cell otherCell) {
-    color = otherCell.color;
+    color = otherCell.color == DiscColor.BLACK ? DiscColor.BLACK :
+            otherCell.color == DiscColor.WHITE ? DiscColor.WHITE : DiscColor.EMPTY;
     upperLeft = otherCell.upperLeft;
     upperRight = otherCell.upperRight;
     left = otherCell.left;
     right = otherCell.right;
     bottomLeft = otherCell.bottomLeft;
     bottomRight = otherCell.bottomRight;
+  }
+
+  public Cell(DiscColor color) {
+    this.color = color;
   }
 
   /**

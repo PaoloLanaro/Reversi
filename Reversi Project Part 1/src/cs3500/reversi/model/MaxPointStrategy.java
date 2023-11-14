@@ -10,13 +10,16 @@ public class MaxPointStrategy implements Strategy {
   private ReadOnlyReversi model;
 
   @Override
-  public Optional<RowCol> chooseMove(BasicReversi model, DiscColor forWhom) {
+  public Optional<RowCol> chooseMove(ReadOnlyReversi model, DiscColor forWhom) {
     this.model = model;
 
     Map<Cell, RowCol> validMoves = new HashMap<>();
 
     for (int row = 0; row < model.getBoard().size(); row++) {
       for (int col = 0; col < model.getBoard().size(); col++) {
+        if (model.getBoard().get(row).get(col) == null) {
+          continue;
+        }
         if(model.isValidMove(row, col)) {
           validMoves.put(model.getBoard().get(row).get(col), new RowCol(row, col));
         }
@@ -56,7 +59,7 @@ public class MaxPointStrategy implements Strategy {
 
       if (score == maxScore) {
         // TODO SEE IF THIS IS AN ISSUE
-        if (move.row() < bestMove.row() && move.col() <= bestMove.col()) {
+        if (move.row() < bestMove.row()) {
           bestMove = move;
         }
         if (move.row() == bestMove.row() && move.col() <= bestMove.col()) {

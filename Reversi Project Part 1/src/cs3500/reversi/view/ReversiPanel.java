@@ -27,7 +27,7 @@ public class ReversiPanel extends JPanel {
 
   public ReversiPanel(ReadOnlyReversi model) {
     this.model = model;
-    this.setMinimumSize(new Dimension(500, 500));
+    this.setMinimumSize(new Dimension(800, 800));
     this.setBackground(Color.DARK_GRAY);
     underlyingBoard = model.getBoard();
     this.addMouseListener(new MouseAdapter());
@@ -394,13 +394,23 @@ public class ReversiPanel extends JPanel {
   private class MouseAdapter extends java.awt.event.MouseAdapter {
 
     @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
+    public void mousePressed(MouseEvent mouseEvent) {
       Point point = mouseEvent.getPoint();
 
       int row = getRowFromPoint(point);
       int col = getColFromPoint(point);
 
-      System.out.println(row + " " + col);
+      boolean alreadyFilled =
+              underlyingBoard.get(row).get(col).getColor() == DiscColor.BLACK ||
+                      (underlyingBoard.get(row).get(col).getColor() == DiscColor.WHITE);
+
+      if (alreadyFilled) {
+        System.out.println("Board already filled at: (" + row + ", " + col + ")");
+      } else {
+        System.out.println("(" + row + ", " + col + ")");
+      }
+
+
 
       drawBlueTile(point, Color.CYAN);
     }
@@ -418,6 +428,7 @@ public class ReversiPanel extends JPanel {
           break;
         case KeyEvent.VK_BACK_SPACE:
           System.out.println("Pass turn");
+          break;
         case KeyEvent.VK_U:
           System.out.println("Upper left");
           repaint();
@@ -445,5 +456,4 @@ public class ReversiPanel extends JPanel {
       }
     }
   }
-
 }

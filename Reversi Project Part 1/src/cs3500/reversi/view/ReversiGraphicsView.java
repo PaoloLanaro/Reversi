@@ -17,17 +17,13 @@ public class ReversiGraphicsView extends JFrame implements IView {
   public ReversiGraphicsView(ReadOnlyReversi model) {
     super();
     this.setTitle("Reversi game!");
-    this.setLocation(100, 100);
+    this.setLocation(390, 85);
     this.setSize(new Dimension(500, 500));
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     gamePanel = new ReversiPanel(model);
 
     this.add(gamePanel);
     gamePanel.setVisible(true);
-
-
-
-//    this.getPreferredSize();
   }
 
   @Override
