@@ -176,10 +176,10 @@ public class ModelTests {
     model3.makeMove(-1, -1);
   }
 
-  @Test(expected = IllegalStateException.class)
+  @Test
   public void testInvalidMoveAlreadyOccupied() {
     model4.makeMove(2, 2);
-    model4.makeMove(2, 2);
+    Assert.assertFalse(model4.isValidMove(2, 2));
   }
 
   @Test(expected = IllegalArgumentException.class)

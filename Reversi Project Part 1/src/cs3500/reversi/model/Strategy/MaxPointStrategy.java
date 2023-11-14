@@ -1,9 +1,15 @@
-package cs3500.reversi.model;
+package cs3500.reversi.model.Strategy;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import cs3500.reversi.model.BasicReversi;
+import cs3500.reversi.model.Cell;
+import cs3500.reversi.model.DiscColor;
+import cs3500.reversi.model.ReadOnlyReversi;
+import cs3500.reversi.model.RowCol;
 
 /**
  * A {@link Strategy} which simply tries to flip the most tiles in one move.

@@ -1,6 +1,10 @@
-package cs3500.reversi.model;
+package cs3500.reversi.model.Strategy;
 
 import java.util.Optional;
+
+import cs3500.reversi.model.DiscColor;
+import cs3500.reversi.model.ReadOnlyReversi;
+import cs3500.reversi.model.RowCol;
 
 /**
  * The {@code Strategy} interface defines methods for Reversi game strategies, including

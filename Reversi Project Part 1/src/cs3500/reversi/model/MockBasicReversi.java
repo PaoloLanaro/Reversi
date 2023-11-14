@@ -1,14 +1,16 @@
 package cs3500.reversi.model;
+
 import java.util.List;
 import java.util.Map;
+
+import cs3500.reversi.model.Strategy.Strategy;
 
 /**
  * Creates a mock for the purpose of testing and getting output messages confirming
  * that moves are actually working. This is made to support the use of {@link Strategy}s.
  */
-public class MockBasicReversi {
+public class MockBasicReversi implements MutableReversi {
 
-  private final List<List<Cell>> mockBoard;
   private final Appendable out;
   private final BasicReversi model;
 
@@ -17,12 +19,10 @@ public class MockBasicReversi {
    *
    * @param size the initial size you wish one of the sides of the board to be "long".
    *             This will be the amount of hexagons on each "side".
-   * @param out the appendable that messages will be added to.
+   * @param out  the appendable that messages will be added to.
    */
   public MockBasicReversi(int size, Appendable out) {
-    //super(size);
     this.model = new BasicReversi(size);
-    this.mockBoard = model.getBoard();
     this.out = out;
   }
 
@@ -34,40 +34,73 @@ public class MockBasicReversi {
     }
   }
 
-//  @Override
+  @Override
   public void passTurn() {
     appendHelper("Passed turn.");
-//    super.passTurn();
     model.passTurn();
   }
 
-//  @Override
+  @Override
   public void makeMove(int row, int col) {
     appendHelper("Moved to row: " + row + " col: " + col);
-//    super.makeMove(row, col);
     model.makeMove(row, col);
   }
 
-//  @Override
+  @Override
   public boolean isValidMove(int row, int col) {
-    if (row < 0 || col < 0 || row > mockBoard.size() || col > mockBoard.size()) {
-      appendHelper("Invalid move.");
-    }
-    if (model.isValidMove(row, col)) {
-      appendHelper("Valid move.");
-    } else {
-      appendHelper("Invalid move.");
-    }
+    appendHelper(String.format("Checked move at (%d, %d).", row, col));
     return model.isValidMove(row, col);
   }
 
-//  @Override
+  @Override
+  public int getSideLength() {
+    appendHelper("Getting side length of board.");
+    return model.getSideLength();
+  }
+
+  @Override
+  public DiscColor getCellColor(int row, int col) {
+    appendHelper(String.format("Getting cell color at (%d, %d)", row, col));
+    return model.getCellColor(row, col);
+  }
+
+  @Override
+  public Cell getCellAt(int row, int col) {
+    appendHelper(String.format("Getting cell at (%d, %d)", row, col));
+    return model.getCellAt(row, col);
+  }
+
+  @Override
+  public int getColFromCell(Cell cell) {
+    appendHelper(String.format("Getting col for cell with color %s", cell.getColor()));
+    return model.getColFromCell(cell);
+  }
+
+  @Override
+  public int getRowFromCell(Cell cell) {
+    appendHelper(String.format("Getting row for cell with color %s.", cell.getColor()));
+    return model.getRowFromCell(cell);
+  }
+
+  @Override
   public String getTurn() {
-//    return super.getTurn();
+    appendHelper("Getting players turn.");
     return model.getTurn();
   }
 
-//  @Override
+  @Override
+  public List<List<Cell>> getBoard() {
+    appendHelper("Getting board state.");
+    return model.getBoard();
+  }
+
+  @Override
+  public boolean isGameOver() {
+    appendHelper("Checking is game over.");
+    return model.isGameOver();
+  }
+
+  @Override
   public Map<DiscColor, Integer> getScore() {
     if (getTurn().equals("Black's turn")) {
       appendHelper("Score: " + model.getScore().get(DiscColor.BLACK));
@@ -75,6 +108,18 @@ public class MockBasicReversi {
       appendHelper("Score: " + model.getScore().get(DiscColor.WHITE));
     }
     return model.getScore();
+  }
+
+  @Override
+  public String getWinner() {
+    appendHelper("Getting winner.");
+    return model.getWinner();
+  }
+
+  @Override
+  public List<Cell> getValidMoves(DiscColor color) {
+    appendHelper("Getting all valid moves for cell with color" + color);
+    return model.getValidMoves(color);
   }
 
 }

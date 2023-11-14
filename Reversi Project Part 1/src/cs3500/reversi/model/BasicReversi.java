@@ -50,7 +50,7 @@ public final class BasicReversi implements MutableReversi {
    * @param otherBoard the 2D {@link List} of {@link Cell}s that the game should be initialized to.
    * @param currentColor the current {@link DiscColor} representation of the player.
    */
-  protected BasicReversi(List<List<Cell>> otherBoard, DiscColor currentColor) {
+  public BasicReversi(List<List<Cell>> otherBoard, DiscColor currentColor) {
     this.board = new ArrayList<>();
     for (int row = 0; row < otherBoard.size(); row++) {
       this.board.add(new ArrayList<>());
@@ -475,6 +475,7 @@ public final class BasicReversi implements MutableReversi {
     if (originCell == null) {
       throw new IllegalArgumentException("Invalid move attempt, trying to place on null");
     }
+
     if (originCell.getColor() != DiscColor.EMPTY) {
       return false;
     }
@@ -492,7 +493,7 @@ public final class BasicReversi implements MutableReversi {
 
   private void illegalRowColCheck(int row, int col) {
     if (row < 0 || col < 0 || row > board.size() - 1 || col > board.size() - 1) {
-      throw new IndexOutOfBoundsException("Invalid row and column input.");
+      throw new IllegalArgumentException("Invalid row and column input.");
     }
     if (board.get(row).get(col) == null) {
       throw new IllegalArgumentException("Row and column are not in the board of playable cells.");
