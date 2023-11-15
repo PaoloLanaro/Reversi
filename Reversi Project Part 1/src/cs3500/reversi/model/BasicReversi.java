@@ -47,7 +47,8 @@ public final class BasicReversi implements MutableReversi {
    * A public visibility constructor that constructs a {@link BasicReversi}
    * model with a pre-made board of {@link Cell}s.
    *
-   * @param otherBoard   the 2D {@link List} of {@link Cell}s that the game should be initialized to.
+   * @param otherBoard   the 2D {@link List} of {@link Cell}s,
+   *                     which the game should be initialized to.
    * @param currentColor the current {@link DiscColor} representation of the player.
    */
   public BasicReversi(List<List<Cell>> otherBoard, DiscColor currentColor) {
@@ -455,7 +456,7 @@ public final class BasicReversi implements MutableReversi {
   }
 
   /**
-   * Gets the column representation of a cell
+   * Gets the column representation of a cell.
    *
    * @param cell The {@link Cell} for which to get the column index.
    * @return the integer for the column.

@@ -1,3 +1,7 @@
+# Extra Credit for assignment 2
+We chained our GoForCornersStrategy and our MaxPointStrategy classes so that if the corner \
+strategy doesn't provide a move, it goes to any max point move.
+
 # Reversi-Project
 Two-player Reversi game with a graphical interface. This project implements a basic version of the 
 Reversi game played on a hexagonal grid. Players can make moves, pass turns, and check game state on
@@ -43,6 +47,11 @@ We added a RowCol class to the model package to help with implementing the MaxPo
 We added and kept strategies in the same package as the model, because we did not want to expose
 the protected BasicReversi constructor that takes a List<List<Cell>> otherBoard.
 
+Images for the assignment are respectively called: \
+InitImage.png \
+InProgressImage.png \
+SelectedHexagonImage.png \
+
 # GUI
 Made an IView interface that has setVisible, setListener, and refresh methods. The setListener 
 and refresh methods will be used in the controller which is in the next assignment.\
@@ -65,3 +74,29 @@ M - Key bind will direct player move bottom right.
 # Mouse Controls
 Mouse left click highlights selected hexagon cyan. 
 
+# Overview
+We created the JFrame and JPanel classes in the respective classes for this assignment. \
+This includes the Hexagon class which represents a Hexagon, and an interface for the GUI view.
+
+# Quick start
+For the GUI:
+BasicReversi model = new BasicReversi(4); Creates a game with side lengths 4. \
+IView view = new ReversiGraphicsView(model); Creates a new GUI view of the model. \
+view.setVisible(true); Makes the aforementioned GUI view visible. \
+
+# Key components
+ReversiPanel: Represents a JPanel of the GUI view.
+ReversiGraphicsView: Represents the JFrame of the GUI view.
+
+# Key subcomponents
+Not much. making the GUI will allow you to see the GUI and everything.
+
+# Source Organization
+src/cs3500/reversi/model/BasicReversi.java: Contains the implementation of the BasicReversi class
+and related logic. \
+src/cs3500/reversi/model/Cell.java: Contains the Cell class representing a hexagonal grid cell. \
+src/cs3500/reversi/model/DiscColor.java: Enum defining the possible colors of the discs.
+src/cs3500/reversi/view/ReversiPanel.java: Contains the implementation of our extended JPanel 
+class. \
+src/cs3500/reversi/view/ReversiGraphicsView.java: Contains the implementation of our extended 
+JFrame class. This includes the creation of the aforementioned class.

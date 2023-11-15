@@ -13,6 +13,9 @@ import cs3500.reversi.model.MockBasicReversi;
 import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.strategy.Strategy;
 
+/**
+ * Test class for MockMaxPointStrat.
+ */
 public class MockMaxPointStratTest {
   BasicReversi basicModel;
   Strategy basicStrategy;

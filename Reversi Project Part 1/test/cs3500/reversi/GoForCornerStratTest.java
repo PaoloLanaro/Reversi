@@ -11,9 +11,11 @@ import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.MockBasicReversi;
 import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.strategy.GoForCornersStrategy;
-import cs3500.reversi.model.strategy.MaxPointStrategy;
 import cs3500.reversi.model.strategy.Strategy;
 
+/**
+ * Test class for GoForCornerStrat.
+ */
 public class GoForCornerStratTest {
 
   BasicReversi basicModel;

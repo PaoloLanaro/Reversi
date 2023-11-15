@@ -13,14 +13,16 @@ import cs3500.reversi.model.ReadOnlyReversi;
  */
 public class ReversiGraphicsView extends JFrame implements IView {
 
-  private final ReversiPanel gamePanel;
+  /**
+   * Constructs a ReversiGraphicsView object that creates a game panel.
+   */
   public ReversiGraphicsView(ReadOnlyReversi model) {
     super();
     this.setTitle("Reversi game!");
     this.setLocation(390, 85);
     this.setSize(new Dimension(500, 500));
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    gamePanel = new ReversiPanel(model);
+    ReversiPanel gamePanel = new ReversiPanel(model);
 
     this.add(gamePanel);
     gamePanel.setVisible(true);

@@ -22,6 +22,6 @@ public interface Strategy {
    * @return optionally returns a {@link RowCol}.
    *         It may not return anything in the case that the strategy has not found any valid move.
    */
-   Optional<RowCol> chooseMove(ReadOnlyReversi model, DiscColor forWhom);
+  Optional<RowCol> chooseMove(ReadOnlyReversi model, DiscColor forWhom);
 
 }

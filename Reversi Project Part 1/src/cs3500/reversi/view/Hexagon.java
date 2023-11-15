@@ -3,7 +3,6 @@ package cs3500.reversi.view;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.awt.Polygon;
-import java.util.Arrays;
 
 /**
  * Represents a basic hexagon.
@@ -47,14 +46,6 @@ public class Hexagon {
     }
 
     return polygon;
-  }
-
-  @Override
-  public int hashCode() {
-    int xPointAverage = Arrays.stream(hexagon.xpoints).sum() / hexagon.npoints;
-    int yPointAverage = Arrays.stream(hexagon.ypoints).sum() / hexagon.npoints;
-    return (int) center.getY() * 3 * 23 + (int) center.getY() * 5 * 91 *
-            hexagon.npoints * xPointAverage * yPointAverage;
   }
 
   /**
