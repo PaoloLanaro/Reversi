@@ -1,0 +1,5 @@
+This is the transcript from the tie-breaker initial state first black move which
+favors uppermost-leftmost coordinate on a size 3 board:
+
+Checked move at (1, 4).
+Moved to row: 1 col: 4

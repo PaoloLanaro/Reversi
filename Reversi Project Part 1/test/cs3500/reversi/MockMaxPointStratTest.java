@@ -13,7 +13,7 @@ import cs3500.reversi.model.MockBasicReversi;
 import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.strategy.Strategy;
 
-public class MockMaxPointTest {
+public class MockMaxPointStratTest {
   BasicReversi basicModel;
   Strategy basicStrategy;
   StringBuilder out;
@@ -46,10 +46,10 @@ public class MockMaxPointTest {
     mock.isValidMove(firstBlackMove.get().getRow(), firstBlackMove.get().getCol());
     mock.makeMove(firstBlackMove.get().getRow(), firstBlackMove.get().getCol());
     basicModel.makeMove(1, 4);
+    //Checking that the white move chooses a hexagon that will flip the most disc.
     Optional<RowCol> firstWhiteMove = basicStrategy.chooseMove(basicModel, DiscColor.WHITE);
     mock.isValidMove(firstWhiteMove.get().getRow(), firstWhiteMove.get().getCol());
     mock.makeMove(firstWhiteMove.get().getRow(), firstWhiteMove.get().getCol());
-    System.out.println(out.toString());
     Assert.assertTrue(out.toString().contains("Checked move at (1, 4).\n" +
             "Moved to row: 1 col: 4\n" +
             "Checked move at (0, 5).\n" +
@@ -66,10 +66,10 @@ public class MockMaxPointTest {
     mock.isValidMove(firstBlackMove.get().getRow(), firstBlackMove.get().getCol());
     mock.makeMove(firstWhiteMove.get().getRow(), firstWhiteMove.get().getCol());
     basicModel.makeMove(0, 5);
+    //Checking that the third and final black move chooses a hexagon that will flip the most disc.
     Optional<RowCol> secondBlackMove = basicStrategy.chooseMove(basicModel, DiscColor.BLACK);
     mock.isValidMove(firstBlackMove.get().getRow(), firstBlackMove.get().getCol());
     mock.makeMove(secondBlackMove.get().getRow(), secondBlackMove.get().getCol());
-    System.out.println(out.toString());
     Assert.assertTrue(out.toString().contains("Checked move at (1, 4).\n" +
             "Moved to row: 1 col: 4\n" +
             "Checked move at (1, 4).\n" +
@@ -92,10 +92,11 @@ public class MockMaxPointTest {
     mock.makeMove(secondBlackMove.get().getRow(), secondBlackMove.get().getCol());
     mock.isValidMove(secondBlackMove.get().getRow(), secondBlackMove.get().getCol());
     basicModel.makeMove(2, 2);
+    //Checking that the fourth and final white move chooses a hexagon that will flip the most disc.
     Optional<RowCol> secondWhiteMove = basicStrategy.chooseMove(basicModel, DiscColor.WHITE);
     mock.isValidMove(secondWhiteMove.get().getRow(), secondWhiteMove.get().getCol());
     mock.makeMove(secondWhiteMove.get().getRow(), secondWhiteMove.get().getCol());
-    System.out.println(out.toString());
+    System.out.println(out);
     Assert.assertTrue(out.toString().contains("Moved to row: 1 col: 4\n" +
             "Checked move at (1, 4).\n" +
             "Moved to row: 0 col: 5\n" +
