@@ -1,10 +1,10 @@
 package cs3500.reversi.view;
 
 
-import java.awt.*;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 import cs3500.reversi.model.ReadOnlyReversi;
 

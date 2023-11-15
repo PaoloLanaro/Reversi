@@ -2,7 +2,6 @@ package cs3500.reversi.model.players;
 
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.DiscColor;
-import cs3500.reversi.model.ReadOnlyReversi;
 
 /**
  * Represents a player in a Reversi game. Players can make moves on the game board and

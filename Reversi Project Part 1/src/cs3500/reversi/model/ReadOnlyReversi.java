@@ -52,7 +52,7 @@ public interface ReadOnlyReversi {
    *
    * @param color The {@link DiscColor} of the player for whom to find valid moves.
    * @return A list of {@link Cell} objects representing the valid moves available to the player.
-   * Each {@link Cell} in the list corresponds to a potential move that the player can make.
+   *         Each {@link Cell} in the list corresponds to a potential move that the player can make.
    */
   List<Cell> getValidMoves(DiscColor color);
 

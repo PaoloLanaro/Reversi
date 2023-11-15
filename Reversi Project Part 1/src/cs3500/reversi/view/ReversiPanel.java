@@ -409,16 +409,19 @@ public class ReversiPanel extends JPanel {
       int row = getRowFromPoint(point);
       int col = getColFromPoint(point);
 
-//      boolean alreadyFilled =
-//              underlyingBoard.get(row).get(col).getColor() == DiscColor.BLACK ||
-//                      (underlyingBoard.get(row).get(col).getColor() == DiscColor.WHITE);
-//
-//      if (alreadyFilled) {
-//        System.out.println("Board already filled at: (" + row + ", " + col + ")");
-//      } else {
-//        System.out.println("(" + row + ", " + col + ")");
-//      }
-      System.out.println("(" + row + ", " + col + ")");
+      if (row != -1 && col != -1) {
+        boolean alreadyFilled =
+                underlyingBoard.get(row).get(col).getColor() == DiscColor.BLACK ||
+                        (underlyingBoard.get(row).get(col).getColor() == DiscColor.WHITE);
+
+        if (alreadyFilled) {
+          System.out.println("Board already filled at: (" + row + ", " + col + ")");
+        } else {
+          System.out.println("(" + row + ", " + col + ")");
+        }
+      } else {
+        System.out.println("Not a valid cell");
+      }
 
       drawBlueTile(point, Color.CYAN);
     }
@@ -460,6 +463,9 @@ public class ReversiPanel extends JPanel {
         case KeyEvent.VK_M:
           System.out.println("Bottom right");
           repaint();
+          break;
+        default:
+          System.out.println("Not a valid key");
           break;
       }
     }

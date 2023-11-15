@@ -1,4 +1,4 @@
-package cs3500.reversi.model.Strategy;
+package cs3500.reversi.model.strategy;
 
 import java.util.Optional;
 

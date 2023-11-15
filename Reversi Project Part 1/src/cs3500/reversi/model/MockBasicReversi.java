@@ -3,7 +3,7 @@ package cs3500.reversi.model;
 import java.util.List;
 import java.util.Map;
 
-import cs3500.reversi.model.Strategy.Strategy;
+import cs3500.reversi.model.strategy.Strategy;
 
 /**
  * Creates a mock for the purpose of testing and getting output messages confirming
@@ -12,7 +12,7 @@ import cs3500.reversi.model.Strategy.Strategy;
 public class MockBasicReversi implements MutableReversi {
 
   private final Appendable out;
-  private final BasicReversi model;
+  private final BasicReversi delegate;
 
   /**
    * The constructor for this mock class.
@@ -22,7 +22,7 @@ public class MockBasicReversi implements MutableReversi {
    * @param out  the appendable that messages will be added to.
    */
   public MockBasicReversi(int size, Appendable out) {
-    this.model = new BasicReversi(size);
+    this.delegate = new BasicReversi(size);
     this.out = out;
   }
 
@@ -37,89 +37,89 @@ public class MockBasicReversi implements MutableReversi {
   @Override
   public void passTurn() {
     appendHelper("Passed turn.");
-    model.passTurn();
+    delegate.passTurn();
   }
 
   @Override
   public void makeMove(int row, int col) {
     appendHelper("Moved to row: " + row + " col: " + col);
-    model.makeMove(row, col);
+    delegate.makeMove(row, col);
   }
 
   @Override
   public boolean isValidMove(int row, int col) {
     appendHelper(String.format("Checked move at (%d, %d).", row, col));
-    return model.isValidMove(row, col);
+    return delegate.isValidMove(row, col);
   }
 
   @Override
   public int getSideLength() {
     appendHelper("Getting side length of board.");
-    return model.getSideLength();
+    return delegate.getSideLength();
   }
 
   @Override
   public DiscColor getCellColor(int row, int col) {
     appendHelper(String.format("Getting cell color at (%d, %d)", row, col));
-    return model.getCellColor(row, col);
+    return delegate.getCellColor(row, col);
   }
 
   @Override
   public Cell getCellAt(int row, int col) {
     appendHelper(String.format("Getting cell at (%d, %d)", row, col));
-    return model.getCellAt(row, col);
+    return delegate.getCellAt(row, col);
   }
 
   @Override
   public int getColFromCell(Cell cell) {
     appendHelper(String.format("Getting col for cell with color %s", cell.getColor()));
-    return model.getColFromCell(cell);
+    return delegate.getColFromCell(cell);
   }
 
   @Override
   public int getRowFromCell(Cell cell) {
     appendHelper(String.format("Getting row for cell with color %s.", cell.getColor()));
-    return model.getRowFromCell(cell);
+    return delegate.getRowFromCell(cell);
   }
 
   @Override
   public String getTurn() {
     appendHelper("Getting players turn.");
-    return model.getTurn();
+    return delegate.getTurn();
   }
 
   @Override
   public List<List<Cell>> getBoard() {
     appendHelper("Getting board state.");
-    return model.getBoard();
+    return delegate.getBoard();
   }
 
   @Override
   public boolean isGameOver() {
     appendHelper("Checking is game over.");
-    return model.isGameOver();
+    return delegate.isGameOver();
   }
 
   @Override
   public Map<DiscColor, Integer> getScore() {
     if (getTurn().equals("Black's turn")) {
-      appendHelper("Score: " + model.getScore().get(DiscColor.BLACK));
+      appendHelper("Score: " + delegate.getScore().get(DiscColor.BLACK));
     } else {
-      appendHelper("Score: " + model.getScore().get(DiscColor.WHITE));
+      appendHelper("Score: " + delegate.getScore().get(DiscColor.WHITE));
     }
-    return model.getScore();
+    return delegate.getScore();
   }
 
   @Override
   public String getWinner() {
     appendHelper("Getting winner.");
-    return model.getWinner();
+    return delegate.getWinner();
   }
 
   @Override
   public List<Cell> getValidMoves(DiscColor color) {
     appendHelper("Getting all valid moves for cell with color" + color);
-    return model.getValidMoves(color);
+    return delegate.getValidMoves(color);
   }
 
 }

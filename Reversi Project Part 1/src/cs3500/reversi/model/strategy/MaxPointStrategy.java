@@ -1,4 +1,4 @@
-package cs3500.reversi.model.Strategy;
+package cs3500.reversi.model.strategy;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +32,7 @@ public class MaxPointStrategy implements Strategy {
         if (model.getBoard().get(row).get(col) == null) {
           continue;
         }
-        if(model.isValidMove(row, col)) {
+        if (model.isValidMove(row, col)) {
           validMoves.put(model.getBoard().get(row).get(col), new RowCol(row, col));
         }
       }

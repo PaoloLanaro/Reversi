@@ -44,10 +44,10 @@ public final class BasicReversi implements MutableReversi {
   }
 
   /**
-   * A protected visibility that constructs a {@link BasicReversi}
+   * A public visibility constructor that constructs a {@link BasicReversi}
    * model with a pre-made board of {@link Cell}s.
    *
-   * @param otherBoard the 2D {@link List} of {@link Cell}s that the game should be initialized to.
+   * @param otherBoard   the 2D {@link List} of {@link Cell}s that the game should be initialized to.
    * @param currentColor the current {@link DiscColor} representation of the player.
    */
   public BasicReversi(List<List<Cell>> otherBoard, DiscColor currentColor) {
@@ -433,6 +433,12 @@ public final class BasicReversi implements MutableReversi {
     return validMovesList;
   }
 
+  /**
+   * Gets the row representation of a cell.
+   *
+   * @param cell The {@link Cell} for which to get the row index.
+   * @return the integer for the row.
+   */
   public int getRowFromCell(Cell cell) {
     int diameter = initSize * 2 - 1;
     for (int row = 0; row < diameter; row++) {
@@ -448,6 +454,12 @@ public final class BasicReversi implements MutableReversi {
     throw new IllegalArgumentException("This cell is not in the board");
   }
 
+  /**
+   * Gets the column representation of a cell
+   *
+   * @param cell The {@link Cell} for which to get the column index.
+   * @return the integer for the column.
+   */
   public int getColFromCell(Cell cell) {
     int diameter = initSize * 2 - 1;
     for (int row = 0; row < diameter; row++) {

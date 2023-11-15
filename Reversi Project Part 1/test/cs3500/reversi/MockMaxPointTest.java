@@ -4,16 +4,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
 import java.util.Optional;
 
 import cs3500.reversi.model.BasicReversi;
-import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.DiscColor;
-import cs3500.reversi.model.Strategy.MaxPointStrategy;
+import cs3500.reversi.model.strategy.MaxPointStrategy;
 import cs3500.reversi.model.MockBasicReversi;
 import cs3500.reversi.model.RowCol;
-import cs3500.reversi.model.Strategy.Strategy;
+import cs3500.reversi.model.strategy.Strategy;
 
 public class MockMaxPointTest {
   BasicReversi basicModel;

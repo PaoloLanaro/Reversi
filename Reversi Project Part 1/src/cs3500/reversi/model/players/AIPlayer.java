@@ -5,7 +5,7 @@ import java.util.Optional;
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.RowCol;
-import cs3500.reversi.model.Strategy.Strategy;
+import cs3500.reversi.model.strategy.Strategy;
 
 /**
  * An implementation of the {@link Player} interface that represents an AI player.
