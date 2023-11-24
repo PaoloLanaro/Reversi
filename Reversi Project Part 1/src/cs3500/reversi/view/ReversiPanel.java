@@ -381,6 +381,7 @@ public class ReversiPanel extends JPanel {
     return clickedCell;
   }
 
+  // TODO MIGHT HAVE TO EXPOSE THIS AS PUBLIC
   private void drawBlueTile(Point point, Color color) {
     Hexagon clickedHexagon;
     boolean cyanAlreadyExists = false;
