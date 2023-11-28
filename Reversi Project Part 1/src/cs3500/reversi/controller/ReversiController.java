@@ -1,7 +1,5 @@
 package cs3500.reversi.controller;
 
-import cs3500.reversi.model.MutableReversi;
-
 /**
  * Interface that acts as a controller.
  */
@@ -10,9 +8,8 @@ public interface ReversiController {
   /**
    * Plays the game.
    *
-   * @param model the model to play the game on.
    */
-  void playGame(MutableReversi model);
+  void playGame();
 
   /**
    * Handles clicks for event listeners.

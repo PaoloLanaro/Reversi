@@ -1,38 +1,44 @@
 package cs3500.reversi.controller;
 
 import java.awt.event.KeyEvent;
-import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.Map;
 
 import cs3500.reversi.model.MutableReversi;
-import cs3500.reversi.model.ReadOnlyReversi;
+import cs3500.reversi.model.RowCol;
+import cs3500.reversi.model.players.Player;
 import cs3500.reversi.view.IView;
 
 /**
  * Controller class for creating a controller for the game.
  */
-public class GameController {
+public class GameController implements ReversiController {
 
-  private MutableReversi model;
-  private IView view;
+  private final MutableReversi model;
+  private final IView view;
+  private final Player player;
 
-  public GameController(MutableReversi model) {
+  public GameController(MutableReversi model, Player player, IView view) {
     this.model = model;
-  }
-
-  public void setView(IView view) {
     this.view = view;
-
-    configureKeyboardListener();
-    configureMouseListener();
+    this.player = player;
   }
+
+//  public void setView(IView view) {
+//    this.view = view;
+//
+//    configureKeyboardListener();
+//    configureMouseListener();
+//
+//    view.setVisible(true);
+//  }
 
   private void configureKeyboardListener() {
     Map<Integer, Runnable> keyPresses = new HashMap<>();
 
     keyPresses.put(KeyEvent.VK_ENTER, () -> {
-              Point2D point = view.getSelectedHexagon();
+              RowCol highlighted = view.getCurrentlySelectedHexagon();
+              model.makeMove(highlighted.getRow(), highlighted.getCol());
             }
     );
 
@@ -41,35 +47,33 @@ public class GameController {
             }
     );
 
-    keyPresses.put(KeyEvent.VK_U, () -> {
-              view.moveSelection(); // todo i got no idea if this makes sense
-            }
-    );
+    KeyboardListener keebListener = new KeyboardListener();
+    keebListener.setKeyPressedMap(keyPresses);
 
-    keyPresses.put(KeyEvent.VK_I, () -> {
-            }
-    );
-
-    keyPresses.put(KeyEvent.VK_H, () -> {
-            }
-    );
-
-    keyPresses.put(KeyEvent.VK_K, () -> {
-            }
-    );
-
-    keyPresses.put(KeyEvent.VK_N, () -> {
-            }
-    );
-
-    keyPresses.put(KeyEvent.VK_M, () -> {
-            }
-    );
-
+    view.addKeyListener(keebListener);
   }
 
   private void configureMouseListener() {
+//    int row, col;
+//    row = col = 4;
+
+//    model.makeMove(row, col);
     // todo actually implement the mouse listener class and hook it up
+
+    view.getCurrentlySelectedHexagon();
+    view.refresh();
+//    view.setListener();
+  }
+
+  @Override
+  public void playGame() {
+    view.refresh();
+    view.setVisible(true);
+  }
+
+  @Override
+  public void handleCellClick(int row, int col) {
+
   }
   // empty, waiting for future assignments
 }

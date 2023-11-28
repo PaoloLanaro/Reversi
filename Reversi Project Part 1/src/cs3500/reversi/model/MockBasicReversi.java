@@ -47,6 +47,12 @@ public class MockBasicReversi implements MutableReversi {
   }
 
   @Override
+  public void startGame() throws IllegalStateException {
+    appendHelper("started game");
+    delegate.startGame();
+  }
+
+  @Override
   public boolean isValidMove(int row, int col) {
     appendHelper(String.format("Checked move at (%d, %d).", row, col));
     return delegate.isValidMove(row, col);
@@ -65,9 +71,9 @@ public class MockBasicReversi implements MutableReversi {
   }
 
   @Override
-  public Cell getCellAt(int row, int col) {
+  public ReversiCell getCellAt(int row, int col) {
     appendHelper(String.format("Getting cell at (%d, %d)", row, col));
-    return delegate.getCellAt(row, col);
+    return (ReversiCell) delegate.getCellAt(row, col);
   }
 
   @Override

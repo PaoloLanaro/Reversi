@@ -26,6 +26,7 @@ public final class BasicReversi implements MutableReversi {
   private final String RIGHT = "r";
   private final String BOTTOM_LEFT = "bl";
   private final String BOTTOM_RIGHT = "br";
+  private boolean gameStarted;
 
   /**
    * Constructs a new BasicReversi with a specified initial board size.
@@ -61,7 +62,7 @@ public final class BasicReversi implements MutableReversi {
           continue;
         }
         Cell otherCell = otherBoard.get(row).get(cell);
-        Cell newCell = new Cell(otherCell.getColor());
+        Cell newCell = new ReversiCell(otherCell.getColor());
         this.board.get(row).add(newCell);
       }
     }
@@ -72,6 +73,9 @@ public final class BasicReversi implements MutableReversi {
 
   @Override
   public void makeMove(int row, int col) {
+    if (!gameStarted) {
+      throw new IllegalStateException("Game has not been started");
+    }
     if (isGameOver()) {
       throw new IllegalStateException("Tried to move on a finished game.");
     }
@@ -83,17 +87,30 @@ public final class BasicReversi implements MutableReversi {
     }
 
     Cell originCell = board.get(row).get(col);
-    setValidDiscs(originCell, turn);
+
+    List<List<Cell>> validRuns = findValidRuns(originCell);
+    setValidDiscs(validRuns);
     switchTurn();
   }
 
+  @Override
+  public void startGame() {
+    if (gameStarted) {
+      throw new IllegalStateException("Game's already been started");
+    }
+    gameStarted = true;
+  }
+
+  // Switches the turn from BLACK to WHITE and vice versa.
   private void switchTurn() {
-    // Switches the turn from BLACK to WHITE and vice versa.
+    if (!gameStarted) {
+      throw new IllegalStateException("Game has not been started");
+    }
     turn = turn == DiscColor.BLACK ? DiscColor.WHITE : DiscColor.BLACK;
   }
 
   @Override
-  public void passTurn() {
+  public void passTurn() { // mutable function that allows for passing of current player's turn
     if (isGameOver()) {
       throw new IllegalStateException("Can't pass a player's move when the game is already over");
     }
@@ -101,25 +118,33 @@ public final class BasicReversi implements MutableReversi {
     switchTurn();
   }
 
+  // private helper for getting the opposite color (mainly used for calculating runs)
   private DiscColor getOppositeColor(DiscColor color) {
     return color == DiscColor.WHITE ? DiscColor.BLACK : DiscColor.WHITE;
   }
 
-  private void setValidDiscs(Cell originCell, DiscColor playerColor) {
-    // Finds and sets valid discs based on the player's color and origin cell.
-    Map<String, List<Cell>> routesMap = getRunsForCell(originCell, playerColor);
+  private List<List<Cell>> findValidRuns(Cell originCell) {
+    Map<String, List<Cell>> routesMap = getRunsForCell(originCell, turn);
     List<List<Cell>> validRuns = new ArrayList<>();
-    validRunChecker(originCell, playerColor, routesMap, validRuns);
 
-    // If there are no valid runs, the move is not valid.
+    validRunChecker(originCell, turn, routesMap, validRuns);
+
+    return validRuns;
+  }
+
+  // sets valid discs based on valid runs
+  private void setValidDiscs(List<List<Cell>> validRuns) {
+
+    // if there are no valid runs, the move is not valid.
     if (validRuns.isEmpty()) {
       throw new IllegalStateException("Not a valid move");
     }
-    // Flips the discs for all valid runs.
-    flipValidDiscRuns(playerColor, validRuns);
+    // flips the discs for all valid runs.
+    flipValidDiscRuns(turn, validRuns);
     passCounter = 0;
   }
 
+  // actually sets the runs to playerColor
   private void flipValidDiscRuns(DiscColor playerColor, List<List<Cell>> validRuns) {
     for (List<Cell> singleRun : validRuns) {
       for (Cell runCell : singleRun) {
@@ -128,9 +153,9 @@ public final class BasicReversi implements MutableReversi {
     }
   }
 
+  // checks and adds valid runs to the validRuns list.
   private void validRunChecker(Cell originCell, DiscColor playerColor, Map<String,
           List<Cell>> routesMap, List<List<Cell>> validRuns) {
-    // Checks and adds valid runs to the validRuns list.
     for (String key : routesMap.keySet()) {
       List<Cell> run = routesMap.get(key);
       if (run != null && !run.isEmpty() && run.get(run.size() - 1).getColor() == playerColor) {
@@ -141,8 +166,8 @@ public final class BasicReversi implements MutableReversi {
     }
   }
 
+  // computes and returns possible runs for the given origin cell and player color.
   private Map<String, List<Cell>> getRunsForCell(Cell originCell, DiscColor playerColor) {
-    // Computes and returns possible runs for the given cell and player color.
     Map<String, List<Cell>> routesMap = new HashMap<>();
     DiscColor oppositeColor = getOppositeColor(playerColor);
     checkAndAddDirection(UPPER_LEFT, routesMap, originCell.getUpperLeft(), oppositeColor,
@@ -159,23 +184,23 @@ public final class BasicReversi implements MutableReversi {
     return routesMap;
   }
 
-  // Method to traverse in a given direction and add cells in given direction to a list
+  // method to traverse in a given direction and add cells in given direction to a list
   private void checkAndAddDirection(String direction, Map<String, List<Cell>> routesMap, Cell cell,
                                     DiscColor oppositeColor, DiscColor playerColor) {
-    // Checks the given direction and adds cells to the routesMap if they form a valid run.
     if (cell != null && cell.getColor() == oppositeColor) {
       routesMap.put(direction, traverse(direction, playerColor, cell));
     }
   }
 
-  // Method that calls recursive method helper
+  // method that calls recursive method helper.
+  // used to not muddy up the call to traverse in previous method. also helpful for debugging.
   private List<Cell> traverse(String dir, DiscColor color, Cell currCell) {
     List<Cell> routeList = new ArrayList<>();
     traverseHelper(dir, color, currCell, routeList);
     return routeList;
   }
 
-  // Recursive method helper to traverse cells in a given direction and add said cells to a list
+  // recursive method helper to traverse cells in a given direction and add said cells to a list
   private void traverseHelper(String dir, DiscColor originalColor, Cell currCell,
                               List<Cell> currentRun) {
     if (currCell.getColor() == originalColor) {
@@ -232,7 +257,7 @@ public final class BasicReversi implements MutableReversi {
         break;
       default:
         // There should never be a case where someone calls traverseHelper without the above
-        // string, so we tried implementing a new error we found while looking through auto-fill.
+        // string, so we tried implementing a new error we found while looking through autofill.
         throw new IllegalCallerException("Fatal error");
     }
   }
@@ -241,19 +266,22 @@ public final class BasicReversi implements MutableReversi {
     return getValidMoves(turn).isEmpty();
   }
 
+  // initializes the board to be initSize length
   private List<List<Cell>> initBoard() {
     int diameter = initSize * 2 - 1;
-    int middleRow = diameter / 2;
+    int middleRow = diameter / 2; // diameter is effectively the distance from the center of the
+    // reversi to an edge to the right or left of the middle.
 
     List<List<Cell>> initialList = new ArrayList<>(diameter);
 
-    initializeMatrix(diameter, initialList);
+    initializeMatrix(diameter, initialList); // init 2d array
 
-    nonMiddleRowNullSetHelper(diameter, middleRow, initialList);
+    nonMiddleRowNullSetHelper(diameter, middleRow, initialList); // sets the top left and
+    // bottom right corners which need to be unplayable to null to simulate no cell.
 
-    setStarterDiscs(middleRow, initialList);
+    setStarterDiscs(middleRow, initialList); // sets the center alternating discs of black and white
 
-    setCellNeighbors(diameter, initialList);
+    setCellNeighbors(diameter, initialList); // sets the neighbors of each cell to its cells.
 
     return initialList;
   }
@@ -286,7 +314,7 @@ public final class BasicReversi implements MutableReversi {
     for (int row = 0; row < diameter; row++) {
       initialList.add(new ArrayList<>(diameter));
       for (int col = 0; col < diameter; col++) {
-        Cell cell = new Cell();
+        Cell cell = new ReversiCell();
         initialList.get(row).add(cell);
       }
     }
@@ -334,7 +362,7 @@ public final class BasicReversi implements MutableReversi {
           rowList.add(null);
           continue;
         }
-        rowList.add(new Cell(board.get(row).get(col)));
+        rowList.add(new ReversiCell(board.get(row).get(col)));
       }
       deepCopy.add(rowList);
     }
@@ -434,12 +462,7 @@ public final class BasicReversi implements MutableReversi {
     return validMovesList;
   }
 
-  /**
-   * Gets the row representation of a cell.
-   *
-   * @param cell The {@link Cell} for which to get the row index.
-   * @return the integer for the row.
-   */
+  @Override
   public int getRowFromCell(Cell cell) {
     int diameter = initSize * 2 - 1;
     for (int row = 0; row < diameter; row++) {
@@ -455,12 +478,7 @@ public final class BasicReversi implements MutableReversi {
     throw new IllegalArgumentException("This cell is not in the board");
   }
 
-  /**
-   * Gets the column representation of a cell.
-   *
-   * @param cell The {@link Cell} for which to get the column index.
-   * @return the integer for the column.
-   */
+  @Override
   public int getColFromCell(Cell cell) {
     int diameter = initSize * 2 - 1;
     for (int row = 0; row < diameter; row++) {
@@ -478,7 +496,7 @@ public final class BasicReversi implements MutableReversi {
 
   @Override
   public String getTurn() {
-    return turn == DiscColor.BLACK ? "Black's turn" : "White's turn";
+    return turn == DiscColor.BLACK ? "Black" : "White";
   }
 
   @Override
@@ -526,7 +544,7 @@ public final class BasicReversi implements MutableReversi {
 
   @Override
   public Cell getCellAt(int row, int col) {
-    return new Cell(board.get(row).get(col));
+    return new ReversiCell(board.get(row).get(col));
   }
 
 }

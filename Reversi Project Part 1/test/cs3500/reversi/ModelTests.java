@@ -8,6 +8,7 @@ import java.util.List;
 
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.DiscColor;
+import cs3500.reversi.model.ReversiCell;
 import cs3500.reversi.view.TextView;
 import cs3500.reversi.model.BasicReversi;
 
@@ -246,7 +247,7 @@ public class ModelTests {
 
   @Test
   public void testCantMutateByReversiGetBoardMethod() {
-    model3.getBoard().get(2).set(1, new Cell());
+    model3.getBoard().get(2).set(1, new ReversiCell());
     Assert.assertEquals(3, model3.getScore().get(DiscColor.BLACK).intValue());
     Assert.assertEquals(3, model3.getScore().get(DiscColor.WHITE).intValue());
   }

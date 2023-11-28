@@ -17,8 +17,10 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import cs3500.reversi.model.Cell;
+import cs3500.reversi.model.ReversiCell;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
+import cs3500.reversi.model.RowCol;
 
 /**
  * The JPanel which represents the actual Reversi board. This class
@@ -68,7 +70,7 @@ public class ReversiPanel extends JPanel {
     //    map.put(middleHexagon, middleCell);
 
     // update the currentCell to the first new "onion" layer
-    Cell currentCell = middleCell.getRight();
+    ReversiCell currentCell = (ReversiCell) middleCell.getRight();
 
     // sets math for offsets from one cell to another
     double vert = hexagonRadius * (double) 3 / (double) 2;
@@ -82,11 +84,11 @@ public class ReversiPanel extends JPanel {
     theOnionLoop(g2d, timesActionRepeated, currentCell, currentPoint, horiz, vert);
   }
 
-  private void theOnionLoop(Graphics2D g2d, int timesActionRepeated, Cell currentCell,
+  private void theOnionLoop(Graphics2D g2d, int timesActionRepeated, ReversiCell currentCell,
                             Point2D currentPoint, double horiz, double vert) {
     while (timesActionRepeated < model.getSideLength()) {
       for (int i = 0; i < timesActionRepeated; i++) {
-        currentCell = currentCell.getBottomLeft();
+        currentCell = (ReversiCell) currentCell.getBottomLeft();
         double newX = currentPoint.getX() - horiz / 2;
         double newY = currentPoint.getY() + vert;
         currentPoint = new Point2D.Double(newX, newY);
@@ -97,7 +99,7 @@ public class ReversiPanel extends JPanel {
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
       for (int i = 0; i < timesActionRepeated; i++) {
-        currentCell = currentCell.getLeft();
+        currentCell = (ReversiCell) currentCell.getLeft();
         double newX = currentPoint.getX() - horiz;
         double newY = currentPoint.getY();
         currentPoint = new Point2D.Double(newX, newY);
@@ -108,7 +110,7 @@ public class ReversiPanel extends JPanel {
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
       for (int i = 0; i < timesActionRepeated; i++) {
-        currentCell = currentCell.getUpperLeft();
+        currentCell = (ReversiCell) currentCell.getUpperLeft();
         double newX = currentPoint.getX() - horiz / 2;
         double newY = currentPoint.getY() - vert;
         currentPoint = new Point2D.Double(newX, newY);
@@ -119,7 +121,7 @@ public class ReversiPanel extends JPanel {
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
       for (int i = 0; i < timesActionRepeated; i++) {
-        currentCell = currentCell.getUpperRight();
+        currentCell = (ReversiCell) currentCell.getUpperRight();
         double newX = currentPoint.getX() + horiz / 2;
         double newY = currentPoint.getY() - vert;
         currentPoint = new Point2D.Double(newX, newY);
@@ -130,7 +132,7 @@ public class ReversiPanel extends JPanel {
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
       for (int i = 0; i < timesActionRepeated; i++) {
-        currentCell = currentCell.getRight();
+        currentCell = (ReversiCell) currentCell.getRight();
         double newX = currentPoint.getX() + horiz;
         double newY = currentPoint.getY();
         currentPoint = new Point2D.Double(newX, newY);
@@ -141,7 +143,7 @@ public class ReversiPanel extends JPanel {
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
       for (int i = 0; i < timesActionRepeated; i++) {
-        currentCell = currentCell.getBottomRight();
+        currentCell = (ReversiCell) currentCell.getBottomRight();
         double newX = currentPoint.getX() + horiz / 2;
         double newY = currentPoint.getY() + vert;
         currentPoint = new Point2D.Double(newX, newY);
@@ -151,7 +153,7 @@ public class ReversiPanel extends JPanel {
         cellList.add(currentCell);
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
-      currentCell = currentCell.getRight();
+      currentCell = (ReversiCell) currentCell.getRight();
       double newX = currentPoint.getX() + horiz;
       double newY = currentPoint.getY();
       currentPoint = new Point2D.Double(newX, newY);
@@ -159,7 +161,7 @@ public class ReversiPanel extends JPanel {
     }
   }
 
-  private static Color convertColor(Cell cell) {
+  private static Color convertColor(ReversiCell cell) {
     if (cell == null) {
       return Color.BLACK;
     }
@@ -210,7 +212,7 @@ public class ReversiPanel extends JPanel {
     listCounter++;
 
     // update the currentCell to the first new "onion" layer
-    Cell currentCell = middleCell.getRight();
+    ReversiCell currentCell = (ReversiCell) middleCell.getRight();
 
     // sets math for offsets from one cell to another
     double vert = hexagonRadius * (double) 3 / (double) 2;
@@ -226,11 +228,11 @@ public class ReversiPanel extends JPanel {
 
   }
 
-  private void updateOnionLayers(Graphics2D g2d, int timesActionRepeated, Cell currentCell,
+  private void updateOnionLayers(Graphics2D g2d, int timesActionRepeated, ReversiCell currentCell,
                                  Point2D currentPoint, double horiz, double vert, int listCounter) {
     while (timesActionRepeated < model.getSideLength()) {
       for (int i = 0; i < timesActionRepeated; i++) {
-        currentCell = currentCell.getBottomLeft();
+        currentCell = (ReversiCell) currentCell.getBottomLeft();
         double newX = currentPoint.getX() - horiz / 2;
         double newY = currentPoint.getY() + vert;
         currentPoint = new Point2D.Double(newX, newY);
@@ -240,7 +242,7 @@ public class ReversiPanel extends JPanel {
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
       for (int i = 0; i < timesActionRepeated; i++) {
-        currentCell = currentCell.getLeft();
+        currentCell = (ReversiCell) currentCell.getLeft();
         double newX = currentPoint.getX() - horiz;
         double newY = currentPoint.getY();
         currentPoint = new Point2D.Double(newX, newY);
@@ -250,7 +252,7 @@ public class ReversiPanel extends JPanel {
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
       for (int i = 0; i < timesActionRepeated; i++) {
-        currentCell = currentCell.getUpperLeft();
+        currentCell = (ReversiCell) currentCell.getUpperLeft();
         double newX = currentPoint.getX() - horiz / 2;
         double newY = currentPoint.getY() - vert;
         currentPoint = new Point2D.Double(newX, newY);
@@ -260,7 +262,7 @@ public class ReversiPanel extends JPanel {
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
       for (int i = 0; i < timesActionRepeated; i++) {
-        currentCell = currentCell.getUpperRight();
+        currentCell = (ReversiCell) currentCell.getUpperRight();
         double newX = currentPoint.getX() + horiz / 2;
         double newY = currentPoint.getY() - vert;
         currentPoint = new Point2D.Double(newX, newY);
@@ -270,7 +272,7 @@ public class ReversiPanel extends JPanel {
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
       for (int i = 0; i < timesActionRepeated; i++) {
-        currentCell = currentCell.getRight();
+        currentCell = (ReversiCell) currentCell.getRight();
         double newX = currentPoint.getX() + horiz;
         double newY = currentPoint.getY();
         currentPoint = new Point2D.Double(newX, newY);
@@ -280,7 +282,7 @@ public class ReversiPanel extends JPanel {
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
       for (int i = 0; i < timesActionRepeated; i++) {
-        currentCell = currentCell.getBottomRight();
+        currentCell = (ReversiCell) currentCell.getBottomRight();
         double newX = currentPoint.getX() + horiz / 2;
         double newY = currentPoint.getY() + vert;
         currentPoint = new Point2D.Double(newX, newY);
@@ -289,7 +291,7 @@ public class ReversiPanel extends JPanel {
         listCounter++;
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
-      currentCell = currentCell.getRight();
+      currentCell = (ReversiCell) currentCell.getRight();
       double newX = currentPoint.getX() + horiz;
       double newY = currentPoint.getY();
       currentPoint = new Point2D.Double(newX, newY);
@@ -416,6 +418,19 @@ public class ReversiPanel extends JPanel {
     repaint();
   }
 
+  protected RowCol getHighlightedHex() {
+    for (int hex = 0; hex < hexagonList.size(); hex++) {
+      Hexagon hexagon = hexagonList.get(hex);
+      if (hexagon.getColor() == Color.CYAN) {
+        Point2D center = hexagon.getCenter();
+        int row = getRowFromPoint(new Point((int) center.getX(), (int) center.getY()));
+        int col = getColFromPoint(new Point((int) center.getX(), (int) center.getY()));
+        return new RowCol(row, col);
+      }
+    }
+    return null;
+  }
+
   private class MouseAdapter extends java.awt.event.MouseAdapter {
 
     @Override
@@ -440,6 +455,8 @@ public class ReversiPanel extends JPanel {
       }
 
       drawBlueTile(point, Color.CYAN);
+
+      System.out.println(getHighlightedHex());
     }
 
   }

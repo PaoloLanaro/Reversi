@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import cs3500.reversi.model.Cell;
+import cs3500.reversi.model.ReversiCell;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.RowCol;
@@ -24,24 +25,23 @@ public class GoForCornersStrategy extends MaxPointStrategy {
     this.model = inWhich;
     int boardSideLength = model.getSideLength();
     int middleCellRowCol = boardSideLength - 1;
-    int layersOutOfMiddle = middleCellRowCol;
     List<List<Cell>> board = model.getBoard();
 
-    Cell currentCell = board.get(middleCellRowCol).get(middleCellRowCol);
-    for (int layer = 0; layer < layersOutOfMiddle; layer++) {
-      currentCell = currentCell.getUpperLeft();
+    ReversiCell currentCell = (ReversiCell) board.get(middleCellRowCol).get(middleCellRowCol);
+    for (int layer = 0; layer < middleCellRowCol; layer++) {
+      currentCell = (ReversiCell) currentCell.getUpperLeft();
     }
 
-    List<Cell> outskirtCells = new ArrayList<>();
+    List<ReversiCell> outskirtCells = new ArrayList<>();
 
-    Map<Cell, RowCol> validMoves = new HashMap<>();
+    Map<ReversiCell, RowCol> validMoves = new HashMap<>();
 
 
-    addOuterLayerToList(outskirtCells, currentCell, layersOutOfMiddle);
+    addOuterLayerToList(outskirtCells, currentCell, middleCellRowCol);
     getValidCellsForModel(validMoves);
 
-    for (Map.Entry<Cell, RowCol> entry : validMoves.entrySet()) {
-      for (Cell outskirtCell : outskirtCells) {
+    for (Map.Entry<ReversiCell, RowCol> entry : validMoves.entrySet()) {
+      for (ReversiCell outskirtCell : outskirtCells) {
         if (entry.getKey() == outskirtCell && entry.getKey().getColor() == forWhom) {
           return Optional.ofNullable(entry.getValue());
         }
@@ -51,44 +51,44 @@ public class GoForCornersStrategy extends MaxPointStrategy {
     return super.chooseMove(model, forWhom);
   }
 
-  private void getValidCellsForModel(Map<Cell, RowCol> validMoves) {
+  private void getValidCellsForModel(Map<ReversiCell, RowCol> validMoves) {
     for (int row = 0; row < model.getBoard().size(); row++) {
       for (int col = 0; col < model.getBoard().size(); col++) {
         if (model.getBoard().get(row).get(col) == null) {
           continue;
         }
         if (model.isValidMove(row, col)) {
-          validMoves.put(model.getBoard().get(row).get(col), new RowCol(row, col));
+          validMoves.put((ReversiCell) model.getBoard().get(row).get(col), new RowCol(row, col));
         }
       }
     }
   }
 
-  private void addOuterLayerToList(List<Cell> outskirtCells, Cell initialOuterCell,
+  private void addOuterLayerToList(List<ReversiCell> outskirtCells, ReversiCell initialOuterCell,
                                    int timesToTravel) {
-    Cell currentCell = initialOuterCell;
+    ReversiCell currentCell = initialOuterCell;
     for (int side = 0; side < timesToTravel; side++) {
-      currentCell = currentCell.getRight();
+      currentCell = (ReversiCell) currentCell.getRight();
       outskirtCells.add(currentCell);
     }
     for (int side = 0; side < timesToTravel; side++) {
-      currentCell = currentCell.getBottomRight();
+      currentCell = (ReversiCell) currentCell.getBottomRight();
       outskirtCells.add(currentCell);
     }
     for (int side = 0; side < timesToTravel; side++) {
-      currentCell = currentCell.getBottomLeft();
+      currentCell = (ReversiCell) currentCell.getBottomLeft();
       outskirtCells.add(currentCell);
     }
     for (int side = 0; side < timesToTravel; side++) {
-      currentCell = currentCell.getLeft();
+      currentCell = (ReversiCell) currentCell.getLeft();
       outskirtCells.add(currentCell);
     }
     for (int side = 0; side < timesToTravel; side++) {
-      currentCell = currentCell.getUpperLeft();
+      currentCell = (ReversiCell) currentCell.getUpperLeft();
       outskirtCells.add(currentCell);
     }
     for (int side = 0; side < timesToTravel; side++) {
-      currentCell = currentCell.getUpperRight();
+      currentCell = (ReversiCell) currentCell.getUpperRight();
       outskirtCells.add(currentCell);
     }
   }

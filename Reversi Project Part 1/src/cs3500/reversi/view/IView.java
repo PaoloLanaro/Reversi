@@ -1,6 +1,9 @@
 package cs3500.reversi.view;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+
+import cs3500.reversi.model.RowCol;
 
 /**
  * The {@code IView} interface defines methods for Reversi game views, including setting
@@ -17,7 +20,7 @@ public interface IView {
    *
    * @param actionListener the ActionListener to set for this view
    */
-  public void setListener(ActionListener actionListener);
+  void setListener(ActionListener actionListener);
 
 
   /**
@@ -26,12 +29,26 @@ public interface IView {
    *
    * @param visible {@code true} to make the view visible, {@code false} to hide it
    */
-  public void setVisible(boolean visible);
+  void setVisible(boolean visible);
 
   /**
    * Refreshes the display of the view. This method is typically called to update the
    * view after changes in the game state.
    */
-  public void refresh();
+  void refresh();
 
+  /**
+   * Returns the hexagon coordinate that is selected by the view.
+   *
+   * @return the {@link RowCol} of the currently highlighted hexagon.
+   * @throws IllegalStateException if no cell is currently selected.
+   */
+  RowCol getCurrentlySelectedHexagon() throws IllegalStateException;
+
+  /**
+   * Adds some key listener to this view in order for the controller to hook up with this view.
+   *
+   * @param listener a {@link KeyListener} that contains stuff.
+   */
+  void addKeyListener(KeyListener listener);
 }
