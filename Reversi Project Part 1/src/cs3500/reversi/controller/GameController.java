@@ -75,5 +75,5 @@ public class GameController implements ReversiController {
   public void handleCellClick(int row, int col) {
 
   }
-  // empty, waiting for future assignments
+  
 }
