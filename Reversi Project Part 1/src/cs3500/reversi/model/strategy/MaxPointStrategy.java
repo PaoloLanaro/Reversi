@@ -57,6 +57,7 @@ public class MaxPointStrategy implements Strategy {
       // Simulate the move by updating the copied board directly
       List<List<Cell>> originalBoard = model.getBoard();
       BasicReversi basicReversi = new BasicReversi(originalBoard, forWhom);
+      basicReversi.startGame();
       basicReversi.makeMove(move.getRow(), move.getCol());
 
       // Calculate the score after the simulated move

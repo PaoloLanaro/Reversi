@@ -30,6 +30,8 @@ public class GoForCornerStratTest {
     basicStrategy = new GoForCornersStrategy();
     out = new StringBuilder();
     mock = new MockBasicReversi(3, out);
+    basicModel.startGame();
+    mock.startGame();
   }
 
   @Test

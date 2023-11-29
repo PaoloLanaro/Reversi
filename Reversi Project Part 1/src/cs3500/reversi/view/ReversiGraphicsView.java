@@ -66,6 +66,5 @@ public class ReversiGraphicsView extends JFrame implements IView {
   @Override
   public void showErrorMessage(Player player) {
     JOptionPane.showMessageDialog(null, "Illegal move for player " + player.getColor());
-
   }
 }

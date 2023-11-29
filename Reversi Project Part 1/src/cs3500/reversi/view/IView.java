@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
 import cs3500.reversi.model.RowCol;
+import cs3500.reversi.model.players.Player;
 
 /**
  * The {@code IView} interface defines methods for Reversi game views, including setting
@@ -51,4 +52,11 @@ public interface IView {
    * @param listener a {@link KeyListener} that contains stuff.
    */
   void addKeyListener(KeyListener listener);
+
+  /**
+   * Shows an error message for some player.
+   *
+   * @param player the {@link Player} for which to show the error message for
+   */
+  void showErrorMessage(Player player);
 }

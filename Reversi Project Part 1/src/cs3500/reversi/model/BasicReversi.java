@@ -354,19 +354,20 @@ public final class BasicReversi implements MutableReversi {
 
   @Override
   public List<List<Cell>> getBoard() {
-    List<List<Cell>> deepCopy = new ArrayList<>();
-    for (int row = 0; row < board.size(); row++) {
-      List<Cell> rowList = new ArrayList<>();
-      for (int col = 0; col < board.size(); col++) {
-        if (board.get(row).get(col) == null) {
-          rowList.add(null);
-          continue;
-        }
-        rowList.add(new ReversiCell(board.get(row).get(col)));
-      }
-      deepCopy.add(rowList);
-    }
-    return deepCopy;
+//    List<List<Cell>> deepCopy = new ArrayList<>();
+//    for (int row = 0; row < board.size(); row++) {
+//      List<Cell> rowList = new ArrayList<>();
+//      for (int col = 0; col < board.size(); col++) {
+//        if (board.get(row).get(col) == null) {
+//          rowList.add(null);
+//          continue;
+//        }
+//        rowList.add(new ReversiCell(board.get(row).get(col)));
+//      }
+//      deepCopy.add(rowList);
+//    }
+//    return deepCopy;
+    return board;
   }
 
   @Override

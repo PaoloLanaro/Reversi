@@ -29,6 +29,8 @@ public class MockMaxPointStratTest {
     basicStrategy = new MaxPointStrategy();
     out = new StringBuilder();
     mock = new MockBasicReversi(4, out);
+    basicModel.startGame();
+    mock.startGame();
   }
 
   // should break a tie on an initial 4 sided game,

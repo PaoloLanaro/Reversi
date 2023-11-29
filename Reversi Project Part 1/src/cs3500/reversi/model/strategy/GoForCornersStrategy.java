@@ -36,7 +36,6 @@ public class GoForCornersStrategy extends MaxPointStrategy {
 
     Map<ReversiCell, RowCol> validMoves = new HashMap<>();
 
-
     addOuterLayerToList(outskirtCells, currentCell, middleCellRowCol);
     getValidCellsForModel(validMoves);
 

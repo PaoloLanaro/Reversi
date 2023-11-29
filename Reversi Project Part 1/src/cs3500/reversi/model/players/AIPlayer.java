@@ -11,7 +11,7 @@ import cs3500.reversi.model.strategy.Strategy;
  * An implementation of the {@link Player} interface that represents an AI player.
  * This player will choose and make moves.
  */
-public class AIPlayer extends AbstractPlayer {
+public class AIPlayer implements Player {
   private final DiscColor color;
   private final Strategy strategy;
 

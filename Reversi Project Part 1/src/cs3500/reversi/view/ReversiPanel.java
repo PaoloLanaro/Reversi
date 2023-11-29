@@ -33,7 +33,7 @@ public class ReversiPanel extends JPanel {
   private double hexagonRadius;
   private final List<Hexagon> hexagonList;
   private final List<Cell> cellList;
-  private final List<List<Cell>> underlyingBoard;
+  private List<List<Cell>> underlyingBoard;
 
   /**
    * Constructs the {@link ReversiPanel}.
@@ -176,10 +176,10 @@ public class ReversiPanel extends JPanel {
     g2d.fill(hexagon.getHexagon());
 
     if (hexagon.getColor() == Color.CYAN) {
-      if (cell.getColor() == DiscColor.EMPTY) {
+//      if (cell.getColor() == DiscColor.EMPTY) {
         g2d.setColor(Color.CYAN);
         g2d.fill(hexagon.getHexagon());
-      }
+//      }
     }
     if (cell.getColor() != DiscColor.EMPTY) {
       Color color = cell.getColor() == DiscColor.WHITE ? Color.WHITE :
@@ -315,6 +315,7 @@ public class ReversiPanel extends JPanel {
       hexagon.setRadius(hexagonRadius);
     }
 
+    underlyingBoard = model.getBoard();
     Cell middleCell = underlyingBoard.get(model.getSideLength() - 1).get(model.getSideLength() - 1);
 
     if (!hexagonList.isEmpty()) {
@@ -376,6 +377,9 @@ public class ReversiPanel extends JPanel {
     Cell clickedCell = null;
 
     for (int hexagon = 0; hexagon < hexagonList.size(); hexagon++) {
+      if (clickedCell != null) {
+        break;
+      }
       if (hexagonList.get(hexagon).getHexagon().contains(point)) {
         clickedCell = cellList.get(hexagon);
       }
@@ -441,22 +445,27 @@ public class ReversiPanel extends JPanel {
       int col = getColFromPoint(point);
 
       if (row != -1 && col != -1) {
-        boolean alreadyFilled =
-                underlyingBoard.get(row).get(col).getColor() == DiscColor.BLACK ||
-                        (underlyingBoard.get(row).get(col).getColor() == DiscColor.WHITE);
+//        boolean alreadyFilled =
+//                underlyingBoard.get(row).get(col).getColor() == DiscColor.BLACK ||
+//                        (underlyingBoard.get(row).get(col).getColor() == DiscColor.WHITE);
 
-        if (alreadyFilled) {
-          System.out.println("Board already filled at: (" + row + ", " + col + ")");
-        } else {
+//        if (alreadyFilled) {
+//          System.out.println("Board already filled at: (" + row + ", " + col + ")");
+//        } else {
           System.out.println("(" + row + ", " + col + ")");
-        }
+//        }
       } else {
         System.out.println("Not a valid cell");
       }
 
       drawBlueTile(point, Color.CYAN);
 
-      System.out.println(getHighlightedHex());
+      if (getHighlightedHex() != null) {
+        DiscColor color =
+                underlyingBoard.get(getHighlightedHex().getRow()).get(getHighlightedHex().getCol()).getColor();
+
+        System.out.println(color.toString());
+      }
     }
 
   }
