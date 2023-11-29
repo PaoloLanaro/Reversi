@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import cs3500.reversi.controller.ModelFeatures;
+
 /**
  * Represents a basic implementation of a basic hexagon Reversi Game. Implements the MutableReversi
  * interface to give methods for making moves, passing turns, and checking game state. The game is
@@ -27,6 +29,8 @@ public final class BasicReversi implements MutableReversi {
   private final String BOTTOM_LEFT = "bl";
   private final String BOTTOM_RIGHT = "br";
   private boolean gameStarted;
+
+  private ModelFeatures featuresListener;
 
   /**
    * Constructs a new BasicReversi with a specified initial board size.
@@ -101,12 +105,18 @@ public final class BasicReversi implements MutableReversi {
     gameStarted = true;
   }
 
-  // Switches the turn from BLACK to WHITE and vice versa.
+  @Override
+  public void addFeaturesListener(ModelFeatures featuresListener) {
+    this.featuresListener = featuresListener;
+  }
+
+  // internally switches the turn from BLACK to WHITE and vice versa.
   private void switchTurn() {
     if (!gameStarted) {
       throw new IllegalStateException("Game has not been started");
     }
     turn = turn == DiscColor.BLACK ? DiscColor.WHITE : DiscColor.BLACK;
+    featuresListener.refresh();
   }
 
   @Override

@@ -14,8 +14,9 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
+import cs3500.reversi.controller.ViewFeatures;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.ReversiCell;
 import cs3500.reversi.model.DiscColor;
@@ -34,6 +35,8 @@ public class ReversiPanel extends JPanel {
   private final List<Hexagon> hexagonList;
   private final List<Cell> cellList;
   private List<List<Cell>> underlyingBoard;
+
+  private ViewFeatures featureListener;
 
   /**
    * Constructs the {@link ReversiPanel}.
@@ -435,6 +438,10 @@ public class ReversiPanel extends JPanel {
     return null;
   }
 
+  protected void addFeaturesListener(ViewFeatures featureListener) {
+    this.featureListener = featureListener;
+  }
+
   private class MouseAdapter extends java.awt.event.MouseAdapter {
 
     @Override
@@ -445,15 +452,15 @@ public class ReversiPanel extends JPanel {
       int col = getColFromPoint(point);
 
       if (row != -1 && col != -1) {
-//        boolean alreadyFilled =
-//                underlyingBoard.get(row).get(col).getColor() == DiscColor.BLACK ||
-//                        (underlyingBoard.get(row).get(col).getColor() == DiscColor.WHITE);
+        boolean alreadyFilled =
+                underlyingBoard.get(row).get(col).getColor() == DiscColor.BLACK ||
+                        (underlyingBoard.get(row).get(col).getColor() == DiscColor.WHITE);
 
-//        if (alreadyFilled) {
-//          System.out.println("Board already filled at: (" + row + ", " + col + ")");
-//        } else {
+        if (alreadyFilled) {
+          System.out.println("Board already filled at: (" + row + ", " + col + ")");
+        } else {
           System.out.println("(" + row + ", " + col + ")");
-//        }
+        }
       } else {
         System.out.println("Not a valid cell");
       }
@@ -476,35 +483,17 @@ public class ReversiPanel extends JPanel {
     public void keyPressed(KeyEvent event) {
       switch (event.getKeyCode()) {
         case KeyEvent.VK_ENTER:
-          System.out.println("Make move");
+          RowCol highlightedHex = getHighlightedHex();
+          if (highlightedHex == null) {
+            featureListener.pushError("There is no currently highlighted cell in the game.");
+//            throw new IllegalStateException("There is no currently highlighted cell in the game.");
+          } else {
+            featureListener.makeMove(getHighlightedHex());
+          }
           repaint();
           break;
         case KeyEvent.VK_BACK_SPACE:
-          System.out.println("Pass turn");
-          break;
-        case KeyEvent.VK_U:
-          System.out.println("Upper left");
-          repaint();
-          break;
-        case KeyEvent.VK_I:
-          System.out.println("Upper right");
-          repaint();
-          break;
-        case KeyEvent.VK_H:
-          System.out.println("Left");
-          repaint();
-          break;
-        case KeyEvent.VK_K:
-          System.out.println("Right");
-          repaint();
-          break;
-        case KeyEvent.VK_N:
-          System.out.println("Bottom left");
-          repaint();
-          break;
-        case KeyEvent.VK_M:
-          System.out.println("Bottom right");
-          repaint();
+          featureListener.passTurn();
           break;
         default:
           System.out.println("Not a valid key");

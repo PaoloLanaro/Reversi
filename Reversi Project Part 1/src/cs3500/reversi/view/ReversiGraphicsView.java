@@ -2,10 +2,10 @@ package cs3500.reversi.view;
 
 
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import cs3500.reversi.controller.ViewFeatures;
 import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.players.Player;
@@ -34,7 +34,8 @@ public class ReversiGraphicsView extends JFrame implements IView {
   }
 
   @Override
-  public void setListener(ActionListener actionListener) {
+  public void addFeaturesListener(ViewFeatures featuresListener) {
+    gamePanel.addFeaturesListener(featuresListener);
     //for controller.
   }
 
@@ -53,18 +54,10 @@ public class ReversiGraphicsView extends JFrame implements IView {
     this.repaint();
   }
 
-  @Override
-  public RowCol getCurrentlySelectedHexagon() throws IllegalStateException {
-    if(gamePanel.getHighlightedHex() == null) {
-      throw new IllegalStateException("There is no currently selected hexagon on the board.");
-    }
-    return gamePanel.getHighlightedHex();
-  }
-
   // todo is this supposed to be in features interface? and is IView supposed to extend the
   //  features interface?
   @Override
-  public void showErrorMessage(Player player) {
-    JOptionPane.showMessageDialog(null, "Illegal move for player " + player.getColor());
+  public void showErrorMessage(String message, Player player) {
+    JOptionPane.showMessageDialog(null, message + " for player: " + player.getColor());
   }
 }

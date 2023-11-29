@@ -7,5 +7,10 @@ package cs3500.reversi.model;
 public enum DiscColor {
   WHITE,
   BLACK,
-  EMPTY
+  EMPTY;
+
+  @Override
+  public String toString() {
+    return name().toLowerCase();
+  }
 }

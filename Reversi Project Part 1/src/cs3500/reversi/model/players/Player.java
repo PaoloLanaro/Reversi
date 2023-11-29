@@ -1,7 +1,10 @@
 package cs3500.reversi.model.players;
 
-import cs3500.reversi.model.BasicReversi;
+import java.util.Optional;
+
 import cs3500.reversi.model.DiscColor;
+import cs3500.reversi.model.ReadOnlyReversi;
+import cs3500.reversi.model.RowCol;
 
 /**
  * Represents a player in a Reversi game. Players can make moves on the game board and
@@ -15,13 +18,13 @@ public interface Player {
    *
    * @param board the game board on which to make a move.
    */
-  void makeMove(BasicReversi board);
+  Optional<RowCol> getMove(ReadOnlyReversi board);
 
   /**
    * Retrieves the color associated with the player. The player color indicates
    * whether the player is playing as black or white in the game.
    *
-   * @return the player's color as a {@link DiscColor}.
+   * @return the player's color, either "white" or "black".
    */
-  DiscColor getColor();
+  String getColor();
 }

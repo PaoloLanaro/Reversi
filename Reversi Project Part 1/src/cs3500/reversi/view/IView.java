@@ -1,8 +1,8 @@
 package cs3500.reversi.view;
 
-import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
+import cs3500.reversi.controller.ViewFeatures;
 import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.players.Player;
 
@@ -19,9 +19,9 @@ public interface IView {
    * Sets the action listener for this view. The action listener is notified of user
    * interactions, allowing the view to respond accordingly.
    *
-   * @param actionListener the ActionListener to set for this view
+   * @param featuresListener the ActionListener to set for this view
    */
-  void setListener(ActionListener actionListener);
+  void addFeaturesListener(ViewFeatures featuresListener);
 
 
   /**
@@ -39,24 +39,9 @@ public interface IView {
   void refresh();
 
   /**
-   * Returns the hexagon coordinate that is selected by the view.
-   *
-   * @return the {@link RowCol} of the currently highlighted hexagon.
-   * @throws IllegalStateException if no cell is currently selected.
-   */
-  RowCol getCurrentlySelectedHexagon() throws IllegalStateException;
-
-  /**
-   * Adds some key listener to this view in order for the controller to hook up with this view.
-   *
-   * @param listener a {@link KeyListener} that contains stuff.
-   */
-  void addKeyListener(KeyListener listener);
-
-  /**
    * Shows an error message for some player.
    *
    * @param player the {@link Player} for which to show the error message for
    */
-  void showErrorMessage(Player player);
+  void showErrorMessage(String message, Player player);
 }

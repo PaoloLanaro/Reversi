@@ -3,6 +3,7 @@ package cs3500.reversi.model;
 import java.util.List;
 import java.util.Map;
 
+import cs3500.reversi.controller.ModelFeatures;
 import cs3500.reversi.model.strategy.Strategy;
 
 /**
@@ -50,6 +51,12 @@ public class MockBasicReversi implements MutableReversi {
   public void startGame() throws IllegalStateException {
     appendHelper("started game");
     delegate.startGame();
+  }
+
+  @Override
+  public void addFeaturesListener(ModelFeatures featuresListener) {
+    appendHelper("added features listener");
+    delegate.addFeaturesListener(featuresListener);
   }
 
   @Override

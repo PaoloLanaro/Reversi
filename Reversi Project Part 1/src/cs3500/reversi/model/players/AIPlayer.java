@@ -2,8 +2,8 @@ package cs3500.reversi.model.players;
 
 import java.util.Optional;
 
-import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.DiscColor;
+import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.strategy.Strategy;
 
@@ -28,19 +28,15 @@ public class AIPlayer implements Player {
   }
 
   @Override
-  public void makeMove(BasicReversi model) {
-    // super.makeMove(model);
+  public Optional<RowCol> getMove(ReadOnlyReversi model) {
     Optional<RowCol> bestMove = strategy.chooseMove(model, color);
-    if (bestMove.isEmpty()) {
-      model.passTurn();
-      return;
-    }
-    model.makeMove(bestMove.get().getRow(), bestMove.get().getCol());
+//    controller.makeMove(bestMove);
+    return bestMove;
   }
 
   @Override
-  public DiscColor getColor() {
-    return this.color;
+  public String getColor() {
+    return color.toString();
   }
 
 }

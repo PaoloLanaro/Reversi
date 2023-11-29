@@ -1,5 +1,7 @@
 package cs3500.reversi.model;
 
+import cs3500.reversi.controller.ModelFeatures;
+
 /**
  * Represents a mutable reversi game.
  * Contains methods that will mutate the reversi game.
@@ -30,4 +32,11 @@ public interface MutableReversi extends ReadOnlyReversi {
    * @throws IllegalStateException if the game's already been started.
    */
   void startGame() throws IllegalStateException;
+
+  /**
+   * Adds a model features listener to the object.
+   *
+   * @param featuresListener the {@link ModelFeatures} object to link with this model.
+   */
+  void addFeaturesListener(ModelFeatures featuresListener);
 }

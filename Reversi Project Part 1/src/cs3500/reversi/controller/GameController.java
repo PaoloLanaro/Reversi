@@ -1,8 +1,6 @@
 package cs3500.reversi.controller;
 
-import java.awt.event.KeyEvent;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 import cs3500.reversi.model.MutableReversi;
 import cs3500.reversi.model.RowCol;
@@ -12,7 +10,7 @@ import cs3500.reversi.view.IView;
 /**
  * Controller class for creating a controller for the game.
  */
-public class GameController implements ReversiController {
+public class GameController implements ReversiController, ViewFeatures, ModelFeatures {
 
   private final MutableReversi model;
   private final IView view;
@@ -22,47 +20,8 @@ public class GameController implements ReversiController {
     this.model = model;
     this.view = view;
     this.player = player;
-  }
-
-//  public void setView(IView view) {
-//    this.view = view;
-//
-//    configureKeyboardListener();
-//    configureMouseListener();
-//
-//    view.setVisible(true);
-//  }
-
-  private void configureKeyboardListener() {
-    Map<Integer, Runnable> keyPresses = new HashMap<>();
-
-    keyPresses.put(KeyEvent.VK_ENTER, () -> {
-              RowCol highlighted = view.getCurrentlySelectedHexagon();
-              model.makeMove(highlighted.getRow(), highlighted.getCol());
-            }
-    );
-
-    keyPresses.put(KeyEvent.VK_BACK_SPACE, () -> {
-              model.passTurn();
-            }
-    );
-
-    KeyboardListener keebListener = new KeyboardListener();
-    keebListener.setKeyPressedMap(keyPresses);
-
-    view.addKeyListener(keebListener);
-  }
-
-  private void configureMouseListener() {
-//    int row, col;
-//    row = col = 4;
-
-//    model.makeMove(row, col);
-    // todo actually implement the mouse listener class and hook it up
-
-    view.getCurrentlySelectedHexagon();
-    view.refresh();
-//    view.setListener();
+    view.addFeaturesListener(this);
+    model.addFeaturesListener(this);
   }
 
   @Override
@@ -72,8 +31,40 @@ public class GameController implements ReversiController {
   }
 
   @Override
-  public void handleCellClick(int row, int col) {
-
+  public void makeMove(RowCol coordinate) {
+    if (!Objects.equals(model.getTurn().toLowerCase(), player.getColor().toLowerCase())) {
+      view.showErrorMessage("Cannot make move. It is not currently your turn", player);
+    } else {
+      try {
+        model.makeMove(coordinate.getRow(), coordinate.getCol());
+        view.refresh();
+      } catch (Exception e) {
+        view.showErrorMessage(e.getMessage(), player);
+      }
+    }
   }
-  
+
+  @Override
+  public void passTurn() {
+    if (!Objects.equals(model.getTurn().toLowerCase(), player.getColor().toLowerCase())) {
+      view.showErrorMessage("Cannot pass turn. It is not currently your turn", player);
+    } else {
+      try {
+        model.passTurn();
+        view.refresh();
+      } catch (Exception e) {
+        view.showErrorMessage(e.getMessage(), player);
+      }
+    }
+  }
+
+  @Override
+  public void pushError(String errorMessage) {
+    view.showErrorMessage(errorMessage, player);
+  }
+
+  @Override
+  public void refresh() {
+    view.refresh();
+  }
 }
