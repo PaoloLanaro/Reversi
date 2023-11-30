@@ -26,12 +26,21 @@ public final class Reversi {
    * @param args command line arguments.
    */
   public static void main(String[] args) {
-    MutableReversi delegate = new BasicReversi(3);
+    if (args.length == 0 || args.length > 3) {
+      throw new IllegalArgumentException("Incorrect amount of command line arguments.");
+    }
+    int gameSize;
+    try {
+      gameSize = Integer.parseInt(args[0]);
+    } catch (Exception e) {
+      throw new IllegalArgumentException("The first argument was not a valid number.");
+    }
+    MutableReversi delegate = new BasicReversi(gameSize);
     ISmarterModel model = new SmarterModel(delegate);
     IView player1View = new ReversiGraphicsView(model);
     IView player2View = new ReversiGraphicsView(model);
 
-    List<Player> players = constructPlayers(args);
+    List<Player> players = constructPlayers(args, gameSize);
 
     ReversiController controller1 = new GameController(model, players.get(0), player1View);
     ReversiController controller2 = new GameController(model, players.get(1), player2View);
@@ -42,22 +51,19 @@ public final class Reversi {
     controller2.playGame();
   }
 
-  private static List<Player> constructPlayers(String[] args) {
-    if (args.length == 0 || args.length > 2) {
-      throw new IllegalArgumentException("Incorrect amount of command line arguments");
-    }
+  private static List<Player> constructPlayers(String[] args, int gameSize) {
     List<Player> players = new ArrayList<>();
 
-    players.add(playerFactory(args[0], DiscColor.BLACK));
-    players.add(playerFactory(args[1], DiscColor.WHITE));
+    players.add(playerFactory(args[1], DiscColor.BLACK, gameSize));
+    players.add(playerFactory(args[2], DiscColor.WHITE, gameSize));
 
     return players;
   }
 
-  private static Player playerFactory(String arg, DiscColor playerColor) {
+  private static Player playerFactory(String arg, DiscColor playerColor, int gameSize) {
     switch(arg) {
       case "human":
-        return new HumanPlayer(new BasicReversi(6), playerColor);
+        return new HumanPlayer(new BasicReversi(gameSize), playerColor);
       case "maxpointstrat":
         return new AIPlayer(playerColor, new MaxPointStrategy());
       case "cornerstrat":

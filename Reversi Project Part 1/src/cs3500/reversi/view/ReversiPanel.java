@@ -179,10 +179,8 @@ public class ReversiPanel extends JPanel {
     g2d.fill(hexagon.getHexagon());
 
     if (hexagon.getColor() == Color.CYAN) {
-//      if (cell.getColor() == DiscColor.EMPTY) {
         g2d.setColor(Color.CYAN);
         g2d.fill(hexagon.getHexagon());
-//      }
     }
     if (cell.getColor() != DiscColor.EMPTY) {
       Color color = cell.getColor() == DiscColor.WHITE ? Color.WHITE :
@@ -390,7 +388,6 @@ public class ReversiPanel extends JPanel {
     return clickedCell;
   }
 
-  // TODO MIGHT HAVE TO EXPOSE THIS AS PUBLIC
   private void drawBlueTile(Point point, Color color) {
     Hexagon clickedHexagon;
     boolean cyanAlreadyExists = false;
@@ -466,13 +463,6 @@ public class ReversiPanel extends JPanel {
       }
 
       drawBlueTile(point, Color.CYAN);
-
-      if (getHighlightedHex() != null) {
-        DiscColor color =
-                underlyingBoard.get(getHighlightedHex().getRow()).get(getHighlightedHex().getCol()).getColor();
-
-        System.out.println(color.toString());
-      }
     }
 
   }
@@ -486,7 +476,6 @@ public class ReversiPanel extends JPanel {
           RowCol highlightedHex = getHighlightedHex();
           if (highlightedHex == null) {
             featureListener.pushError("There is no currently highlighted cell in the game.");
-//            throw new IllegalStateException("There is no currently highlighted cell in the game.");
           } else {
             featureListener.makeMove(getHighlightedHex());
           }

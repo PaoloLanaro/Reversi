@@ -2,7 +2,6 @@ package cs3500.reversi.model.players;
 
 import java.util.Optional;
 
-import cs3500.reversi.controller.ViewFeatures;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.RowCol;
@@ -20,7 +19,7 @@ public class HumanPlayer implements Player {
 
   @Override
   public Optional<RowCol> getMove(ReadOnlyReversi board) {
-    return null;
+    return Optional.empty();
   }
 
   @Override
@@ -28,10 +27,4 @@ public class HumanPlayer implements Player {
     return playerColor.toString();
   }
 
-  public void addFeaturesListener(ViewFeatures featureListener) {
-
-  }
-
-
-  // empty, waiting for future assignments
 }

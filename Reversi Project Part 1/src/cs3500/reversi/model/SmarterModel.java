@@ -44,6 +44,7 @@ public class SmarterModel implements ISmarterModel {
   @Override
   public void startGame() throws IllegalStateException {
     delegate.startGame();
+    notifyListeners();
   }
 
   @Override

@@ -28,7 +28,4 @@ public interface Player {
    * @return the player's color, either "white" or "black".
    */
   String getColor();
-
-  void addFeaturesListener(ViewFeatures featureListener);
-
 }

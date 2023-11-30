@@ -1,9 +1,11 @@
 package cs3500.reversi.controller;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import cs3500.reversi.model.ISmarterModel;
 import cs3500.reversi.model.RowCol;
+import cs3500.reversi.model.players.AIPlayer;
 import cs3500.reversi.model.players.Player;
 import cs3500.reversi.view.IView;
 
@@ -22,10 +24,7 @@ public class GameController implements ReversiController, ViewFeatures, ModelFea
     this.view = view;
     this.player = player;
     view.addFeaturesListener(this);
-//    ISmarterModel smarterModel = new SmarterModel(model);
     model.addFeaturesListener(this);
-//    this.model = smarterModel;
-    player.addFeaturesListener(this);
   }
 
   @Override
@@ -69,6 +68,18 @@ public class GameController implements ReversiController, ViewFeatures, ModelFea
 
   @Override
   public void refresh() {
-    view.refresh();
+    this.playGame();
+    if(player instanceof AIPlayer) {
+      if (model.getTurn().equals(player.getColor())) {
+        Optional<RowCol> move = player.getMove(model);
+        if (move.isPresent()) {
+          if (move.get().getRow() == -1) {
+            model.passTurn();
+            return;
+          }
+        }
+        move.ifPresent(rowCol -> model.makeMove(rowCol.getRow(), rowCol.getCol()));
+      }
+    }
   }
 }

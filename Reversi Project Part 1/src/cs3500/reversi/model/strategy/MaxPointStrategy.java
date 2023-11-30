@@ -28,8 +28,10 @@ public class MaxPointStrategy implements Strategy {
 
     Map<ReversiCell, RowCol> validMoves = new HashMap<>();
 
-    for (int row = 0; row < model.getBoard().size(); row++) {
-      for (int col = 0; col < model.getBoard().size(); col++) {
+    int underlyingLength = this.model.getSideLength() * 2 - 1;
+
+    for (int row = 0; row < underlyingLength; row++) {
+      for (int col = 0; col < underlyingLength; col++) {
         if (model.getBoard().get(row).get(col) == null) {
           continue;
         }

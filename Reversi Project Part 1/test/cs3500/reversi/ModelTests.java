@@ -248,23 +248,6 @@ public class ModelTests {
     model3.getWinner();
   }
 
-//  @Test
-//  public void testCantMutateByReversiGetBoardMethod() {
-//    model3.getBoard().get(2).set(1, new ReversiCell());
-//    Assert.assertEquals(3, model3.getScore().get(DiscColor.BLACK).intValue());
-//    Assert.assertEquals(3, model3.getScore().get(DiscColor.WHITE).intValue());
-//  }
-//
-//  @Test
-//  public void testCantMutateByReversiGetValidMovesMethod() {
-//    List<Cell> validMoves = model3.getValidMoves(DiscColor.BLACK);
-//    for (Cell cell : validMoves) {
-//      cell.setDiscColor(DiscColor.BLACK);
-//    }
-//    Assert.assertEquals(3, model3.getScore().get(DiscColor.BLACK).intValue());
-//    Assert.assertEquals(3, model3.getScore().get(DiscColor.WHITE).intValue());
-//  }
-
   @Test
   public void testFullGameBlackWon() {
     model3.makeMove(1, 4);
@@ -319,13 +302,13 @@ public class ModelTests {
 
   @Test
   public void testGetTurnBlackTurn() {
-    Assert.assertEquals("Black", model3.getTurn());
+    Assert.assertEquals("black", model3.getTurn());
   }
 
   @Test
   public void testGetTurnWhiteTurn() {
     model3.makeMove(0, 3);
-    Assert.assertEquals("White", model3.getTurn());
+    Assert.assertEquals("white", model3.getTurn());
   }
 
 }
