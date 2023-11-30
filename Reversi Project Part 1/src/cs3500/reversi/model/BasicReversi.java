@@ -29,8 +29,7 @@ public final class BasicReversi implements MutableReversi {
   private final String BOTTOM_LEFT = "bl";
   private final String BOTTOM_RIGHT = "br";
   private boolean gameStarted;
-
-  private ModelFeatures featuresListener;
+//  private List<ModelFeatures> featuresListener;
 
   /**
    * Constructs a new BasicReversi with a specified initial board size.
@@ -46,6 +45,7 @@ public final class BasicReversi implements MutableReversi {
     }
     this.initSize = initSize;
     board = initBoard();
+//    featuresListener = new ArrayList<>();
   }
 
   /**
@@ -87,7 +87,8 @@ public final class BasicReversi implements MutableReversi {
     isValidMove(row, col);
     if (requiredPlayerPassCheck()) {
       passTurn();
-      throw new IllegalStateException("Cannot move, so your turn has been passed.");
+      throw new IllegalStateException("There is no valid move for you, so your turn has been " +
+              "passed.");
     }
 
     Cell originCell = board.get(row).get(col);
@@ -105,10 +106,10 @@ public final class BasicReversi implements MutableReversi {
     gameStarted = true;
   }
 
-  @Override
-  public void addFeaturesListener(ModelFeatures featuresListener) {
-    this.featuresListener = featuresListener;
-  }
+//  @Override
+//  public void addFeaturesListener(ModelFeatures featuresListener) {
+//    this.featuresListener.add(featuresListener);
+//  }
 
   // internally switches the turn from BLACK to WHITE and vice versa.
   private void switchTurn() {
@@ -116,7 +117,7 @@ public final class BasicReversi implements MutableReversi {
       throw new IllegalStateException("Game has not been started");
     }
     turn = turn == DiscColor.BLACK ? DiscColor.WHITE : DiscColor.BLACK;
-    featuresListener.refresh();
+//    notifyListeners();
   }
 
   @Override
@@ -364,21 +365,14 @@ public final class BasicReversi implements MutableReversi {
 
   @Override
   public List<List<Cell>> getBoard() {
-//    List<List<Cell>> deepCopy = new ArrayList<>();
-//    for (int row = 0; row < board.size(); row++) {
-//      List<Cell> rowList = new ArrayList<>();
-//      for (int col = 0; col < board.size(); col++) {
-//        if (board.get(row).get(col) == null) {
-//          rowList.add(null);
-//          continue;
-//        }
-//        rowList.add(new ReversiCell(board.get(row).get(col)));
-//      }
-//      deepCopy.add(rowList);
-//    }
-//    return deepCopy;
     return board;
   }
+
+//  private void notifyListeners() {
+//    for (ModelFeatures feature : featuresListener) {
+//      feature.refresh();
+//    }
+//  }
 
   @Override
   public boolean isGameOver() {

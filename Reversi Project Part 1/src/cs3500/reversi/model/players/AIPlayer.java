@@ -1,7 +1,9 @@
 package cs3500.reversi.model.players;
 
+import java.awt.*;
 import java.util.Optional;
 
+import cs3500.reversi.controller.ViewFeatures;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.RowCol;
@@ -14,6 +16,7 @@ import cs3500.reversi.model.strategy.Strategy;
 public class AIPlayer implements Player {
   private final DiscColor color;
   private final Strategy strategy;
+  private ViewFeatures featureListener;
 
   /**
    * Constructs an {@link AIPlayer} object with the player's playing color,
@@ -28,9 +31,22 @@ public class AIPlayer implements Player {
   }
 
   @Override
+  public void addFeaturesListener(ViewFeatures featureListener) {
+    this.featureListener = featureListener;
+  }
+
+  @Override
   public Optional<RowCol> getMove(ReadOnlyReversi model) {
     Optional<RowCol> bestMove = strategy.chooseMove(model, color);
-//    controller.makeMove(bestMove);
+    // Extract the move from Optional and pass it to makeMove
+    bestMove.ifPresent(move -> featureListener.makeMove(move));
+//    if (bestMove.isPresent()) {
+//      RowCol move = bestMove.get();
+//      System.out.println("Move found");
+//      featureListener.makeMove(move);
+//    } else {
+//      System.out.println("No move found");
+//    }
     return bestMove;
   }
 

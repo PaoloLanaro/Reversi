@@ -100,3 +100,13 @@ src/cs3500/reversi/view/ReversiPanel.java: Contains the implementation of our ex
 class. \
 src/cs3500/reversi/view/ReversiGraphicsView.java: Contains the implementation of our extended 
 JFrame class. This includes the creation of the aforementioned class.
+
+# Changes for part 3
+We created the ModelFeatures, ViewFeatures, ReversiController, and ISmarterModel interfaces. We \
+implemented the ReversiController and features interfaces in the GameController derived class, and \
+the ISmarterModel interface in the SmarterModel class. This allowed us to have our code be "open \
+to extension but closed to modification". The GameController class was to allow the controller \
+to update the view and make moves on the model utilizing the addFeatureListener implementations \
+inside the model and the view. Going off the above explanation we implemented the \
+addFeaturesListener in both the model and the view to register listeners in those classes. 
+

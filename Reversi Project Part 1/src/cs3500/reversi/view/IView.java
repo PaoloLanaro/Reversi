@@ -1,9 +1,6 @@
 package cs3500.reversi.view;
 
-import java.awt.event.KeyListener;
-
 import cs3500.reversi.controller.ViewFeatures;
-import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.players.Player;
 
 /**
@@ -41,7 +38,11 @@ public interface IView {
   /**
    * Shows an error message for some player.
    *
-   * @param player the {@link Player} for which to show the error message for
+   * @param player the {@link Player} for which to show the error message for.
+   *               This will be formatted as follows: " for player: player color",
+   *               and will attempt to capitalize the 'f' if the last character in
+   *               {@code message} is punctuation.
+   * @param message the message that should be put before the player identification.
    */
   void showErrorMessage(String message, Player player);
 }

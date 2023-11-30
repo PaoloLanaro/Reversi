@@ -53,11 +53,11 @@ public class MockBasicReversi implements MutableReversi {
     delegate.startGame();
   }
 
-  @Override
-  public void addFeaturesListener(ModelFeatures featuresListener) {
-    appendHelper("added features listener");
-    delegate.addFeaturesListener(featuresListener);
-  }
+//  @Override
+//  public void addFeaturesListener(ModelFeatures featuresListener) {
+//    appendHelper("added features listener");
+//    delegate.addFeaturesListener(featuresListener);
+//  }
 
   @Override
   public boolean isValidMove(int row, int col) {

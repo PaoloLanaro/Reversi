@@ -33,10 +33,10 @@ public interface MutableReversi extends ReadOnlyReversi {
    */
   void startGame() throws IllegalStateException;
 
-  /**
-   * Adds a model features listener to the object.
-   *
-   * @param featuresListener the {@link ModelFeatures} object to link with this model.
-   */
-  void addFeaturesListener(ModelFeatures featuresListener);
+//  /**
+//   * Adds a model features listener to the object.
+//   *
+//   * @param featuresListener the {@link ModelFeatures} object to link with this model.
+//   */
+//  void addFeaturesListener(ModelFeatures featuresListener);
 }

@@ -1,13 +1,12 @@
 package cs3500.reversi.controller;
 
 /**
- * Interface that acts as a controller.
+ * Interface that models the functions that should be included in any controller implementation.
  */
 public interface ReversiController {
 
   /**
-   * Plays the game.
-   *
+   * Sets up the background processes that are required to play a reversi game.
    */
   void playGame();
 

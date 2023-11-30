@@ -5,7 +5,9 @@ import cs3500.reversi.controller.GameController;
 import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.DiscColor;
+import cs3500.reversi.model.ISmarterModel;
 import cs3500.reversi.model.MutableReversi;
+import cs3500.reversi.model.SmarterModel;
 import cs3500.reversi.model.players.AIPlayer;
 import cs3500.reversi.model.players.HumanPlayer;
 import cs3500.reversi.model.players.Player;
@@ -24,13 +26,10 @@ public final class Reversi {
    * @param args command line arguments.
    */
   public static void main(String[] args) {
-    MutableReversi model = new BasicReversi(3);
+    MutableReversi delegate = new BasicReversi(3);
+    ISmarterModel model = new SmarterModel(delegate);
     IView player1View = new ReversiGraphicsView(model);
     IView player2View = new ReversiGraphicsView(model);
-
-
-//    Player player1 = new HumanPlayer(model, DiscColor.WHITE);
-//    Player player2 = new HumanPlayer(model, DiscColor.BLACK);
 
     List<Player> players = constructPlayers(args);
 

@@ -2,6 +2,7 @@ package cs3500.reversi.model.players;
 
 import java.util.Optional;
 
+import cs3500.reversi.controller.ViewFeatures;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.RowCol;
@@ -25,6 +26,10 @@ public class HumanPlayer implements Player {
   @Override
   public String getColor() {
     return playerColor.toString();
+  }
+
+  public void addFeaturesListener(ViewFeatures featureListener) {
+
   }
 
 

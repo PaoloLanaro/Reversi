@@ -2,7 +2,7 @@ package cs3500.reversi.controller;
 
 import java.util.Objects;
 
-import cs3500.reversi.model.MutableReversi;
+import cs3500.reversi.model.ISmarterModel;
 import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.players.Player;
 import cs3500.reversi.view.IView;
@@ -12,16 +12,20 @@ import cs3500.reversi.view.IView;
  */
 public class GameController implements ReversiController, ViewFeatures, ModelFeatures {
 
-  private final MutableReversi model;
+//  private final MutableReversi model;
+  private final ISmarterModel model;
   private final IView view;
   private final Player player;
 
-  public GameController(MutableReversi model, Player player, IView view) {
+  public GameController(ISmarterModel model, Player player, IView view) {
     this.model = model;
     this.view = view;
     this.player = player;
     view.addFeaturesListener(this);
+//    ISmarterModel smarterModel = new SmarterModel(model);
     model.addFeaturesListener(this);
+//    this.model = smarterModel;
+    player.addFeaturesListener(this);
   }
 
   @Override

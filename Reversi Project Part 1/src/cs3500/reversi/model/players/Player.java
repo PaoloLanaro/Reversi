@@ -2,6 +2,7 @@ package cs3500.reversi.model.players;
 
 import java.util.Optional;
 
+import cs3500.reversi.controller.ViewFeatures;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.RowCol;
@@ -27,4 +28,7 @@ public interface Player {
    * @return the player's color, either "white" or "black".
    */
   String getColor();
+
+  void addFeaturesListener(ViewFeatures featureListener);
+
 }
