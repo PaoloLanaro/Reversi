@@ -14,11 +14,18 @@ import cs3500.reversi.view.IView;
  */
 public class GameController implements ReversiController, ViewFeatures, ModelFeatures {
 
-//  private final MutableReversi model;
   private final ISmarterModel model;
   private final IView view;
   private final Player player;
 
+  /**
+   * The controller for the reversi game. This constructor constructs a classic game of reversi
+   * based on the input params.
+   *
+   * @param model  the model with which the player wants to use the controller.
+   * @param player the player to play on this controller.
+   * @param view   the view to use to display the game.
+   */
   public GameController(ISmarterModel model, Player player, IView view) {
     this.model = model;
     this.view = view;
@@ -69,7 +76,7 @@ public class GameController implements ReversiController, ViewFeatures, ModelFea
   @Override
   public void refresh() {
     this.playGame();
-    if(player instanceof AIPlayer) {
+    if (player instanceof AIPlayer) {
       if (model.getTurn().equals(player.getColor())) {
         Optional<RowCol> move = player.getMove(model);
         if (move.isPresent()) {

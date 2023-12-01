@@ -23,6 +23,7 @@ public final class Reversi {
   /**
    * Creates and runs a GUI game of Reversi. This currently includes just the GUI and no actual
    * game play functionality.
+   *
    * @param args command line arguments.
    */
   public static void main(String[] args) {
@@ -61,7 +62,8 @@ public final class Reversi {
   }
 
   private static Player playerFactory(String arg, DiscColor playerColor, int gameSize) {
-    switch(arg) {
+
+    switch (arg) {
       case "human":
         return new HumanPlayer(new BasicReversi(gameSize), playerColor);
       case "maxpointstrat":

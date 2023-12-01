@@ -38,7 +38,8 @@ public class ReversiCell implements Cell {
   }
 
   /**
-   * Constructor for the {@link ReversiCell} object which simply sets the color of this {@link ReversiCell}.
+   * Constructor for the {@link ReversiCell} object which simply sets the color of this
+   * {@link ReversiCell}.
    *
    * @param color the color you wish the {@link ReversiCell} to be.
    */

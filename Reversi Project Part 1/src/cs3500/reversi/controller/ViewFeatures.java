@@ -1,7 +1,6 @@
 package cs3500.reversi.controller;
 
 import cs3500.reversi.model.RowCol;
-import cs3500.reversi.model.players.Player;
 
 /**
  * Methods that should be included in any class that extends features of the Reversi game.

@@ -3,7 +3,6 @@ package cs3500.reversi.model;
 import java.util.List;
 import java.util.Map;
 
-import cs3500.reversi.controller.ModelFeatures;
 import cs3500.reversi.model.strategy.Strategy;
 
 /**

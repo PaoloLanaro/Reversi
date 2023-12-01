@@ -28,7 +28,6 @@ public final class BasicReversi implements MutableReversi {
   private final String BOTTOM_LEFT = "bl";
   private final String BOTTOM_RIGHT = "br";
   private boolean gameStarted;
-//  private List<ModelFeatures> featuresListener;
 
   /**
    * Constructs a new BasicReversi with a specified initial board size.
@@ -44,7 +43,6 @@ public final class BasicReversi implements MutableReversi {
     }
     this.initSize = initSize;
     board = initBoard();
-//    featuresListener = new ArrayList<>();
   }
 
   /**

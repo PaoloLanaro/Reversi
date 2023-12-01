@@ -6,11 +6,21 @@ import java.util.Map;
 
 import cs3500.reversi.controller.ModelFeatures;
 
+/**
+ * A smarter model implementation that allows for interfacing with the controller and other parts
+ * of the program.
+ */
 public class SmarterModel implements ISmarterModel {
 
   MutableReversi delegate;
   List<ModelFeatures> featuresListeners;
 
+  /**
+   * The constructor for the smarter model. This constructor makes a has-a relationship with
+   * another model.
+   *
+   * @param delegate the {@link MutableReversi} model to make a delegate.
+   */
   public SmarterModel(MutableReversi delegate) {
     this.delegate = delegate;
     featuresListeners = new ArrayList<>();

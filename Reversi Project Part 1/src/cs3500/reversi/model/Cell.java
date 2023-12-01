@@ -1,5 +1,9 @@
 package cs3500.reversi.model;
 
+/**
+ * A singular cell for the reversi game. This cell should be told its neighbors through various
+ * setter methods, and anyone can get its neighbors through various getters.
+ */
 public interface Cell {
 
   /**

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 import cs3500.reversi.controller.ViewFeatures;
 import cs3500.reversi.model.Cell;
@@ -179,8 +179,8 @@ public class ReversiPanel extends JPanel {
     g2d.fill(hexagon.getHexagon());
 
     if (hexagon.getColor() == Color.CYAN) {
-        g2d.setColor(Color.CYAN);
-        g2d.fill(hexagon.getHexagon());
+      g2d.setColor(Color.CYAN);
+      g2d.fill(hexagon.getHexagon());
     }
     if (cell.getColor() != DiscColor.EMPTY) {
       Color color = cell.getColor() == DiscColor.WHITE ? Color.WHITE :

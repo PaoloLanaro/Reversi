@@ -8,7 +8,6 @@ import java.util.List;
 
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.DiscColor;
-import cs3500.reversi.model.ReversiCell;
 import cs3500.reversi.view.TextView;
 import cs3500.reversi.model.BasicReversi;
 
