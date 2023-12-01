@@ -4,9 +4,9 @@ import cs3500.reversi.controller.ViewFeatures;
 import cs3500.reversi.model.players.Player;
 
 /**
- * The {@code IView} interface defines methods for Reversi game views, including setting
- * action listeners, controlling visibility, and refreshing the display.
- * Implementing classes are expected to work with the Reversi game model and controller.
+ * The {@code IView} interface defines methods for Reversi game views, encompassing
+ * actions like setting listeners, managing visibility, and refreshing the display.
+ * Implementing classes are designed to interact with the Reversi game model and controller.
  *
  * @see java.awt.event.ActionListener
  */

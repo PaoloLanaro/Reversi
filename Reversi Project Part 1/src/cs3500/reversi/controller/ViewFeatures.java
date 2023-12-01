@@ -3,16 +3,16 @@ package cs3500.reversi.controller;
 import cs3500.reversi.model.RowCol;
 
 /**
- * Methods that should be included in any class that extends features of the Reversi game.
- * More specifically, this is the way that a view can establish a callback with the controller,
- * and then finally with an underlying mutable model.
+ * Defines methods expected in any class extending Reversi game features for communication with the
+ * controller. Specifically, this interface facilitates establishing a callback between a view and
+ * the controller, which, in turn, interacts with an underlying mutable model.
  */
 public interface ViewFeatures {
 
   /**
-   * Plays a disc on a reversi board.
+   * Places a disc on the Reversi board at the specified {@link RowCol} coordinates.
    *
-   * @param coordinate the {@link RowCol} pair to place the disc at.
+   * @param coordinate the coordinates where the disc will be placed.
    */
   void makeMove(RowCol coordinate);
 
@@ -22,9 +22,9 @@ public interface ViewFeatures {
   void passTurn();
 
   /**
-   * Pushes an error message for some player.
+   * Sends an error message for a player.
    *
-   * @param errorMessage the message that should be pushed.
+   * @param errorMessage the message to be conveyed.
    */
   void pushError(String errorMessage);
 }

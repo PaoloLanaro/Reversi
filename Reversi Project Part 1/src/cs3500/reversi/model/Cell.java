@@ -105,5 +105,4 @@ public interface Cell {
    */
   Cell getUpperLeft();
 
-
 }

@@ -6,10 +6,10 @@ import java.awt.Polygon;
 
 /**
  * Represents a basic hexagon.
- * A 6 sided polygon with equal angles,
- * a radius (which represents the Hexagon's center point to a vertex),
- * a center point in a 2d plane,
- * and a color, which represents what color the hexagon is filled in as.
+ * A six-sided polygon with equal angles,
+ * a radius (representing the Hexagon's center point to a vertex),
+ * a center point in a 2D plane,
+ * and a color that determines the hexagon's fill color.
  */
 public class Hexagon {
 

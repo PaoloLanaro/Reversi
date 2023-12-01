@@ -2,13 +2,12 @@ package cs3500.reversi.model;
 
 
 /**
- * Represents a mutable reversi game.
- * Contains methods that will mutate the reversi game.
+ * Represents a mutable Reversi game with methods to modify the game state.
  */
 public interface MutableReversi extends ReadOnlyReversi {
 
   /**
-   * Passes the current players turn.
+   * Passes the current player's turn.
    *
    * @throws IllegalStateException if the game is over.
    */
@@ -26,9 +25,9 @@ public interface MutableReversi extends ReadOnlyReversi {
   void makeMove(int row, int col) throws IllegalStateException, IllegalArgumentException;
 
   /**
-   * Actually plays the game after having set up the game.
+   * Initiates the gameplay after setting up the game.
    *
-   * @throws IllegalStateException if the game's already been started.
+   * @throws IllegalStateException if the game has already started.
    */
   void startGame() throws IllegalStateException;
 

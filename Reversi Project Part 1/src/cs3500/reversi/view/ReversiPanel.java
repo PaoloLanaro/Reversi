@@ -40,9 +40,8 @@ public class ReversiPanel extends JPanel {
 
   /**
    * Constructs the {@link ReversiPanel}.
-   * This constructor will set up all the JPanel background programming.
    *
-   * @param model the {@link ReadOnlyReversi} model which you wish to represent in the JPanel
+   * @param model the {@link ReadOnlyReversi} model to represent in the JPanel
    */
   public ReversiPanel(ReadOnlyReversi model) {
     this.model = model;

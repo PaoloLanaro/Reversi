@@ -11,7 +11,7 @@ import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.players.Player;
 
 /**
- * A graphical user interface representation of a game.
+ * A graphical user interface representation of a Reversi game.
  */
 public class ReversiGraphicsView extends JFrame implements IView {
 
@@ -19,7 +19,9 @@ public class ReversiGraphicsView extends JFrame implements IView {
   private final ReadOnlyReversi model;
 
   /**
-   * Constructs a ReversiGraphicsView object that creates a game panel.
+   * Constructs a ReversiGraphicsView object with a game panel.
+   *
+   * @param model the {@link ReadOnlyReversi} model for the Reversi game.
    */
   public ReversiGraphicsView(ReadOnlyReversi model) {
     super();
@@ -29,7 +31,6 @@ public class ReversiGraphicsView extends JFrame implements IView {
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     gamePanel = new ReversiPanel(model);
     this.model = model;
-
     this.add(gamePanel);
   }
 

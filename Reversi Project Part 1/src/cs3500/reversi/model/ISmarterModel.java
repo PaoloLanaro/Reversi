@@ -3,15 +3,17 @@ package cs3500.reversi.model;
 import cs3500.reversi.controller.ModelFeatures;
 
 /**
- * The smarter model interface which extends a MutableReversi to add functionality without modifying
- * preexisting interfaces.
+ * Extends the {@link MutableReversi} interface to provide additional functionality for a smarter
+ * model. This interface allows the registration of a features listener, notifying it of player
+ * changes.
  */
 public interface ISmarterModel extends MutableReversi {
+
   /**
    * Sets the action listener for this model. The action listener is notified of player changes,
-   * allowing the listener to respond accordingly.
+   * enabling the listener to respond accordingly.
    *
-   * @param featuresListener the listener to be registered as the Action Listener.
+   * @param featuresListener the listener to be registered as the action listener.
    */
   void addFeaturesListener(ModelFeatures featuresListener);
 }

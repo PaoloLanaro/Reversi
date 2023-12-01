@@ -9,8 +9,9 @@ import cs3500.reversi.model.players.AIPlayer;
 import cs3500.reversi.model.players.Player;
 import cs3500.reversi.view.IView;
 
+
 /**
- * Controller class for creating a controller for the game.
+ * Manages the interaction between an {@link ISmarterModel} and an {@link IView} for a Reversi game.
  */
 public class GameController implements ReversiController, ViewFeatures, ModelFeatures {
 
@@ -19,12 +20,11 @@ public class GameController implements ReversiController, ViewFeatures, ModelFea
   private final Player player;
 
   /**
-   * The controller for the reversi game. This constructor constructs a classic game of reversi
-   * based on the input params.
+   * Constructs a controller for a classic game of Reversi.
    *
-   * @param model  the model with which the player wants to use the controller.
-   * @param player the player to play on this controller.
-   * @param view   the view to use to display the game.
+   * @param model  the model to be used with the controller.
+   * @param player the player assigned to this controller.
+   * @param view   the view for displaying the game.
    */
   public GameController(ISmarterModel model, Player player, IView view) {
     this.model = model;

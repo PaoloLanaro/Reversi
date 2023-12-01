@@ -1,14 +1,15 @@
 package cs3500.reversi.controller;
 
 /**
- * A way for a {@link cs3500.reversi.model.MutableReversi} model to communicate with the view.
+ * Represents a communication interface between a {@link cs3500.reversi.model.MutableReversi} model
+ * and a view.
  */
 public interface ModelFeatures {
 
   /**
-   * Callback method that allows the model to communicate with some ModelFeatures implementation.
-   * This is mainly used when the model has changed some state about the view or overall game,
-   * and want the view to update it's state.
+   * Callback method to inform the implementing class about changes in the model's state.
+   * Typically used when the model updates the view or the overall game state, prompting the view to
+   * refresh.
    */
   void refresh();
 }
