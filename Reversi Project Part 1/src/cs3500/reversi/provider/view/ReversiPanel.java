@@ -192,7 +192,7 @@ public class ReversiPanel extends JPanel {
         prevHex.reset();
       }
       else if (polyEquals(activeHex, hex)) {
-        System.out.println("IHex QRS Coordinates: " + h.toStringQRS());
+//        System.out.println("IHex QRS Coordinates: " + h.toStringQRS());
         g2d.setColor(Color.CYAN);
         g2d.fillPolygon(hex);
       }
@@ -239,8 +239,8 @@ public class ReversiPanel extends JPanel {
     drawGrid(g2d, new Position2D(calcWidth / 2, calcHeight / 2),15);
     AffineTransform oldTransform = g2d.getTransform();
     g2d.setTransform(oldTransform);
-    this.aiMakesMove();
-    this.setPanelBackground();
+//    this.aiMakesMove();
+//    this.setPanelBackground();
     this.repaint();
   }
 
@@ -248,55 +248,55 @@ public class ReversiPanel extends JPanel {
    * Ensures that it is the ai's turn. Then allows for it
    * to move using its strategy. Otherwise, it will pass.
    */
-  private void aiMakesMove() {
-    if (playerName.isAI() && model.getCurrentPlayer().getTileColor() == playerName.getTileColor()) {
-      for (ViewFeatures feat : featuresListeners) {
-        try {
-          PlayerAi temp = (PlayerAi)playerName;
-          Optional<IHex> h = temp.findBestMove();
-          if (h.isEmpty()) {
-            feat.playerMakesMove(null, true);
-          } else {
-            feat.playerMakesMove(h.get(), false);
-          }
-        }
-        catch (IllegalStateException | IOException is) {
-          feat.playerMakesMove(null, true);
-        }
-      }
-    }
-  }
+//  private void aiMakesMove() {
+//    if (playerName.isAI() && model.getCurrentPlayer().getTileColor() == playerName.getTileColor()) {
+//      for (ViewFeatures feat : featuresListeners) {
+//        try {
+//          PlayerAi temp = (PlayerAi)playerName;
+//          Optional<IHex> h = temp.findBestMove();
+//          if (h.isEmpty()) {
+//            feat.playerMakesMove(null, true);
+//          } else {
+//            feat.playerMakesMove(h.get(), false);
+//          }
+//        }
+//        catch (IllegalStateException | IOException is) {
+//          feat.playerMakesMove(null, true);
+//        }
+//      }
+//    }
+//  }
 
   /**
    * Sets the background of the panel to a corresponding
    * color once the genericPlayer makes a move.
    */
-  private void setPanelBackground() {
-    if (this.playerName.getPlayerStatus() == PlayStatus.PASS) {
-      this.setBackground(Color.green);
-      scoreText.setText("Score: "  + Integer.toString(playerName.getScore()));
-      scoreText.setFont(new Font("Verdana",1,13));
-      this.add(scoreText);
-
-    }
-    else if (this.playerName.getPlayerStatus() == PlayStatus.FORCEDPASS) {
-      this.setBackground(Color.blue);
-      scoreText.setText("Score: "  + Integer.toString(playerName.getScore()));
-      scoreText.setFont(new Font("Verdana",1,13));
-      this.add(scoreText);
-
-    }
-    else if (this.playerName.getPlayerStatus() == PlayStatus.MOVE) {
-      this.setBackground(Color.MAGENTA);
-      scoreText.setText("Score: "  + Integer.toString(playerName.getScore()));
-      scoreText.setFont(new Font("Verdana",1,13));
-      this.add(scoreText);
-
-    }
-    else {
-      this.setBackground(Color.WHITE);
-    }
-  }
+//  private void setPanelBackground() {
+//    if (this.playerName.getPlayerStatus() == PlayStatus.PASS) {
+//      this.setBackground(Color.green);
+//      scoreText.setText("Score: "  + Integer.toString(playerName.getScore()));
+//      scoreText.setFont(new Font("Verdana",1,13));
+//      this.add(scoreText);
+//
+//    }
+//    else if (this.playerName.getPlayerStatus() == PlayStatus.FORCEDPASS) {
+//      this.setBackground(Color.blue);
+//      scoreText.setText("Score: "  + Integer.toString(playerName.getScore()));
+//      scoreText.setFont(new Font("Verdana",1,13));
+//      this.add(scoreText);
+//
+//    }
+//    else if (this.playerName.getPlayerStatus() == PlayStatus.MOVE) {
+//      this.setBackground(Color.MAGENTA);
+//      scoreText.setText("Score: "  + Integer.toString(playerName.getScore()));
+//      scoreText.setFont(new Font("Verdana",1,13));
+//      this.add(scoreText);
+//
+//    }
+//    else {
+//      this.setBackground(Color.WHITE);
+//    }
+//  }
 
 
   /**
@@ -354,19 +354,19 @@ public class ReversiPanel extends JPanel {
    * displays which player has won/ or if there
    * is a tie.
    */
-  public void endGamePopUp() {
-    GenericPlayer winner = this.model.determineWinner();
-    String msg = "";
-    if (winner == null) {
-      msg = "game over: you tied";
-    }
-    else {
-      msg = winner.getPlayerName() + " WON!\n"
-              + "Winning Score: " + winner.getScore();
-    }
-    JOptionPane.showMessageDialog(null, msg, playerName.getPlayerName(),
-            JOptionPane.INFORMATION_MESSAGE);
-  }
+//  public void endGamePopUp() {
+//    GenericPlayer winner = this.model.determineWinner();
+//    String msg = "";
+//    if (winner == null) {
+//      msg = "game over: you tied";
+//    }
+//    else {
+//      msg = winner.getPlayerName() + " WON!\n"
+//              + "Winning Score: " + winner.getScore();
+//    }
+//    JOptionPane.showMessageDialog(null, msg, playerName.getPlayerName(),
+//            JOptionPane.INFORMATION_MESSAGE);
+//  }
 
   /**
    * The mouse event listener handles mouse moves.
@@ -375,7 +375,7 @@ public class ReversiPanel extends JPanel {
 
     @Override
     public void mousePressed(MouseEvent e) {
-      this.mouseDragged(e);
+      mouseDragged(e);
     }
 
     @Override
@@ -390,23 +390,28 @@ public class ReversiPanel extends JPanel {
       boolean pressedInBounds = false;
       for (IHex p : polygonGrid.keySet()) {
         Polygon h = polygonGrid.get(p);
-        int xMod = h.xpoints[0] + HEXSIZE ;
-        int yMod = h.ypoints[0] - HEXSIZE / 2;
-
-        if (((logicalP.getX() <= xMod + HEXSIZE )
-                &&
-                (logicalP.getX() >= xMod - HEXSIZE))
-            && ((logicalP.getY() <= yMod + HEXSIZE )
-                &&
-              (logicalP.getY() >= yMod - HEXSIZE))) {
-          if (activeHex != null) {
-            prevHex = polyHex(activeHex.xpoints[0] - HEXSIZE,
-                  activeHex.ypoints[0] - HEXSIZE - 3);
-          }
-          pressedInBounds = true;
+        if (h.contains(logicalP)) {
           activeHex = h;
           activeHexagon = p;
+          pressedInBounds = true;
         }
+//        int xMod = h.xpoints[0] + HEXSIZE ;
+//        int yMod = h.ypoints[0] - HEXSIZE / 2;
+//
+//        if (((logicalP.getX() <= xMod + HEXSIZE )
+//                &&
+//                (logicalP.getX() >= xMod - HEXSIZE))
+//                && ((logicalP.getY() <= yMod + HEXSIZE )
+//                &&
+//                (logicalP.getY() >= yMod - HEXSIZE))) {
+//          if (activeHex != null) {
+//            prevHex = polyHex(activeHex.xpoints[0] - HEXSIZE,
+//                    activeHex.ypoints[0] - HEXSIZE - 3);
+//          }
+//          pressedInBounds = true;
+//          activeHex = h;
+//          activeHexagon = p;
+//        }
       }
       if (!pressedInBounds) {
         activeHex = null;
@@ -501,13 +506,14 @@ public class ReversiPanel extends JPanel {
 
     @Override
     public void keyPressed(KeyEvent e) {
+//      System.out.println(featuresListeners);
       if (model.gameOver()) {
-        endGamePopUp();
+//        endGamePopUp();
         for (ViewFeatures feat : featuresListeners) {
           feat.quit();
         }
       }
-      if (!playerName.isAI()) {
+//      if (!playerName.isAI()) {
         if (e.getKeyCode() == KeyEvent.VK_P) {
           for (ViewFeatures feat : featuresListeners) {
             feat.playerMakesMove(null, true);
@@ -520,7 +526,7 @@ public class ReversiPanel extends JPanel {
           activeHex.reset();
           System.out.println("You made a move");
         }
-      }
+//      }
       //String score = Integer.toString(playerName.getScore());
 
     }

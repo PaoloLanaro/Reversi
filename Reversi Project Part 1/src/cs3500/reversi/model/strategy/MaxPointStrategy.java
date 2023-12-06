@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.Cell;
-import cs3500.reversi.model.ReversiCell;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.RowCol;
@@ -26,7 +25,7 @@ public class MaxPointStrategy implements Strategy {
   public Optional<RowCol> chooseMove(ReadOnlyReversi model, DiscColor forWhom) {
     this.model = model;
 
-    Map<ReversiCell, RowCol> validMoves = new HashMap<>();
+    Map<Cell, RowCol> validMoves = new HashMap<>();
 
     int underlyingLength = this.model.getSideLength() * 2 - 1;
 
@@ -36,7 +35,7 @@ public class MaxPointStrategy implements Strategy {
           continue;
         }
         if (model.isValidMove(row, col)) {
-          validMoves.put((ReversiCell) model.getBoard().get(row).get(col), new RowCol(row, col));
+          validMoves.put((Cell) model.getBoard().get(row).get(col), new RowCol(row, col));
         }
       }
     }
@@ -49,11 +48,11 @@ public class MaxPointStrategy implements Strategy {
 
   }
 
-  private RowCol getBestScore(Map<ReversiCell, RowCol> validMoves, DiscColor forWhom) {
+  private RowCol getBestScore(Map<Cell, RowCol> validMoves, DiscColor forWhom) {
     int maxScore = Integer.MIN_VALUE;
     RowCol bestMove = null;
 
-    for (Map.Entry<ReversiCell, RowCol> entry : validMoves.entrySet()) {
+    for (Map.Entry<Cell, RowCol> entry : validMoves.entrySet()) {
       RowCol move = entry.getValue();
 
       // Simulate the move by updating the copied board directly

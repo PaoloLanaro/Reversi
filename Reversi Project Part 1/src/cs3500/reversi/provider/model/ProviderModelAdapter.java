@@ -38,77 +38,93 @@ public class ProviderModelAdapter implements ReversiModel {
 
   @Override
   public boolean validMove(IHex hex, TileType color) throws IllegalStateException {
-    return false;
+    throw new UnsupportedOperationException("Failed the method invocation");
   }
 
   @Override
   public boolean legalMoveAvailable(GenericPlayer player) throws IllegalArgumentException, IllegalStateException {
-    return false;
+    throw new UnsupportedOperationException("Failed the method invocation");
   }
 
   @Override
   public void addFeatureListener(ModelFeatures features) {
-
+    throw new UnsupportedOperationException("Failed the method invocation");
   }
 
   @Override
   public boolean gameOver() throws IllegalStateException {
-    return false;
+    return delegate.isGameOver();
   }
 
   @Override
   public GenericPlayer determineWinner() throws IllegalStateException {
-    return null;
+    throw new UnsupportedOperationException("Failed the method invocation");
   }
 
   @Override
   public void playerTurn(GenericPlayer player, boolean pass, IHex hex, TileType currentPlayer) throws IllegalStateException, IllegalArgumentException {
-
+    throw new UnsupportedOperationException("Failed the method invocation");
   }
 
   @Override
   public void switchTurn() throws IllegalStateException {
-
+    throw new UnsupportedOperationException("Failed the method invocation");
   }
 
   @Override
   public GenericPlayer getCurrentPlayer() throws IllegalStateException {
-    return null;
+    throw new UnsupportedOperationException("Failed the method invocation");
   }
 
   @Override
   public List<IHex> getPlayerTiles(GenericPlayer player) throws IllegalStateException, IllegalArgumentException {
-    return null;
+    throw new UnsupportedOperationException("Failed the method invocation");
   }
 
   @Override
   public List<IHex> getPlayerTiles(TileType color) throws IllegalStateException, IllegalArgumentException {
-    return null;
+    throw new UnsupportedOperationException("Failed the method invocation");
   }
 
   @Override
   public int getMaxRowLength() throws IllegalStateException {
-    return 0;
+    return delegate.getSideLength() * 2 - 1;
   }
 
   @Override
   public List<List<IHex>> getGridCopy() {
-    return null;
+    int underlyingBoardSize = delegate.getBoard().size();
+    List<List<Cell>> underlyingBoard = delegate.getBoard();
+
+    List<List<IHex>> returnCopy = new ArrayList<>();
+
+    for (int row = 0; row < underlyingBoardSize; row++) {
+      returnCopy.add(new ArrayList<>());
+      for (int col = 0; col < underlyingBoardSize; col++) {
+        Cell currCell = underlyingBoard.get(row).get(col);
+        if (currCell == null) {
+          continue;
+        }
+        List<IHex> currentList = returnCopy.get(row);
+        currentList.add(new ProviderHexToCellAdapter(currCell, new RowCol(row, col)));
+      }
+    }
+    return returnCopy;
   }
 
   @Override
   public IHex getSpecificHex(int q, int r, int s) {
-    return null;
+    throw new UnsupportedOperationException("Failed the method invocation");
   }
 
   @Override
   public HashMap<IHex, Integer> legalMoveAvailableList(GenericPlayer player) throws IllegalArgumentException, IllegalStateException, IOException {
-    return null;
+    throw new UnsupportedOperationException("Failed the method invocation");
   }
 
   @Override
   public int getPassCount() {
-    return 0;
+    throw new UnsupportedOperationException("Failed the method invocation");
   }
 
 //  @Override
@@ -235,9 +251,9 @@ public class ProviderModelAdapter implements ReversiModel {
 //    return null;
 //  }
 //
-//  private DiscColor tileTypeToDiscColor(TileType color) {
-//    return color == TileType.BLACK ? DiscColor.BLACK : DiscColor.WHITE;
-//  }
+  protected static DiscColor tileTypeToDiscColor(TileType color) {
+    return color == TileType.BLACK ? DiscColor.BLACK : DiscColor.WHITE;
+  }
 //
 //  @Override
 //  public HashMap<IHex, Integer> legalMoveAvailableList(GenericPlayer player) throws IllegalArgumentException, IllegalStateException, IOException {

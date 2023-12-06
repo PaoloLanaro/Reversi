@@ -1,3 +1,4 @@
+import java.security.Provider;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,10 @@ import cs3500.reversi.model.players.HumanPlayer;
 import cs3500.reversi.model.players.Player;
 import cs3500.reversi.model.strategy.GoForCornersStrategy;
 import cs3500.reversi.model.strategy.MaxPointStrategy;
+import cs3500.reversi.provider.model.GenericPlayer;
+import cs3500.reversi.provider.model.ProviderModelAdapter;
+import cs3500.reversi.provider.model.ProviderPlayerAdapter;
+import cs3500.reversi.provider.view.ReversiModelView;
 import cs3500.reversi.view.IView;
 import cs3500.reversi.view.ReversiGraphicsView;
 
@@ -39,17 +44,23 @@ public final class Reversi {
     MutableReversi delegate = new BasicReversi(gameSize);
     ISmarterModel model = new SmarterModel(delegate);
     IView player1View = new ReversiGraphicsView(model);
-    IView player2View = new ReversiGraphicsView(model);
+//    IView player2View = new ReversiGraphicsView(model);
+    ProviderModelAdapter providerModel = new ProviderModelAdapter(gameSize);
+    GenericPlayer player = new ProviderPlayerAdapter();
+    ReversiModelView second = new cs3500.reversi.provider.view.ReversiGraphicsView(providerModel, player);
 
     List<Player> players = constructPlayers(args, gameSize);
 
     ReversiController controller1 = new GameController(model, players.get(0), player1View);
-    ReversiController controller2 = new GameController(model, players.get(1), player2View);
+//    ReversiController controller2 = new GameController(model, players.get(1), player2View);
+    ReversiController controller2 = new GameController()
+    second.setVisible(true);
+    second.addFeatureListener(this);
 
     model.startGame();
 
     controller1.playGame();
-    controller2.playGame();
+//    controller2.playGame();
   }
 
   private static List<Player> constructPlayers(String[] args, int gameSize) {
