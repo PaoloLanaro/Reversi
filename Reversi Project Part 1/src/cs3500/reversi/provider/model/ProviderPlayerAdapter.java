@@ -1,8 +1,13 @@
 package cs3500.reversi.provider.model;
 
-public class ProviderPlayerAdapter implements GenericPlayer {
-  public ProviderPlayerAdapter() {
+import cs3500.reversi.model.players.Player;
 
+public class ProviderPlayerAdapter implements GenericPlayer {
+
+  private Player player;
+
+  public ProviderPlayerAdapter(Player player) {
+    this.player = player;
   }
 
   @Override

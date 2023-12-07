@@ -45,22 +45,23 @@ public final class Reversi {
     ISmarterModel model = new SmarterModel(delegate);
     IView player1View = new ReversiGraphicsView(model);
 //    IView player2View = new ReversiGraphicsView(model);
+    Player delegatePlayer = new HumanPlayer(model, DiscColor.BLACK);
     ProviderModelAdapter providerModel = new ProviderModelAdapter(gameSize);
-    GenericPlayer player = new ProviderPlayerAdapter();
+    GenericPlayer player = new ProviderPlayerAdapter(delegatePlayer);
     ReversiModelView second = new cs3500.reversi.provider.view.ReversiGraphicsView(providerModel, player);
 
     List<Player> players = constructPlayers(args, gameSize);
 
     ReversiController controller1 = new GameController(model, players.get(0), player1View);
 //    ReversiController controller2 = new GameController(model, players.get(1), player2View);
-    ReversiController controller2 = new GameController()
+    ReversiController controller2 = new GameController(model, delegatePlayer, second);
     second.setVisible(true);
-    second.addFeatureListener(this);
+    //second.addFeatureListener(this);
 
     model.startGame();
 
     controller1.playGame();
-//    controller2.playGame();
+    controller2.playGame();
   }
 
   private static List<Player> constructPlayers(String[] args, int gameSize) {
