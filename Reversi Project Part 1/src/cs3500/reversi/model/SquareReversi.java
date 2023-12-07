@@ -95,7 +95,7 @@ public class SquareReversi implements MutableReversi {
 
   private boolean directionChecker(int currentRow, int currentCol, int rowOffset,
                                    int colOffset, List<SquareCell> currentRun) {
-    if (!isNotOutOfBounds(currentRow, currentCol)
+    if (isOutOfBounds(currentRow, currentCol)
             || board.get(currentRow).get(currentCol).getColor() == DiscColor.EMPTY) {
       if (currentRun.isEmpty()) {
         return false;
@@ -124,7 +124,7 @@ public class SquareReversi implements MutableReversi {
       for (int colOffset : offsets) {
         int newRow = row + rowOffset;
         int newCol = col + colOffset;
-        if (!isNotOutOfBounds(newRow, newCol)) {
+        if (isOutOfBounds(newRow, newCol)) {
           continue;
         }
         if (board.get(newRow).get(newCol).getColor() == turn
@@ -150,8 +150,8 @@ public class SquareReversi implements MutableReversi {
     }
   }
 
-  private boolean isNotOutOfBounds(int row, int col) {
-    return row >= 0 && col >= 0 && row < initSize && col < initSize;
+  private boolean isOutOfBounds(int row, int col) {
+    return row < 0 || col < 0 || row >= initSize || col >= initSize;
   }
 
   @Override
