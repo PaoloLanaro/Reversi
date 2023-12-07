@@ -47,11 +47,11 @@ public final class Reversi {
     ProviderPlayerAdapter player2 = new ProviderPlayerAdapter(adapter, DiscColor.WHITE);
     ReversiModelView delegate = new cs3500.reversi.provider.view.ReversiGraphicsView(adapter,
             player2);
-    ViewToProviderAdapter player2View = new ViewToProviderAdapter(delegate);
-    ReversiController controller2 = new GameController(model, player2, player2View);
+//    ViewToProviderAdapter player2View = new ViewToProviderAdapter(delegate);
+//    ReversiController controller2 = new GameController(model, player2, player2View);
 
     controller1.playGame();
-    controller2.playGame();
+//    controller2.playGame();
 
 
 //    MutableReversi model = new BasicReversi(gameSize);

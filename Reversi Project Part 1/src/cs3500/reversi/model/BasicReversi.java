@@ -69,7 +69,7 @@ public class BasicReversi implements MutableReversi {
           continue;
         }
         Cell otherCell = otherBoard.get(row).get(cell);
-        Cell newCell = new ReversiCell(otherCell.getColor());
+        Cell newCell = new HexReversiCell(otherCell.getColor());
         this.board.get(row).add(newCell);
       }
     }
@@ -338,7 +338,7 @@ public class BasicReversi implements MutableReversi {
     for (int row = 0; row < diameter; row++) {
       initialList.add(new ArrayList<>(diameter));
       for (int col = 0; col < diameter; col++) {
-        Cell cell = new ReversiCell();
+        Cell cell = new HexReversiCell();
         initialList.get(row).add(cell);
       }
     }
@@ -556,7 +556,7 @@ public class BasicReversi implements MutableReversi {
 
   @Override
   public Cell getCellAt(int row, int col) {
-    return new ReversiCell(board.get(row).get(col));
+    return new HexReversiCell(board.get(row).get(col));
   }
 
 }

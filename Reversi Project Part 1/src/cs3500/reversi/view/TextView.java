@@ -1,7 +1,7 @@
 package cs3500.reversi.view;
 
 import cs3500.reversi.model.ReadOnlyReversi;
-import cs3500.reversi.model.ReversiCell;
+import cs3500.reversi.model.HexReversiCell;
 
 /**
  * A text-based view for a Reversi game, displaying the game board using characters.
@@ -42,7 +42,7 @@ public class TextView {
     for (int row = 0; row < board.getBoard().size(); row++) {
       int initialOffset = row - middleRow;
       for (int col = 0; col < board.getBoard().size(); col++) {
-        ReversiCell cell = (ReversiCell) board.getBoard().get(row).get(col);
+        HexReversiCell cell = (HexReversiCell) board.getBoard().get(row).get(col);
         if (row <= middleRow) {
           if (cell == null) {
             boardRepresentation.append(' ');
@@ -67,7 +67,7 @@ public class TextView {
 
   }
 
-  private void getCellStateAsString(StringBuilder boardRepresentation, ReversiCell cell) {
+  private void getCellStateAsString(StringBuilder boardRepresentation, HexReversiCell cell) {
     switch (cell.getColor()) {
       case EMPTY:
         boardRepresentation.append('_');

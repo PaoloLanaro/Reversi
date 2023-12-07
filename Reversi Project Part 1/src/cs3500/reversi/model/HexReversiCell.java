@@ -4,7 +4,7 @@ package cs3500.reversi.model;
  * Represents a cell on a game board in a Reversi game. Cells can be in different
  * colors, such as empty, occupied by a black disc, or occupied by a white disc.
  */
-public class ReversiCell implements Cell {
+public class HexReversiCell implements Cell {
   private DiscColor color;
   private Cell upperLeft;
   private Cell upperRight;
@@ -16,7 +16,7 @@ public class ReversiCell implements Cell {
   /**
    * Constructs a new Cell with an initial state of empty.
    */
-  public ReversiCell() {
+  public HexReversiCell() {
     color = DiscColor.EMPTY;
   }
 
@@ -26,7 +26,7 @@ public class ReversiCell implements Cell {
    *
    * @param otherCell The Cell to copy the state from.
    */
-  public ReversiCell(Cell otherCell) {
+  public HexReversiCell(Cell otherCell) {
     color = otherCell.getColor() == DiscColor.BLACK ? DiscColor.BLACK :
             otherCell.getColor() == DiscColor.WHITE ? DiscColor.WHITE : DiscColor.EMPTY;
     upperLeft = otherCell.getUpperLeft();
@@ -38,12 +38,12 @@ public class ReversiCell implements Cell {
   }
 
   /**
-   * Constructor for the {@link ReversiCell} object which simply sets the color of this
-   * {@link ReversiCell}.
+   * Constructor for the {@link HexReversiCell} object which simply sets the color of this
+   * {@link HexReversiCell}.
    *
-   * @param color the color you wish the {@link ReversiCell} to be.
+   * @param color the color you wish the {@link HexReversiCell} to be.
    */
-  public ReversiCell(DiscColor color) {
+  public HexReversiCell(DiscColor color) {
     this.color = color;
   }
 

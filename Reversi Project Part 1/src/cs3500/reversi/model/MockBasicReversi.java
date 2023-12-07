@@ -77,9 +77,9 @@ public class MockBasicReversi implements MutableReversi {
   }
 
   @Override
-  public ReversiCell getCellAt(int row, int col) {
+  public HexReversiCell getCellAt(int row, int col) {
     appendHelper(String.format("Getting cell at (%d, %d)", row, col));
-    return (ReversiCell) delegate.getCellAt(row, col);
+    return (HexReversiCell) delegate.getCellAt(row, col);
   }
 
   @Override

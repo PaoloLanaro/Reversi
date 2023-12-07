@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import cs3500.reversi.model.BasicReversi;
+import cs3500.reversi.model.SquareReversi;
 import cs3500.reversi.view.TextView;
 
 /**
@@ -21,6 +22,14 @@ public class ViewTests {
             " _ X O _ \n" +
             "  _ _ _ \n";
     Assert.assertEquals(expected, viewSize3.toString());
+  }
+
+  @Test
+  public void testSquareBoard() {
+    SquareReversi logic4 = new SquareReversi(4);
+    logic4.startGame();
+    TextView viewSize4 = new TextView(logic4);
+    System.out.println(viewSize4);
   }
 
 }
