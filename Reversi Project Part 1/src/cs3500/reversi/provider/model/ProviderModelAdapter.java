@@ -13,7 +13,7 @@ import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.SmarterModel;
 import cs3500.reversi.model.DiscColor;
 
-public class ProviderModelAdapter implements ReversiModel {
+public class ProviderModelAdapter extends BasicReversi implements ReversiModel {
 
   private final SmarterModel delegate;
   private int passCounter;
@@ -23,6 +23,7 @@ public class ProviderModelAdapter implements ReversiModel {
   Map<RowCol, RowCol> qrToRowCol;
 
   public ProviderModelAdapter(int initSize) {
+    super(initSize);
     passCounter = 0;
     BasicReversi constructor = new BasicReversi(initSize);
     delegate = new SmarterModel(constructor);
@@ -33,7 +34,7 @@ public class ProviderModelAdapter implements ReversiModel {
 
   @Override
   public void startGame(List<GenericPlayer> playerNames) throws IllegalArgumentException, IllegalStateException {
-    throw new UnsupportedOperationException("Failed the method invocation");
+    delegate.startGame();
   }
 
   @Override

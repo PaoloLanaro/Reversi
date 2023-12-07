@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import cs3500.reversi.controller.ModelFeatures;
+
 
 /**
  * Represents a basic implementation of a basic hexagon Reversi Game. Implements the MutableReversi
@@ -16,7 +18,7 @@ import java.util.Objects;
  *
  * <p>1. The passCounter should always be between 0 and 2.
  */
-public final class BasicReversi implements MutableReversi {
+public class BasicReversi implements MutableReversi {
   private int passCounter; // Counter for consecutive passes.
   private DiscColor turn; // Current player's turn (BLACK or WHITE).
   private final List<List<Cell>> board; // 2D list representing the game board.
@@ -28,6 +30,9 @@ public final class BasicReversi implements MutableReversi {
   private final String BOTTOM_LEFT = "bl";
   private final String BOTTOM_RIGHT = "br";
   private boolean gameStarted;
+
+  private List<ModelFeatures> featuresListeners;
+
 
   /**
    * Constructs a new BasicReversi with a specified initial board size.
@@ -43,6 +48,7 @@ public final class BasicReversi implements MutableReversi {
     }
     this.initSize = initSize;
     board = initBoard();
+    featuresListeners = new ArrayList<>();
   }
 
   /**
@@ -93,6 +99,7 @@ public final class BasicReversi implements MutableReversi {
     List<List<Cell>> validRuns = findValidRuns(originCell);
     setValidDiscs(validRuns);
     switchTurn();
+    notifyListeners();
   }
 
   @Override
@@ -101,6 +108,20 @@ public final class BasicReversi implements MutableReversi {
       throw new IllegalStateException("Game's already been started");
     }
     gameStarted = true;
+    notifyListeners();
+  }
+
+  @Override
+  public void addFeaturesListener(ModelFeatures featuresListener) {
+    featuresListeners.add(featuresListener);
+  }
+
+  private void notifyListeners() {
+    if (!featuresListeners.isEmpty()) {
+      for (ModelFeatures listener : featuresListeners) {
+        listener.refresh();
+      }
+    }
   }
 
   // internally switches the turn from BLACK to WHITE and vice versa.
@@ -118,6 +139,7 @@ public final class BasicReversi implements MutableReversi {
     }
     passCounter++;
     switchTurn();
+    notifyListeners();
   }
 
   // private helper for getting the opposite color (mainly used for calculating runs)

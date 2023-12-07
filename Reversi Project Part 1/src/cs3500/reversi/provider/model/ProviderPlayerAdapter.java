@@ -1,33 +1,53 @@
 package cs3500.reversi.provider.model;
 
-import cs3500.reversi.model.players.Player;
+import java.util.Objects;
 
-public class ProviderPlayerAdapter implements GenericPlayer {
+import cs3500.reversi.model.DiscColor;
+import cs3500.reversi.model.players.HumanPlayer;
 
-  private Player player;
+import static cs3500.reversi.provider.model.ProviderModelAdapter.tileTypeToDiscColor;
 
-  public ProviderPlayerAdapter(Player player) {
-    this.player = player;
+public class ProviderPlayerAdapter extends HumanPlayer implements GenericPlayer {
+
+  String playerColor;
+
+  public ProviderPlayerAdapter(ProviderModelAdapter providerModel, DiscColor discColor) {
+    super(providerModel, discColor);
+    playerColor = discColor.toString();
   }
 
   @Override
   public TileType getTileColor() {
-    return null;
+    return stringToTileType(playerColor);
+  }
+
+  private TileType stringToTileType(String color) {
+    if (Objects.equals(color, "white")) {
+      return TileType.WHITE;
+    } else if (Objects.equals(color, "black")) {
+      return TileType.BLACK;
+    }
+    throw new IllegalStateException("Player was neither black nor white");
   }
 
   @Override
   public TileType getOppositeColor() throws IllegalArgumentException {
-    return null;
+    TileType playerType = stringToTileType(playerColor);
+    if (playerType == TileType.BLACK) {
+      return TileType.WHITE;
+    } else {
+      return TileType.BLACK;
+    }
   }
 
   @Override
   public PlayStatus getPlayerStatus() {
-    return null;
+    throw new UnsupportedOperationException("Method invocation failed");
   }
 
   @Override
   public void updatePlayerStatus(PlayStatus ps) {
-
+    throw new UnsupportedOperationException("Method invocation failed");
   }
 
   @Override

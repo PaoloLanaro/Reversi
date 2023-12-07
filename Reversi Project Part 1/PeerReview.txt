@@ -5,6 +5,18 @@ purpose and relevance to the program. The tight coupling of the model with the G
 challenges in adapting the view. To enhance modularity, it's recommended to decouple GenericPlayer
 from the model and consider removing duplicated getters that are in both the ReversiModel and the
 ReadOnlyReversiModel to just the ReadOnlyReversiModel interface for improved clarity and cohesion.
+There were also issue within the Strategies implementations.
+Having a strategy interface implement Player interfaces defeats the purpose of the Strategy pattern,
+and means that strategies will have to implement unnecessary and redundant methods. The code we
+received for the strategies also wouldn't compile because it didn't implement all the methods within
+the interfaces, and uses a derived GenericPlayer.java implementation. A better choice could have
+been to pass in a GenericPlayer implementation through the constructor, therefore decoupling the
+need to construct a derived class inside the strategies. This would also allow any GenericPlayer
+implementing class to be passed in, and those methods within GenericPlayer would allow for high
+levels of decoupling.
+In general, the main things to look out for in this category would just be using derived class
+objects in the place of interface objects to allow for decoupling, as that's one of the main issues
+we came across.
 
 Implementation Critique:
 The provided view demonstrates partial capability, displaying a hexagonal board efficiently.
@@ -12,26 +24,20 @@ However, there are issues such as non-scalability with the window, utilizing mou
 more suitable events, and a noticeable delay in hexagon highlighting. Addressing these concerns
 would enhance the overall user experience. Additionally, optimizing the coordinate system
 alignment, improving the view implementation, and minimizing unnecessary methods in the codebase
-would contribute to code reusability. Additionally, outside the view implementation, there were
-callback methods in the model interface, but no controller was provided. I suggest implementing a
-working controller to utilize those methods or remove them from the provided code to avoid confusing
-future developers on unused methods.
+would contribute to code re-usability. Just generally looking at the documentation for something
+like Polygon, which contains a .contains(Point) method would be helpful and cut down on unnecessary
+code.
 
 Documentation Critique:
 While the codebase includes sufficient JavaDoc, there is room for improvement in terms of spelling
 and grammatical errors. Ensuring consistency in documentation style and completeness across all
 methods is crucial for better code comprehension. Some methods lack JavaDoc entirely, which should
 be rectified to provide comprehensive documentation for future developers. Also, there was no README
-provided. I suggest providing one as it would be helpful for future developers to understanding the
+provided. We suggest providing one as it would be helpful for future developers to understanding the
 code base.
 
 Design/Code Limitations and Suggestions:
-Code reusability is hindered by differences in coordinate systems, incomplete view implementation,
+Code re-usability is hindered by differences in coordinate systems, incomplete view implementation,
 and the absence of strategy interfaces initially. To address this, we requested a Position2D
 class and the necessary strategy interfaces and implementations. Eliminated redundant methods for
 optional functionality.
-
-In summary, the provided code exhibits potential but requires refinement in interface design,
-implementation details, and documentation. The suggested changes aim to enhance code modularity,
-user experience, and overall maintainability, fostering a more collaborative and adaptable codebase.
-

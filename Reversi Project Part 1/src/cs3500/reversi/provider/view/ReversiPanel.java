@@ -390,29 +390,33 @@ public class ReversiPanel extends JPanel {
       boolean pressedInBounds = false;
       for (IHex p : polygonGrid.keySet()) {
         Polygon h = polygonGrid.get(p);
-        if (h.contains(logicalP)) {
-          activeHex = h;
-          activeHexagon = p;
-          pressedInBounds = true;
+        if (p.getQ() == 1 && p.getR() == 2) {
+//          System.out.println("here");
         }
-//        int xMod = h.xpoints[0] + HEXSIZE ;
-//        int yMod = h.ypoints[0] - HEXSIZE / 2;
-//
-//        if (((logicalP.getX() <= xMod + HEXSIZE )
-//                &&
-//                (logicalP.getX() >= xMod - HEXSIZE))
-//                && ((logicalP.getY() <= yMod + HEXSIZE )
-//                &&
-//                (logicalP.getY() >= yMod - HEXSIZE))) {
-//          if (activeHex != null) {
-//            prevHex = polyHex(activeHex.xpoints[0] - HEXSIZE,
-//                    activeHex.ypoints[0] - HEXSIZE - 3);
-//          }
-//          pressedInBounds = true;
+//        if (h.contains(logicalP)) {
 //          activeHex = h;
 //          activeHexagon = p;
+//          pressedInBounds = true;
 //        }
+        int xMod = h.xpoints[0] + HEXSIZE ;
+        int yMod = h.ypoints[0] - HEXSIZE / 2;
+
+        if (((logicalP.getX() <= xMod + HEXSIZE )
+                &&
+                (logicalP.getX() >= xMod - HEXSIZE))
+                && ((logicalP.getY() <= yMod + HEXSIZE )
+                &&
+                (logicalP.getY() >= yMod - HEXSIZE))) {
+          if (activeHex != null) {
+            prevHex = polyHex(activeHex.xpoints[0] - HEXSIZE,
+                    activeHex.ypoints[0] - HEXSIZE - 3);
+          }
+          pressedInBounds = true;
+          activeHex = h;
+          activeHexagon = p;
+        }
       }
+      System.out.println(activeHexagon.getQ() + "," + activeHexagon.getR()); // todo
       if (!pressedInBounds) {
         activeHex = null;
         activeHexagon = null;

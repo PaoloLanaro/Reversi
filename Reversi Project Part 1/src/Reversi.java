@@ -1,4 +1,3 @@
-import java.security.Provider;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,9 +5,7 @@ import cs3500.reversi.controller.GameController;
 import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.DiscColor;
-import cs3500.reversi.model.ISmarterModel;
 import cs3500.reversi.model.MutableReversi;
-import cs3500.reversi.model.SmarterModel;
 import cs3500.reversi.model.players.AIPlayer;
 import cs3500.reversi.model.players.HumanPlayer;
 import cs3500.reversi.model.players.Player;
@@ -41,27 +38,46 @@ public final class Reversi {
     } catch (Exception e) {
       throw new IllegalArgumentException("The first argument was not a valid number.");
     }
-    MutableReversi delegate = new BasicReversi(gameSize);
-    ISmarterModel model = new SmarterModel(delegate);
+    MutableReversi model = new BasicReversi(gameSize);
     IView player1View = new ReversiGraphicsView(model);
-//    IView player2View = new ReversiGraphicsView(model);
-    Player delegatePlayer = new HumanPlayer(model, DiscColor.BLACK);
-    ProviderModelAdapter providerModel = new ProviderModelAdapter(gameSize);
-    GenericPlayer player = new ProviderPlayerAdapter(delegatePlayer);
-    ReversiModelView second = new cs3500.reversi.provider.view.ReversiGraphicsView(providerModel, player);
-
     List<Player> players = constructPlayers(args, gameSize);
-
     ReversiController controller1 = new GameController(model, players.get(0), player1View);
-//    ReversiController controller2 = new GameController(model, players.get(1), player2View);
-    ReversiController controller2 = new GameController(model, delegatePlayer, second);
-    second.setVisible(true);
-    //second.addFeatureListener(this);
+
+    ProviderModelAdapter adapter = new ProviderModelAdapter(gameSize);
+    ProviderPlayerAdapter player2 = new ProviderPlayerAdapter(adapter, DiscColor.WHITE);
+    ReversiModelView delegate = new cs3500.reversi.provider.view.ReversiGraphicsView(adapter,
+            player2);
+    ViewToProviderAdapter player2View = new ViewToProviderAdapter(delegate);
+    ReversiController controller2 = new GameController(model, player2, player2View);
+
+    controller1.playGame();
+    controller2.playGame();
+
+
+//    MutableReversi model = new BasicReversi(gameSize);
+////    ISmarterModel model = new SmarterModel(delegate);
+//    IView player1View = new ReversiGraphicsView(model);
+////    IView player2View = new ReversiGraphicsView(model);
+//    ProviderModelAdapter providerModel = new ProviderModelAdapter(gameSize);
+//    GenericPlayer player = new ProviderPlayerAdapter(providerModel, DiscColor.WHITE);
+//
+//    cs3500.reversi.provider.view.ReversiGraphicsView player2View = new cs3500.reversi.provider.view.ReversiGraphicsView(providerModel,
+//            player);
+//
+//    ViewToProviderAdapter view = new ViewToProviderAdapter(player2View);
+//
+//    List<Player> players = constructPlayers(args, gameSize);
+//    ProviderPlayerAdapter adaptedPlayer = new ProviderPlayerAdapter(providerModel, DiscColor.WHITE);
+//
+//    ReversiController controller1 = new GameController(model, players.get(0), player1View);
+////    ReversiController controller2 = new GameController(model, players.get(1), player2View);
+//    ReversiController controller2 = new GameController( providerModel,
+//            adaptedPlayer, view);
 
     model.startGame();
 
     controller1.playGame();
-    controller2.playGame();
+//    controller2.playGame();
   }
 
   private static List<Player> constructPlayers(String[] args, int gameSize) {

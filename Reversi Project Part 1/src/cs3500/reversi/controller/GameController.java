@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.naming.OperationNotSupportedException;
 
 import cs3500.reversi.model.ISmarterModel;
+import cs3500.reversi.model.MutableReversi;
 import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.players.AIPlayer;
 import cs3500.reversi.model.players.Player;
@@ -24,13 +25,9 @@ import cs3500.reversi.view.IView;
 public class GameController implements ReversiController, ViewFeatures, ModelFeatures,
         cs3500.reversi.provider.model.ModelFeatures, cs3500.reversi.provider.view.ViewFeatures {
 
-  private final ISmarterModel model;
+  private final MutableReversi model;
   private final IView view;
   private final Player player;
-
-  private final ReversiModelView reversiModelView;
-  private final GenericPlayer genericPlayer;
-  private final ReversiModel providerModelAdapter;
 
   /**
    * Constructs a controller for a classic game of Reversi.
@@ -39,33 +36,16 @@ public class GameController implements ReversiController, ViewFeatures, ModelFea
    * @param player the player assigned to this controller.
    * @param view   the view for displaying the game.
    */
-  public GameController(ISmarterModel model, Player player, IView view) {
+  public GameController(MutableReversi model, Player player, IView view) {
+    Objects.requireNonNull(model);
+    Objects.requireNonNull(player);
+    Objects.requireNonNull(view);
     this.model = model;
     this.view = view;
     this.player = player;
-    reversiModelView = null;
-    genericPlayer = null;
-    providerModelAdapter = null;
     view.addFeaturesListener(this);
     model.addFeaturesListener(this);
   }
-
-  /**
-   * @param model
-   * @param player
-   * @param view
-   */
-  public GameController(ReversiModel model, GenericPlayer player, ReversiModelView view) {
-    this.model = null;
-    this.view = null;
-    this.player = null;
-    reversiModelView = view;
-    genericPlayer = player;
-    providerModelAdapter = model;
-    view.addFeatureListener(this);
-    model.addFeatureListener(this);
-  }
-
 
   @Override
   public void playGame() {
@@ -85,11 +65,11 @@ public class GameController implements ReversiController, ViewFeatures, ModelFea
     } else {
       try {
         model.makeMove(coordinate.getRow(), coordinate.getCol());
-        view.refresh();
       } catch (Exception e) {
         view.showErrorMessage(e.getMessage(), player);
       }
     }
+    playGame();
   }
 
   @Override
@@ -130,12 +110,12 @@ public class GameController implements ReversiController, ViewFeatures, ModelFea
 
   @Override
   public void updateOnPlayerSwitch(TileType color) {
-    refresh();
+    playGame();
   }
 
   @Override
   public void quit() {
-    throw new UnsupportedOperationException("no");
+    throw new UnsupportedOperationException("Shouldn't quit");
   }
 
   @Override

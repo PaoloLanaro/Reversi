@@ -25,7 +25,7 @@ public class ProviderHexToCellAdapter implements IHex {
 
   @Override
   public String toStringQRS() {
-    throw new UnsupportedOperationException("Failed method invocation");
+    return "(" + getQ() + ", " + getR() + ")";
   }
 
   @Override
