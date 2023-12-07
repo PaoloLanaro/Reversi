@@ -11,6 +11,7 @@ import cs3500.reversi.model.players.AIPlayer;
 import cs3500.reversi.model.players.Player;
 import cs3500.reversi.provider.model.GenericPlayer;
 import cs3500.reversi.provider.model.IHex;
+import cs3500.reversi.provider.model.ProviderModelAdapter;
 import cs3500.reversi.provider.model.ReversiModel;
 import cs3500.reversi.provider.model.TileType;
 import cs3500.reversi.provider.view.ReversiModelView;
@@ -21,14 +22,15 @@ import cs3500.reversi.view.IView;
  * Manages the interaction between an {@link ISmarterModel} and an {@link IView} for a Reversi game.
  */
 public class GameController implements ReversiController, ViewFeatures, ModelFeatures,
-        cs3500.reversi.provider.model.ModelFeatures, cs3500.reversi.provider.view.ViewFeatures
-{
+        cs3500.reversi.provider.model.ModelFeatures, cs3500.reversi.provider.view.ViewFeatures {
 
   private final ISmarterModel model;
   private final IView view;
   private final Player player;
 
-
+  private final ReversiModelView reversiModelView;
+  private final GenericPlayer genericPlayer;
+  private final ReversiModel providerModelAdapter;
 
   /**
    * Constructs a controller for a classic game of Reversi.
@@ -41,29 +43,39 @@ public class GameController implements ReversiController, ViewFeatures, ModelFea
     this.model = model;
     this.view = view;
     this.player = player;
+    reversiModelView = null;
+    genericPlayer = null;
+    providerModelAdapter = null;
     view.addFeaturesListener(this);
     model.addFeaturesListener(this);
   }
 
   /**
-   *
    * @param model
    * @param player
    * @param view
    */
   public GameController(ReversiModel model, GenericPlayer player, ReversiModelView view) {
-    this.model = model;
-    this.view = view;
-    this.player = player;
-    view.addFeaturesListener(this);
-    model.addFeaturesListener(this);
+    this.model = null;
+    this.view = null;
+    this.player = null;
+    reversiModelView = view;
+    genericPlayer = player;
+    providerModelAdapter = model;
+    view.addFeatureListener(this);
+    model.addFeatureListener(this);
   }
 
 
   @Override
   public void playGame() {
-    view.refresh();
-    view.setVisible(true);
+//    if (view != null) {
+      view.refresh();
+      view.setVisible(true);
+//    } else if (reversiModelView != null) {
+//      reversiModelView.advance();
+//      reversiModelView.setVisible(true);
+//    }
   }
 
   @Override
