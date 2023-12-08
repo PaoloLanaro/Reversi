@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.naming.OperationNotSupportedException;
 
+import cs3500.reversi.model.Cell;
+import cs3500.reversi.model.HexReversiCell;
 import cs3500.reversi.model.ISmarterModel;
 import cs3500.reversi.model.MutableReversi;
 import cs3500.reversi.model.RowCol;
@@ -84,6 +86,11 @@ public class GameController implements ReversiController, ViewFeatures, ModelFea
         view.showErrorMessage(e.getMessage(), player);
       }
     }
+  }
+
+  @Override
+  public void enableHint(int row, int col) {
+    model.
   }
 
   @Override

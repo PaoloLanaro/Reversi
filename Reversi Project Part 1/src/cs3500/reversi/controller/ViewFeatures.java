@@ -27,4 +27,9 @@ public interface ViewFeatures {
    * @param errorMessage the message to be conveyed.
    */
   void pushError(String errorMessage);
+
+  /**
+   * Enables hints for the player.
+   */
+  void enableHint(int row, int col);
 }

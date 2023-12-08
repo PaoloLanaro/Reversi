@@ -36,7 +36,7 @@ public class ReversiPanel extends JPanel {
   private final List<Cell> cellList;
   private List<List<Cell>> underlyingBoard;
 
-  private ViewFeatures featureListener;
+  protected ViewFeatures featureListener;
 
   /**
    * Constructs the {@link ReversiPanel}.
