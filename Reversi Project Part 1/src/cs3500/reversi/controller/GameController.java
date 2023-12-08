@@ -3,29 +3,18 @@ package cs3500.reversi.controller;
 import java.util.Objects;
 import java.util.Optional;
 
-import javax.naming.OperationNotSupportedException;
-
-import cs3500.reversi.model.Cell;
-import cs3500.reversi.model.HexReversiCell;
 import cs3500.reversi.model.ISmarterModel;
 import cs3500.reversi.model.MutableReversi;
 import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.players.AIPlayer;
 import cs3500.reversi.model.players.Player;
-import cs3500.reversi.provider.model.GenericPlayer;
-import cs3500.reversi.provider.model.IHex;
-import cs3500.reversi.provider.model.ProviderModelAdapter;
-import cs3500.reversi.provider.model.ReversiModel;
-import cs3500.reversi.provider.model.TileType;
-import cs3500.reversi.provider.view.ReversiModelView;
 import cs3500.reversi.view.IView;
 
 
 /**
  * Manages the interaction between an {@link ISmarterModel} and an {@link IView} for a Reversi game.
  */
-public class GameController implements ReversiController, ViewFeatures, ModelFeatures,
-        cs3500.reversi.provider.model.ModelFeatures, cs3500.reversi.provider.view.ViewFeatures {
+public class GameController implements ReversiController, ViewFeatures, ModelFeatures {
 
   private final MutableReversi model;
   private final IView view;
@@ -51,13 +40,13 @@ public class GameController implements ReversiController, ViewFeatures, ModelFea
 
   @Override
   public void playGame() {
-//    if (view != null) {
-      view.refresh();
-      view.setVisible(true);
-//    } else if (reversiModelView != null) {
-//      reversiModelView.advance();
-//      reversiModelView.setVisible(true);
-//    }
+    //    if (view != null) {
+    view.refresh();
+    view.setVisible(true);
+    //    } else if (reversiModelView != null) {
+    //      reversiModelView.advance();
+    //      reversiModelView.setVisible(true);
+    //    }
   }
 
   @Override
@@ -90,7 +79,7 @@ public class GameController implements ReversiController, ViewFeatures, ModelFea
 
   @Override
   public void enableHint(int row, int col) {
-    model.
+    System.out.println(model.getScoreFor(row, col));
   }
 
   @Override
@@ -115,22 +104,4 @@ public class GameController implements ReversiController, ViewFeatures, ModelFea
     }
   }
 
-  @Override
-  public void updateOnPlayerSwitch(TileType color) {
-    playGame();
-  }
-
-  @Override
-  public void quit() {
-    throw new UnsupportedOperationException("Shouldn't quit");
-  }
-
-  @Override
-  public void playerMakesMove(IHex h, boolean pass) {
-    if (pass) {
-      passTurn();
-    }
-    RowCol rowCol = new RowCol(h.getQ(), h.getR());
-    makeMove(rowCol);
-  }
 }

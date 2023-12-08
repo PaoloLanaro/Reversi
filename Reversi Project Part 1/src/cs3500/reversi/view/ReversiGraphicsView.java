@@ -29,7 +29,7 @@ public class ReversiGraphicsView extends JFrame implements IView {
     this.setLocation(390, 85);
     this.setSize(new Dimension(500, 500));
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    gamePanel = new ReversiPanel(model);
+    gamePanel = new HintDecorator(model);
     this.model = model;
     this.add(gamePanel);
   }

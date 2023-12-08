@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import cs3500.reversi.model.BasicReversi;
+import cs3500.reversi.model.HexReversi;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
@@ -35,7 +35,7 @@ public class MaxPointStrategy implements Strategy {
           continue;
         }
         if (model.isValidMove(row, col)) {
-          validMoves.put((Cell) model.getBoard().get(row).get(col), new RowCol(row, col));
+          validMoves.put( model.getBoard().get(row).get(col), new RowCol(row, col));
         }
       }
     }
@@ -57,12 +57,12 @@ public class MaxPointStrategy implements Strategy {
 
       // Simulate the move by updating the copied board directly
       List<List<Cell>> originalBoard = model.getBoard();
-      BasicReversi basicReversi = new BasicReversi(originalBoard, forWhom);
-      basicReversi.startGame();
-      basicReversi.makeMove(move.getRow(), move.getCol());
+      HexReversi hexReversi = new HexReversi(originalBoard, forWhom);
+      hexReversi.startGame();
+      hexReversi.makeMove(move.getRow(), move.getCol());
 
       // Calculate the score after the simulated move
-      int score = basicReversi.getScore().get(forWhom);
+      int score = hexReversi.getScore().get(forWhom);
 
       // Update the best move if the current move has a higher score
       if (score > maxScore) {

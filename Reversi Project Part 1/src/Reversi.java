@@ -4,7 +4,7 @@ import java.util.List;
 
 import cs3500.reversi.controller.GameController;
 import cs3500.reversi.controller.ReversiController;
-import cs3500.reversi.model.BasicReversi;
+import cs3500.reversi.model.HexReversi;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ISmarterModel;
 import cs3500.reversi.model.MutableReversi;
@@ -14,17 +14,8 @@ import cs3500.reversi.model.players.HumanPlayer;
 import cs3500.reversi.model.players.Player;
 import cs3500.reversi.model.strategy.GoForCornersStrategy;
 import cs3500.reversi.model.strategy.MaxPointStrategy;
-//import cs3500.reversi.provider.model.GenericPlayer;
-//import cs3500.reversi.provider.model.PlayerAiOne;
-//import cs3500.reversi.provider.model.PlayerAiThree;
-import cs3500.reversi.provider.model.ProviderModelAdapter;
-import cs3500.reversi.provider.model.ProviderPlayerAdapter;
-//import cs3500.reversi.provider.model.ReadOnlyReversiModel;
-//import cs3500.reversi.provider.model.TileType;
-import cs3500.reversi.provider.view.ReversiModelView;
 import cs3500.reversi.view.IView;
 import cs3500.reversi.view.ReversiGraphicsView;
-import cs3500.reversi.provider.view.ViewToProviderAdapter;
 
 /**
  * The main class for the Reversi project.
@@ -71,7 +62,7 @@ public final class Reversi {
     } catch (Exception e) {
       throw new IllegalArgumentException("The first argument was not a valid number.");
     }
-    MutableReversi delegate = new BasicReversi(gameSize);
+    MutableReversi delegate = new HexReversi(gameSize);
     ISmarterModel model = new SmarterModel(delegate);
     IView player1View = new ReversiGraphicsView(model);
     IView player2View = new ReversiGraphicsView(model);
@@ -96,37 +87,12 @@ public final class Reversi {
     return players;
   }
 
-//  private static Player constructPlayer1(String arg, int gameSize) {
-//    DiscColor playerColor = DiscColor.BLACK;
-//    switch (arg) {
-//      case "human":
-//        return new HumanPlayer(new BasicReversi(gameSize), playerColor);
-//      case "maxpointstrat":
-//        return new AIPlayer(playerColor, new MaxPointStrategy());
-//      case "cornerstrat":
-//        return new AIPlayer(playerColor, new GoForCornersStrategy());
-//      default:
-//        throw new IllegalArgumentException("Could not create player with argument " + arg);
-//    }
-//  }
-//
-//  private static ProviderPlayerAdapter constructPlayer2(String arg, ProviderModelAdapter model) {
-//    DiscColor playercolor = DiscColor.WHITE;
-//    switch (arg) {
-//      case "playeraione":
-//        return new ProviderPlayerAdapter(model, playercolor);
-//      case "playeraithree":
-//        return new ProviderPlayerAdapter(model, playercolor);
-//      default:
-//        throw new IllegalArgumentException("Could not create player with argument: " + arg);
-//    }
-//  }
 
   private static Player playerFactory(String arg, DiscColor playerColor, int gameSize) {
 
     switch (arg) {
       case "human":
-        return new HumanPlayer(new BasicReversi(gameSize), playerColor);
+        return new HumanPlayer(new HexReversi(gameSize), playerColor);
       case "maxpointstrat":
         return new AIPlayer(playerColor, new MaxPointStrategy());
       case "cornerstrat":

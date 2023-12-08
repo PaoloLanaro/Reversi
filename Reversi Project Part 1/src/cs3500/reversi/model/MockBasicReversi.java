@@ -13,7 +13,7 @@ import cs3500.reversi.model.strategy.Strategy;
 public class MockBasicReversi implements MutableReversi {
 
   private final Appendable out;
-  private final BasicReversi delegate;
+  private final HexReversi delegate;
 
   /**
    * The constructor for this mock class.
@@ -23,7 +23,7 @@ public class MockBasicReversi implements MutableReversi {
    * @param out  the appendable that messages will be added to.
    */
   public MockBasicReversi(int size, Appendable out) {
-    this.delegate = new BasicReversi(size);
+    this.delegate = new HexReversi(size);
     this.out = out;
   }
 
@@ -83,15 +83,8 @@ public class MockBasicReversi implements MutableReversi {
   }
 
   @Override
-  public int getColFromCell(Cell cell) {
-    appendHelper(String.format("Getting col for cell with color %s", cell.getColor()));
-    return delegate.getColFromCell(cell);
-  }
-
-  @Override
-  public int getRowFromCell(Cell cell) {
-    appendHelper(String.format("Getting row for cell with color %s.", cell.getColor()));
-    return delegate.getRowFromCell(cell);
+  public int getScoreFor(int row, int col) {
+    throw new UnsupportedOperationException("laskjh");
   }
 
   @Override

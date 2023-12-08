@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import java.util.Optional;
 
-import cs3500.reversi.model.BasicReversi;
+import cs3500.reversi.model.HexReversi;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.MockBasicReversi;
 import cs3500.reversi.model.RowCol;
@@ -18,7 +18,7 @@ import cs3500.reversi.model.strategy.Strategy;
  */
 public class GoForCornerStratTest {
 
-  BasicReversi basicModel;
+  HexReversi basicModel;
   Strategy basicStrategy;
   StringBuilder out;
   MockBasicReversi mock;
@@ -26,7 +26,7 @@ public class GoForCornerStratTest {
 
   @Before
   public void init() {
-    basicModel = new BasicReversi(3);
+    basicModel = new HexReversi(3);
     basicStrategy = new GoForCornersStrategy();
     out = new StringBuilder();
     mock = new MockBasicReversi(3, out);

@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import java.util.Optional;
 
-import cs3500.reversi.model.BasicReversi;
+import cs3500.reversi.model.HexReversi;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.strategy.MaxPointStrategy;
 import cs3500.reversi.model.MockBasicReversi;
@@ -17,7 +17,7 @@ import cs3500.reversi.model.strategy.Strategy;
  * Test class for MockMaxPointStrat.
  */
 public class MockMaxPointStratTest {
-  BasicReversi basicModel;
+  HexReversi basicModel;
   Strategy basicStrategy;
   StringBuilder out;
   MockBasicReversi mock;
@@ -25,7 +25,7 @@ public class MockMaxPointStratTest {
 
   @Before
   public void init() {
-    basicModel = new BasicReversi(4);
+    basicModel = new HexReversi(4);
     basicStrategy = new MaxPointStrategy();
     out = new StringBuilder();
     mock = new MockBasicReversi(4, out);

@@ -108,12 +108,7 @@ public class SmarterModel implements ISmarterModel {
   }
 
   @Override
-  public int getColFromCell(Cell cell) {
-    return delegate.getColFromCell(cell);
-  }
-
-  @Override
-  public int getRowFromCell(Cell cell) {
-    return delegate.getRowFromCell(cell);
+  public int getScoreFor(int row, int col) {
+    return delegate.getScoreFor(row, col);
   }
 }

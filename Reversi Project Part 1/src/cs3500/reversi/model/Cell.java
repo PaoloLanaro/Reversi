@@ -7,48 +7,6 @@ package cs3500.reversi.model;
 public interface Cell {
 
   /**
-   * Sets the upper left neighbor cell of this cell.
-   *
-   * @param cell The cell to set as the upper left neighbor.
-   */
-  void setUpperLeft(Cell cell);
-
-  /**
-   * Sets the upper right neighbor cell of this cell.
-   *
-   * @param cell The cell to set as the upper right neighbor.
-   */
-  void setUpperRight(Cell cell);
-
-  /**
-   * Sets the right neighbor cell of this cell.
-   *
-   * @param cell The cell to set as the right neighbor.
-   */
-  void setRight(Cell cell);
-
-  /**
-   * Sets the bottom right neighbor cell of this cell.
-   *
-   * @param cell The cell to set as the bottom right neighbor.
-   */
-  void setBottomRight(Cell cell);
-
-  /**
-   * Sets the bottom left neighbor cell of this cell.
-   *
-   * @param cell The cell to set as the bottom left neighbor.
-   */
-  void setBottomLeft(Cell cell);
-
-  /**
-   * Sets the left neighbor cell of this cell.
-   *
-   * @param cell The cell to set as the left neighbor.
-   */
-  void setLeft(Cell cell);
-
-  /**
    * Retrieves the color of the cell, indicating whether it is empty, occupied by a black disc,
    * or occupied by a white disc.
    *
@@ -61,48 +19,20 @@ public interface Cell {
    *
    * @param color The color to set the cell to.
    */
-  void setDiscColor(DiscColor color);
+  void setColor(DiscColor color);
 
   /**
-   * Retrieves the bottom right neighbor cell of this cell.
+   * Gets this cells current row.
    *
-   * @return The bottom right neighbor cell.
+   * @return an integer representation of the row this cell occupies.
    */
-  Cell getBottomRight();
+  int getRow();
 
   /**
-   * Retrieves the bottom left neighbor cell of this cell.
+   * Gets this cells current column.
    *
-   * @return The bottom left neighbor cell.
+   * @return an integer representation of the column this cell occupies.
    */
-  Cell getBottomLeft();
-
-  /**
-   * Retrieves the right neighbor cell of this cell.
-   *
-   * @return The right neighbor cell.
-   */
-  Cell getRight();
-
-  /**
-   * Retrieves the left neighbor cell of this cell.
-   *
-   * @return The left neighbor cell.
-   */
-  Cell getLeft();
-
-  /**
-   * Retrieves the upper right neighbor cell of this cell.
-   *
-   * @return The upper right neighbor cell.
-   */
-  Cell getUpperRight();
-
-  /**
-   * Retrieves the upper left neighbor cell of this cell.
-   *
-   * @return The upper left neighbor cell.
-   */
-  Cell getUpperLeft();
+  int getCol();
 
 }

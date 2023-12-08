@@ -45,4 +45,6 @@ public interface IView {
    * @param message the message that should be put before the player identification.
    */
   void showErrorMessage(String message, Player player);
+
+
 }

@@ -9,21 +9,21 @@ import java.util.List;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.view.TextView;
-import cs3500.reversi.model.BasicReversi;
+import cs3500.reversi.model.HexReversi;
 
 /**
  * Tests for model implementations of the reversi game.
  */
 public class ModelTests {
-  BasicReversi model3;
-  BasicReversi model4;
+  HexReversi model3;
+  HexReversi model4;
   TextView viewSize3;
   TextView viewSize4;
 
   @Before
   public void init() {
-    model3 = new BasicReversi(3);
-    model4 = new BasicReversi(4);
+    model3 = new HexReversi(3);
+    model4 = new HexReversi(4);
 
     viewSize3 = new TextView(model3);
     viewSize4 = new TextView(model4);
@@ -34,8 +34,8 @@ public class ModelTests {
 
   @Test(expected = IllegalArgumentException.class)
   public void testModelThrowsIAEWhenSizeNotValid() {
-    Assert.assertThrows(IllegalArgumentException.class, () -> new BasicReversi(2));
-    new BasicReversi(-1);
+    Assert.assertThrows(IllegalArgumentException.class, () -> new HexReversi(2));
+    new HexReversi(-1);
   }
 
   @Test

@@ -101,18 +101,11 @@ public interface ReadOnlyReversi {
   Cell getCellAt(int row, int col);
 
   /**
-   * Gets the column index of the specified cell.
+   * Gets the score for the move played at row, col.
    *
-   * @param cell The {@link Cell} for which to get the column index.
-   * @return The column index of the cell.
+   * @param row the row for which to check the score.
+   * @param col the column for which to check the score.
+   * @return an integer representing the amount of discs flipping row col will net.
    */
-  int getColFromCell(Cell cell);
-
-  /**
-   * Gets the row index of the specified cell.
-   *
-   * @param cell The {@link Cell} for which to get the row index.
-   * @return The row index of the cell.
-   */
-  int getRowFromCell(Cell cell);
+  int getScoreFor(int row, int col);
 }

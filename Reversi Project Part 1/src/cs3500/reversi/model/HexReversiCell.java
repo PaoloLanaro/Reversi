@@ -6,105 +6,46 @@ package cs3500.reversi.model;
  */
 public class HexReversiCell implements Cell {
   private DiscColor color;
-  private Cell upperLeft;
-  private Cell upperRight;
-  private Cell left;
-  private Cell right;
-  private Cell bottomLeft;
-  private Cell bottomRight;
+  private final int row;
+  private final int col;
 
   /**
-   * Constructs a new Cell with an initial state of empty.
+   * Constructor for the {@link HexReversiCell} object which creates a cell at row and column,
+   * with an initial color of empty.
+   *
+   * @param row the integer representing the row.
+   * @param col the integer representing the column.
    */
-  public HexReversiCell() {
+  public HexReversiCell(int row, int col) {
     color = DiscColor.EMPTY;
+    this.row = row;
+    this.col = col;
   }
 
+  /**
+   * Constructor for the {@link HexReversiCell} object which simply sets the color of this
+   * {@link HexReversiCell} alongside the row and column.
+   *
+   * @param color the color you wish the {@link HexReversiCell} to be.
+   * @param row the integer representing the row.
+   * @param col the integer representing the column.
+   */
+  public HexReversiCell(DiscColor color, int row, int col) {
+    this.color = color;
+    this.row = row;
+    this.col = col;
+  }
 
   /**
-   * Constructs a new Cell by copying the state of another Cell.
+   * Copy constructor for {@link HexReversiCell}.
    *
    * @param otherCell The Cell to copy the state from.
    */
   public HexReversiCell(Cell otherCell) {
     color = otherCell.getColor() == DiscColor.BLACK ? DiscColor.BLACK :
             otherCell.getColor() == DiscColor.WHITE ? DiscColor.WHITE : DiscColor.EMPTY;
-    upperLeft = otherCell.getUpperLeft();
-    upperRight = otherCell.getUpperRight();
-    left = otherCell.getLeft();
-    right = otherCell.getRight();
-    bottomLeft = otherCell.getBottomLeft();
-    bottomRight = otherCell.getBottomRight();
-  }
-
-  /**
-   * Constructor for the {@link HexReversiCell} object which simply sets the color of this
-   * {@link HexReversiCell}.
-   *
-   * @param color the color you wish the {@link HexReversiCell} to be.
-   */
-  public HexReversiCell(DiscColor color) {
-    this.color = color;
-  }
-
-  @Override
-  public void setUpperLeft(Cell cell) {
-    this.upperLeft = cell;
-  }
-
-  @Override
-  public void setUpperRight(Cell cell) {
-    this.upperRight = cell;
-  }
-
-  @Override
-  public void setLeft(Cell cell) {
-    this.left = cell;
-  }
-
-  @Override
-  public void setRight(Cell cell) {
-    this.right = cell;
-  }
-
-  @Override
-  public void setBottomLeft(Cell cell) {
-    this.bottomLeft = cell;
-  }
-
-  @Override
-  public void setBottomRight(Cell cell) {
-    this.bottomRight = cell;
-  }
-
-  @Override
-  public Cell getUpperLeft() {
-    return upperLeft;
-  }
-
-  @Override
-  public Cell getUpperRight() {
-    return upperRight;
-  }
-
-  @Override
-  public Cell getLeft() {
-    return left;
-  }
-
-  @Override
-  public Cell getRight() {
-    return right;
-  }
-
-  @Override
-  public Cell getBottomLeft() {
-    return bottomLeft;
-  }
-
-  @Override
-  public Cell getBottomRight() {
-    return bottomRight;
+    this.row = otherCell.getRow();
+    this.col = otherCell.getCol();
   }
 
   @Override
@@ -113,8 +54,18 @@ public class HexReversiCell implements Cell {
   }
 
   @Override
-  public void setDiscColor(DiscColor color) {
+  public void setColor(DiscColor color) {
     this.color = color;
+  }
+
+  @Override
+  public int getRow() {
+    return row;
+  }
+
+  @Override
+  public int getCol() {
+    return col;
   }
 
   /**
@@ -124,6 +75,6 @@ public class HexReversiCell implements Cell {
    */
   @Override
   public String toString() {
-    return color.toString();
+    return "(" + row + ", " + ")" + " : " + color.toString();
   }
 }
