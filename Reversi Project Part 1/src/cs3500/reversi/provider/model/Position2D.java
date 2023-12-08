@@ -8,10 +8,20 @@ import java.util.Objects;
 public final class Position2D {
   private final double x;
 
+  /**
+   * Placeholder javadoc because this is the provider's code.
+   *
+   * @return Placeholder javadoc because this is the provider's code.
+   */
   public double getX() {
     return x;
   }
 
+  /**
+   * Placeholder javadoc because this is the provider's code.
+   *
+   * @return Placeholder javadoc because this is the provider's code.
+   */
   public double getY() {
     return y;
   }

@@ -2,7 +2,6 @@ package cs3500.reversi.provider.model;
 
 import java.io.IOException;
 import java.util.Optional;
-import cs3500.reversi.provider.model.IHex;
 
 /**
  * Represents a basic Ai that could

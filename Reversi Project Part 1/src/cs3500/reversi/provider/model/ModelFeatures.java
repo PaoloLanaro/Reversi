@@ -7,6 +7,11 @@ package cs3500.reversi.provider.model;
  */
 public interface ModelFeatures {
 
+  /**
+   * Placeholder javadoc because this is the provider's code.
+   *
+   * @param color placeholder javadoc because this is the provider's code.
+   */
   void updateOnPlayerSwitch(TileType color);
 
 }

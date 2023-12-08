@@ -1,14 +1,14 @@
 package cs3500.reversi.provider.model;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Optional;
+//import java.io.IOException;
+//import java.util.HashMap;
+//import java.util.Optional;
 
-/**
- * A player ai that on each move picks the position
- * that will capture the most pieces as possible.
- * (Strategy 1)
- */
+///**
+// * A player ai that on each move picks the position
+// * that will capture the most pieces as possible.
+// * (Strategy 1)
+// */
 //public class PlayerAiOne implements GenericPlayer, PlayerAi {
 //
 //  private final ReadOnlyReversiModel model;

@@ -6,12 +6,21 @@ import cs3500.reversi.model.RowCol;
 
 import static cs3500.reversi.provider.model.ProviderModelAdapter.tileTypeToDiscColor;
 
+/**
+ * The adapter class for the provider's IHex class to our Cell class.
+ */
 public class ProviderHexToCellAdapter implements IHex {
 
-  TileType color;
   Cell cell;
   RowCol coord;
 
+  /**
+   * This constructor creates an adapter class for the IHex to Cell adaption of the
+   * provider's IHex to our Cell.
+   *
+   * @param cell the cell to be adapted.
+   * @param coord the RowCol to convert the qrs to.
+   */
   public ProviderHexToCellAdapter(Cell cell, RowCol coord) {
     this.cell = cell;
     this.coord = coord;

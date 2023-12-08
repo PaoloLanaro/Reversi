@@ -5,14 +5,22 @@ import java.util.Objects;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.players.HumanPlayer;
 
-import static cs3500.reversi.provider.model.ProviderModelAdapter.tileTypeToDiscColor;
-
+/**
+ * The adapter class for the provider's player class to our player class.
+ */
 public class ProviderPlayerAdapter extends HumanPlayer implements GenericPlayer {
 
   String playerColor;
 
+  /**
+   * This constructor creates an adapter class for the player to player adaption of the
+   * provider's player to our player.
+   *
+   * @param providerModel the model for which to make a player.
+   * @param discColor the color that the player should be.
+   */
   public ProviderPlayerAdapter(ProviderModelAdapter providerModel, DiscColor discColor) {
-    super(providerModel, discColor);
+    super( providerModel, discColor);
     playerColor = discColor.toString();
   }
 

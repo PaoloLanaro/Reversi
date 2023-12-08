@@ -50,6 +50,11 @@ public interface ReversiModel extends ReadOnlyReversiModel {
   public boolean legalMoveAvailable(GenericPlayer player) throws IllegalArgumentException,
           IllegalStateException;
 
+  /**
+   * placeholder javadoc because this is the provider's code.
+   *
+   * @param features placeholder javadoc because this is the provider's code.
+   */
   void addFeatureListener(ModelFeatures features);
 
   /**
@@ -150,5 +155,10 @@ public interface ReversiModel extends ReadOnlyReversiModel {
   public HashMap<IHex, Integer> legalMoveAvailableList(GenericPlayer player)
           throws IllegalArgumentException, IllegalStateException, IOException;
 
+  /**
+   * placeholder javadoc because this is the provider's code.
+   *
+   * @return placeholder javadoc because this is the provider's code.
+   */
   public int getPassCount();
 }

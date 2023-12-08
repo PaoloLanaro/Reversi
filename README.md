@@ -1,3 +1,65 @@
+# Review of Provider Code
+Strategy implementations did not implement all methods from the interface they inherit from a 
+derived class causing some errors at compile time, so we had to comment out the strategies.
+(The strategies were named PlayerAiOne and PlayerAiThree). The strategies also used derived 
+class player implementations to function, and because we didn't have one, and the providers 
+didn't abstract the code to an interface, we couldn't get the strategies functioning or 
+compiling at all. You can try and comment out the strategies, but there will be compile time 
+errors, and they are related to the above comments. We still set up a factory method to 
+create them within the main class, but it just makes a ProviderPlayerAdapter object because we 
+can't use the strategies...
+
+There were a few issues with the provided view implementation. To start the given view was buggy 
+because it was  delayed and their board was set up incorrectly. Getting the cell coordinates 
+when clicking on their view did not save the right coordinates so when it tries to interact 
+with the model it does not update. This prevented us from being able to update the views 
+properly after the initial game start. 
+
+Additionally, their view had unnecessary features that prevented the code from compiling like 
+switching the background based on the player and an end game pop up. We commented out 
+these features as the assignment mentioned that we were ["not responsible for changing the 
+provided views to implement those 
+features"](https://course.ccs.neu.edu/cs3500/hw_reversi_04_assignment.html). 
+
+Their model was tightly coupled with the GenericPlayer, which is generally bad design. The model 
+should not care about players as it's out of the scope of the MVC design pattern for the model 
+to know about players. This caused some problems when adapting certain methods from their model 
+interface, so we headed Piazza post 1914's advice and simply threw UOE's. 
+
+The provided model interfaces were a ReadOnlyReversiModel and a ReversiModel. The 
+ReadOnlyReversiModel has a startGame method which should be in the mutable interface. Also, both 
+interfaces are missing multiple functions worth of javadoc near the bottom. We had to manually 
+write out this javadoc because we would lose points otherwise, so we titled it "placeholder javadoc 
+because this is the provider's code."
+
+
+## Features that work in our final submission
+
+We got the providers GUI to appear, and can select, albeit very buggy, cells. The GUI accepts 
+keyboard and mouse input, and although it doesn't act on those inputs because of various bugs in 
+the view implementation and the coupling between classes, it can commit actions on those events. 
+We wrote adapters for all the classes we needed, and adapted all the methods we needed. 
+
+## Features that didn't work in our final submission
+
+The whole connection between the model and the GUI doesn't work. The code they provided relies 
+heavily on coupled classes, and although we tried fixing some of those issues, there's still 
+many issues. We tried our very best to make the features between classes work, but some of the 
+ways the classes were laid out made this very difficult. To read more about specific issues we 
+had implementing the code, read the first heading of this README.
+
+# Updated command line arguments
+
+The updated command line arguments for this final submission are as follows:
+The game must be started with three command line arguments. The first argument is assumed to be 
+a good integer and will create a reversi board with side lengths as long as the integer passed in. 
+The second argument will create a player or strategy from our implementations, and valid command 
+line arguments for this are: `human`, `maxpointstrat`, and `cornerstrat`. The third and final 
+command line argument would create a strategy of the provider's code if it actually compiled and 
+didn't just throw an error. The valid arguments for this argument would be: `playeraione` and 
+`playeraithree`. Read the first heading for why this isn't actually the case, and we instead 
+just make a player adapter object for this.
+
 # Quick Start for the GUI gameplay
 The reversi game must be started from the command line with three command line arguments. \
 The first argument should be the size of the board's 'length' as an integer. \
@@ -5,7 +67,7 @@ The next two arguments should be what type of player or strategy the views will 
 Valid command line arguments include: "human", "maxpointstrat", and "cornerstrat". \
 The "human" player means that all input will come in via mouse and keyboard input. \
 The "maxpointstrat" strategy will simply try and make the move that grants the 'AI' the most \
-points, and breaks ties by making the move that is the most upper-most and left-most cell. \
+points, and breaks ties by making the move that is the most uppermost and left-most cell. \
 The "cornerstrat" strategy will attempt to make a move that is closest to the corners of the \
 board, and if that fails, will fall back on the "maxpointstrat". \
 We expect a good user who won't run the program with spam arguments, but if they do, we throw \

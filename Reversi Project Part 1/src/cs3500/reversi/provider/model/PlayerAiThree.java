@@ -1,14 +1,14 @@
 package cs3500.reversi.provider.model;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+//import java.io.IOException;
+//import java.util.HashMap;
+//import java.util.List;
+//import java.util.Optional;
 
-/**
- * An advances Strategy AI in which the AIPlayer favors corner
- * plays over other available moves.
- */
+///**
+// * An advances Strategy AI in which the AIPlayer favors corner
+// * plays over other available moves.
+// */
 //public class PlayerAiThree implements GenericPlayer, PlayerAi  {
 //
 //  private final ReadOnlyReversiModel model;

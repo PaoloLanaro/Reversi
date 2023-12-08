@@ -1,0 +1,16 @@
+Our experience with this assignment was one of quite a lot of frustration. We had to send lots of
+emails back and forth, and although our providers were fairly responsive, we just didn't like the
+medium being email. We ran into lots of issues with our providers code which meant that we had to
+send out a lot of emails, and our providers weren't able to fix all the issues we pointed out, so we
+weren't able to get some of the code compiling. We therefore had to comment out these areas of the
+code, and you can read more about those issues at the top of the README. The main experience with
+our providers was positive, and they modified lots of the issues we found, but they weren't able to
+get to all the issues, and the provided code itself was fairly buggy.
+
+We wish we had stored the position of our cells within the cells, to limit the need for the getting
+of different neighbors. This would have cleaned up many of our methods and allowed us a lot more
+flexibility with our cells implementation and use. We also hadn't realized, but there were a few
+places where we cast to a derived class completely redundantly, and have since removed that as our
+clients pointed it out. We learnt the lessons of having well documented code with the code provided
+to us, as some things were particularly vague and required us to ask the providers how they
+implemented their methods / particular derived classes.

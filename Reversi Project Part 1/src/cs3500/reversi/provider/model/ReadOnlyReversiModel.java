@@ -102,13 +102,36 @@ public interface ReadOnlyReversiModel {
    */
   public int getMaxRowLength() throws IllegalStateException;
 
+  /**
+   * placeholder javadoc because this is the provider's code.
+   *
+   * @return placeholder javadoc because this is the provider's code.
+   */
   public List<List<IHex>> getGridCopy();
 
+  /**
+   * placeholder javadoc because this is the provider's code.
+   *
+   * @param player placeholder javadoc because this is the provider's code.
+   * @return placeholder javadoc because this is the provider's code.
+   * @throws IllegalArgumentException placeholder javadoc because this is the provider's code.
+   * @throws IllegalStateException placeholder javadoc because this is the provider's code.
+   * @throws IOException placeholder javadoc because this is the provider's code.
+   */
   public HashMap<IHex, Integer> legalMoveAvailableList(GenericPlayer player)
           throws IllegalArgumentException, IllegalStateException, IOException;
 
-
+  /**
+   * placeholder javadoc because this is the provider's code.
+   *
+   * @param features placeholder javadoc because this is the provider's code.
+   */
   void addFeatureListener(ModelFeatures features);
 
+  /**
+   * placeholder javadoc because this is the provider's code.
+   *
+   * @return placeholder javadoc because this is the provider's code.
+   */
   public int getPassCount();
 }

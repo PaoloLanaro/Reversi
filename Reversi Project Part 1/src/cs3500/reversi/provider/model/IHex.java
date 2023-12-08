@@ -15,12 +15,36 @@ public interface IHex {
    */
   public String toStringQRS();
 
+  /**
+   * Placeholder javadoc because this is the provider's code.
+   * @return Placeholder javadoc because this is the provider's code.
+   */
+
   public String toString();
 
+  /**
+   * Placeholder javadoc because this is the provider's code.
+   *
+   * @param color Placeholder javadoc because this is the provider's code.
+   * @return Placeholder javadoc because this is the provider's code.
+   */
   public boolean sameColor(TileType color);
 
+  /**
+   * Placeholder javadoc because this is the provider's code.
+   *
+   * @param hex Placeholder javadoc because this is the provider's code.
+   * @return Placeholder javadoc because this is the provider's code.
+   */
   public boolean sameColor(IHex hex);
 
+  /**
+   * Placeholder javadoc because this is the provider's code.
+   *
+   * @param val Placeholder javadoc because this is the provider's code.
+   * @param whatToMatch Placeholder javadoc because this is the provider's code.
+   * @return Placeholder javadoc because this is the provider's code.
+   */
   public boolean same(int val, String whatToMatch);
 
   /**
@@ -39,14 +63,39 @@ public interface IHex {
    */
   public boolean oppositeColor(TileType hex);
 
+  /**
+   * Placeholder javadoc because this is the provider's code.
+   *
+   * @return Placeholder javadoc because this is the provider's code.
+   */
   public int getQ();
 
+  /**
+   * Placeholder javadoc because this is the provider's code.
+   *
+   * @return Placeholder javadoc because this is the provider's code.
+   */
   public int getS();
 
+  /**
+   * Placeholder javadoc because this is the provider's code.
+   *
+   * @return Placeholder javadoc because this is the provider's code.
+   */
   public int getR();
 
+  /**
+   * Placeholder javadoc because this is the provider's code.
+   *
+   * @param tile Placeholder javadoc because this is the provider's code.
+   */
   public void switchColor(TileType tile);
 
+  /**
+   * Placeholder javadoc because this is the provider's code.
+   *
+   * @return Placeholder javadoc because this is the provider's code.
+   */
   public TileType getTileColor();
 
   @Override

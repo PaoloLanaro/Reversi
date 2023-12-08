@@ -55,7 +55,7 @@ public class ReversiGraphicsView  extends JFrame  implements ReversiModelView {
 
   @Override
   public void endGamePopUp() {
-//    this.panel.endGamePopUp();
+    //    this.panel.endGamePopUp();
   }
 
   @Override

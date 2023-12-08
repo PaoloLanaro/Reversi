@@ -41,3 +41,5 @@ Code re-usability is hindered by differences in coordinate systems, incomplete v
 and the absence of strategy interfaces initially. To address this, we requested a Position2D
 class and the necessary strategy interfaces and implementations. Eliminated redundant methods for
 optional functionality.
+
+Some more info is in the README about the specific struggles we encountered.
