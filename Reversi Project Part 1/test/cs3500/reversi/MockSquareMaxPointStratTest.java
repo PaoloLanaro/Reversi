@@ -13,6 +13,9 @@ import cs3500.reversi.model.SquareReversi;
 import cs3500.reversi.model.strategy.MaxPointStrategy;
 import cs3500.reversi.model.strategy.Strategy;
 
+/**
+ * Test class for MockMaxPointStrat on a square board..
+ */
 public class MockSquareMaxPointStratTest {
   SquareReversi basicModel;
   Strategy basicStrategy;

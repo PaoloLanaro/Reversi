@@ -1,6 +1,10 @@
 package cs3500.reversi.view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -21,7 +25,7 @@ import cs3500.reversi.model.RowCol;
  */
 public class SquareReversiPanel extends JPanel {
 
-  private final double CIRCLE_RATIO =  7 / 10.0;
+  private final double CIRCLE_RATIO = 7 / 10.0;
 
   private int circleDiameter;
   private int circleOffset;
@@ -131,7 +135,7 @@ public class SquareReversiPanel extends JPanel {
         g2d.setColor(Color.BLACK);
         g2d.draw(currRectangle);
 
-        if(chooseFillColor(row, col, g2d)) {
+        if (chooseFillColor(row, col, g2d)) {
           g2d.fillOval(xPos + circleOffset, yPos + circleOffset, circleDiameter, circleDiameter);
         }
 
@@ -141,7 +145,7 @@ public class SquareReversiPanel extends JPanel {
 
   private Boolean chooseFillColor(int row, int col, Graphics2D g2d) {
     DiscColor color = model.getCellAt(row, col).getColor();
-    if(color == DiscColor.BLACK) {
+    if (color == DiscColor.BLACK) {
       g2d.setColor(Color.BLACK);
       return true;
     } else if (color == DiscColor.WHITE) {
@@ -151,6 +155,9 @@ public class SquareReversiPanel extends JPanel {
     return false;
   }
 
+  /**
+   * An inner class for keeping track of mouse events on the panel.
+   */
   public class MouseAdapter extends java.awt.event.MouseAdapter {
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
@@ -168,10 +175,13 @@ public class SquareReversiPanel extends JPanel {
     }
   }
 
+  /**
+   * An inner class meant to keep track of key events on the panel.
+   */
   public class KeyboardAdapter extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent event) {
-      switch(event.getKeyCode()) {
+      switch (event.getKeyCode()) {
         case KeyEvent.VK_ENTER:
           RowCol coordinate = getHighlightedHex();
           if (coordinate == null) {
@@ -183,9 +193,6 @@ public class SquareReversiPanel extends JPanel {
           break;
         case KeyEvent.VK_BACK_SPACE:
           featureListener.passTurn();
-          break;
-        case KeyEvent.VK_H:
-          System.out.println("Hint");
           break;
         default:
           System.out.println("Not a valid key");

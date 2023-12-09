@@ -4,7 +4,7 @@ import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.ReversiCell;
 
 /**
- * A text-based view for a Reversi game, displaying the game board using characters.
+ * A text-based view for a Hex Reversi game, displaying the game board using characters.
  * Empty cells are represented by '_', black discs by 'X', and white discs by 'O'.
  */
 public class HexTextView {

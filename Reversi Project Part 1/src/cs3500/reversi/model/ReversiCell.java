@@ -96,5 +96,9 @@ public class ReversiCell implements Cell {
             && Objects.equals(getColor(), otherCell.getColor());
   }
 
+  @Override
+  public int hashCode() {
+    return color.toString().hashCode() * (row + col) * (row * row + col * col);
+  }
 
 }

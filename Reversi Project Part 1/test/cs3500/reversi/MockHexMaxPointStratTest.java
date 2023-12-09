@@ -14,7 +14,7 @@ import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.strategy.Strategy;
 
 /**
- * Test class for MockMaxPointStrat.
+ * Test class for MockMaxPointStrat on a hex board.
  */
 public class MockHexMaxPointStratTest {
   HexReversi basicModel;

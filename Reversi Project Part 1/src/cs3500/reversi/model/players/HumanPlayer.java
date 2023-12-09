@@ -5,7 +5,6 @@ import java.util.Optional;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.RowCol;
-import cs3500.reversi.model.strategy.Strategy;
 
 /**
  * An implementation of the Player interface which represents a human player.

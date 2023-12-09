@@ -30,18 +30,13 @@ public class HintDecorator extends HexReversiPanel {
 
     @Override
     public void keyPressed(KeyEvent event) {
-      switch (event.getKeyCode()) {
-        case KeyEvent.VK_H:
-          hintEnabled = !hintEnabled;
-          //          featureListener.enableHint(getHighlightedHex().getRow(),
-          //                  getHighlightedHex().getCol());
-          showHints();
-          System.out.println("hint toggled: " + hintEnabled);
-          System.out.println(highlightedHex);
-          break;
-        default:
-          super.keyPressed(event);
-          break;
+      if (event.getKeyCode() == KeyEvent.VK_H) {
+        hintEnabled = !hintEnabled;
+        showHints();
+        System.out.println("hint toggled: " + hintEnabled);
+        System.out.println(highlightedHex);
+      } else {
+        super.keyPressed(event);
       }
     }
   }

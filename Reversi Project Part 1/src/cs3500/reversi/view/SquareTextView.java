@@ -3,6 +3,10 @@ package cs3500.reversi.view;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.ReadOnlyReversi;
 
+/**
+ * A text-based view for a Square Reversi game, displaying the game board using characters.
+ * Empty cells are represented by '_', black discs by 'X', and white discs by 'O'.
+ */
 public class SquareTextView {
   private final Appendable out;
   private final ReadOnlyReversi model;
