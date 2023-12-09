@@ -14,6 +14,7 @@ import cs3500.reversi.model.players.AIPlayer;
 import cs3500.reversi.model.players.HumanPlayer;
 import cs3500.reversi.model.players.Player;
 //import cs3500.reversi.model.strategy.GoForCornersStrategy;
+import cs3500.reversi.model.strategy.GoForCornersStrategy;
 import cs3500.reversi.model.strategy.MaxPointStrategy;
 import cs3500.reversi.view.IView;
 import cs3500.reversi.view.HexReversiFrame;
@@ -102,7 +103,7 @@ public final class Reversi {
       case "maxpointstrat":
         return new AIPlayer(playerColor, new MaxPointStrategy());
       case "cornerstrat":
-//        return new AIPlayer(playerColor, new GoForCornersStrategy());
+        return new AIPlayer(playerColor, new GoForCornersStrategy());
       default:
         throw new IllegalArgumentException("Could not create player with argument: " + arg);
     }

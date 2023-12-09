@@ -57,42 +57,4 @@ public class MaxPointStrategy implements Strategy {
     }
     return currentBestCoord;
   }
-
-  private RowCol getBestScore(Map<Cell, RowCol> validMoves, DiscColor forWhom) {
-//    int maxScore = Integer.MIN_VALUE;
-//    RowCol bestMove = null;
-//
-//    for (Map.Entry<Cell, RowCol> entry : validMoves.entrySet()) {
-//      RowCol move = entry.getValue();
-//
-//      // Simulate the move by updating the copied board directly
-//
-////      model.getScoreFor()
-//      List<List<Cell>> originalBoard = model.getBoard();
-//      HexReversi hexReversi = new HexReversi(originalBoard, forWhom);
-//      hexReversi.startGame();
-//      hexReversi.makeMove(move.getRow(), move.getCol());
-//
-//      // Calculate the score after the simulated move
-//      int score = hexReversi.getScore().get(forWhom);
-//
-//      // Update the best move if the current move has a higher score
-//      if (score > maxScore) {
-//        maxScore = score;
-//        bestMove = move;
-//        continue;
-//      }
-//
-//      if (score == maxScore) {
-//        if (move.getRow() < bestMove.getRow()) {
-//          bestMove = move;
-//        }
-//        if (move.getRow() == bestMove.getRow() && move.getCol() <= bestMove.getCol()) {
-//          bestMove = move;
-//        }
-//      }
-//    }
-//    return bestMove;
-    return null;
-  }
 }

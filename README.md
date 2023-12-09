@@ -1,3 +1,35 @@
+# Extra Credit Assignment 9
+We changed a lot of things about our code, but most of it was just background changes. 
+Some of the changes included in that hazy definition of background changes, was that we 
+completely overhauled our Cell class. Our Cell class was pretty much exclusively useful for a
+hexagonal style of game, with methods to "get the neighbors of the cell". This was switched to 
+coordinates being stored in our Cells. This made us rework some of our code in HexReversiCell 
+to not have to use neighbors, and actually cut down on a *lot* of code! After having updated 
+some methods in HexReversi, we started working on SquareReversi. We created an abstract class to 
+hold all the code for reversi that was duplicated between the classes, and simply extended it in 
+HexReversi. Overall the extra credit was done over the course of Friday, and we made a lot of 
+big changes that served to cut down on our code :).
+
+#### Level 0 extra credit
+
+
+#### Level 1 extra credit
+For 'Level 1' of extra credit, all the code can be found in the SquareReversi class within the 
+model package. The capturing being in 8 direction instead of 6 was very easy to fix and modify 
+with our new Cell interfaces. The text view for this model can be found in the view package 
+under SquareTextView.
+
+#### Level 2 extra credit
+For 'Level 2' of extra credit, all the code can be found in our view package under the
+SquareReversiFrame and SquareReversiPanel classes. Both the SquareReversiFrame and the 
+HexReversiFrame classes implement the same interface, which we didn't change, called 'IView'. 
+
+#### Level 3 & 4 extra credit
+For 'Level 3' and 'Level 4' of extra credit, we actually didn't modify the controller at all, 
+and only slightly modified our strategies. We were using our deprecated neighbors getters in the 
+GoForCornerStrategy, so we switched it to the new coordinate getters, and used a method we 
+created called getScoreFor(int row, int col) to get scores for certain moves.
+
 # Review of Provider Code
 Strategy implementations did not implement all methods from the interface they inherit from a 
 derived class causing some errors at compile time, so we had to comment out the strategies.
