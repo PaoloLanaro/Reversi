@@ -30,31 +30,6 @@ public final class Reversi {
    * @param args command line arguments.
    */
   public static void main(String[] args) {
-//    if (args.length == 0 || args.length > 3) {
-//      throw new IllegalArgumentException("Incorrect amount of command line arguments.");
-//    }
-//    int gameSize;
-//    try {
-//      gameSize = Integer.parseInt(args[0]);
-//    } catch (Exception e) {
-//      throw new IllegalArgumentException("The first argument was not a valid number.");
-//    }
-//    MutableReversi model = new BasicReversi(gameSize);
-//    IView player1View = new ReversiGraphicsView(model);
-//    Player player1 = constructPlayer1(args[1], gameSize);
-//    ReversiController controller1 = new GameController(model, player1, player1View);
-//
-//    ProviderModelAdapter adapter = new ProviderModelAdapter(gameSize);
-//    ProviderPlayerAdapter player2 = constructPlayer2(args[2], adapter);
-//    ReversiModelView delegate = new cs3500.reversi.provider.view.ReversiGraphicsView(adapter,
-//            player2);
-//    ViewToProviderAdapter player2View = new ViewToProviderAdapter(delegate);
-//    ReversiController controller2 = new GameController(model, player2, player2View);
-//
-//    controller1.playGame();
-//    controller2.playGame();
-//
-//    model.startGame();
     if (args.length == 0 || args.length > 4) {
       throw new IllegalArgumentException("Incorrect amount of command line arguments.");
     }
@@ -64,30 +39,15 @@ public final class Reversi {
     } catch (Exception e) {
       throw new IllegalArgumentException("The first argument was not a valid number.");
     }
-//    MutableReversi delegate = new HexReversi(gameSize);
-//    ISmarterModel model = new SmarterModel(delegate);
-//    IView player1View = new HexReversiFrame(model);
-//    IView player2View = new HexReversiFrame(model);
-//
+
     MutableReversi game = makeGame(args[1], gameSize);
+    List<IView> views = constructViews(args[1], game);
     List<Player> players = constructPlayers(args, gameSize);
-//
-//    ReversiController controller1 = new GameController(model, players.get(0), player1View);
-//    ReversiController controller2 = new GameController(model, players.get(1), player2View);
-//
-//    model.startGame();
-//
-//    controller1.playGame();
-//    controller2.playGame();
 
-    MutableReversi square = new SquareReversi(gameSize);
-    IView view = new SquareReversiFrame(square);
-    IView view2 = new SquareReversiFrame(square);
+    ReversiController controller1 = new GameController(game, players.get(0), views.get(0));
+    ReversiController controller2 = new GameController(game, players.get(1), views.get(1));
 
-    ReversiController controller1 = new GameController(square, players.get(0), view);
-    ReversiController controller2 = new GameController(square, players.get(1), view2);
-
-    square.startGame();
+    game.startGame();
 
     controller1.playGame();
     controller2.playGame();
@@ -105,6 +65,26 @@ public final class Reversi {
     }
   }
 
+  private static List<IView> constructViews(String arg, MutableReversi game) {
+    List<IView> views = new ArrayList<>();
+
+    views.add(viewFactory(arg, game));
+    views.add(viewFactory(arg, game));
+
+    return views;
+  }
+
+  private static IView viewFactory(String arg, MutableReversi model) {
+    switch (arg) {
+      case "hex":
+        return new HexReversiFrame(model);
+      case "square":
+        return new SquareReversiFrame(model);
+      default:
+        throw new IllegalArgumentException("Couldn't create GUI of type: " + arg);
+    }
+  }
+
   private static List<Player> constructPlayers(String[] args, int gameSize) {
     List<Player> players = new ArrayList<>();
 
@@ -113,7 +93,6 @@ public final class Reversi {
 
     return players;
   }
-
 
   private static Player playerFactory(String arg, DiscColor playerColor, int gameSize) {
 
