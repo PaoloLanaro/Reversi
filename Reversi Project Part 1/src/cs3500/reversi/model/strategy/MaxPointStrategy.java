@@ -35,7 +35,7 @@ public class MaxPointStrategy implements Strategy {
           continue;
         }
         if (model.isValidMove(row, col)) {
-          validMoves.put( model.getBoard().get(row).get(col), new RowCol(row, col));
+          validMoves.put(model.getBoard().get(row).get(col), new RowCol(row, col));
         }
       }
     }

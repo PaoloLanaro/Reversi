@@ -182,7 +182,7 @@ public class SquareReversi extends AbstractReversi {
   }
 
   @Override
-  public int getSideLength() {            // todo super duper?
+  public int getSideLength() {
     return super.getSideLength();
   }
 

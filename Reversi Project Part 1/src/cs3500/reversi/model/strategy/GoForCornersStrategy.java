@@ -64,30 +64,30 @@
 //
 //  private void addOuterLayerToList(List<Cell> outskirtCells, Cell initialOuterCell,
 //                                   int timesToTravel) {
-//    Cell currentCell = initialOuterCell;
-//    for (int side = 0; side < timesToTravel; side++) {
-//      currentCell = (Cell) currentCell.getRight();
-//      outskirtCells.add(currentCell);
-//    }
-//    for (int side = 0; side < timesToTravel; side++) {
-//      currentCell = (Cell) currentCell.getBottomRight();
-//      outskirtCells.add(currentCell);
-//    }
-//    for (int side = 0; side < timesToTravel; side++) {
-//      currentCell = (Cell) currentCell.getBottomLeft();
-//      outskirtCells.add(currentCell);
-//    }
-//    for (int side = 0; side < timesToTravel; side++) {
-//      currentCell = (Cell) currentCell.getLeft();
-//      outskirtCells.add(currentCell);
-//    }
-//    for (int side = 0; side < timesToTravel; side++) {
-//      currentCell = (Cell) currentCell.getUpperLeft();
-//      outskirtCells.add(currentCell);
-//    }
-//    for (int side = 0; side < timesToTravel; side++) {
-//      currentCell = (Cell) currentCell.getUpperRight();
-//      outskirtCells.add(currentCell);
-//    }
+////    Cell currentCell = initialOuterCell;
+////    for (int side = 0; side < timesToTravel; side++) {
+////      currentCell = (Cell) currentCell.getRight();
+////      outskirtCells.add(currentCell);
+////    }
+////    for (int side = 0; side < timesToTravel; side++) {
+////      currentCell = (Cell) currentCell.getBottomRight();
+////      outskirtCells.add(currentCell);
+////    }
+////    for (int side = 0; side < timesToTravel; side++) {
+////      currentCell = (Cell) currentCell.getBottomLeft();
+////      outskirtCells.add(currentCell);
+////    }
+////    for (int side = 0; side < timesToTravel; side++) {
+////      currentCell = (Cell) currentCell.getLeft();
+////      outskirtCells.add(currentCell);
+////    }
+////    for (int side = 0; side < timesToTravel; side++) {
+////      currentCell = (Cell) currentCell.getUpperLeft();
+////      outskirtCells.add(currentCell);
+////    }
+////    for (int side = 0; side < timesToTravel; side++) {
+////      currentCell = (Cell) currentCell.getUpperRight();
+////      outskirtCells.add(currentCell);
+////    }
 //  }
 //}

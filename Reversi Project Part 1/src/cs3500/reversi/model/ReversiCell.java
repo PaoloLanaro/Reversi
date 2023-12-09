@@ -1,5 +1,7 @@
 package cs3500.reversi.model;
 
+import java.util.Objects;
+
 /**
  * Represents a cell on a game board in a Reversi game. Cells can be in different
  * colors, such as empty, occupied by a black disc, or occupied by a white disc.
@@ -27,8 +29,8 @@ public class ReversiCell implements Cell {
    * {@link ReversiCell} alongside the row and column.
    *
    * @param color the color you wish the {@link ReversiCell} to be.
-   * @param row the integer representing the row.
-   * @param col the integer representing the column.
+   * @param row   the integer representing the row.
+   * @param col   the integer representing the column.
    */
   public ReversiCell(DiscColor color, int row, int col) {
     this.color = color;
@@ -75,6 +77,24 @@ public class ReversiCell implements Cell {
    */
   @Override
   public String toString() {
-    return "(" + row + ", " + ")" + col + " : " + color.toString();
+    return "(" + row + ", " + col + ")" + " : " + color.toString();
   }
+
+  @Override
+  public boolean equals(Object other) {
+    if (this == other) {
+      return true;
+    }
+    if (other == null || getClass() != other.getClass()) {
+      return false;
+    }
+
+    Cell otherCell = (Cell) other;
+
+    return row == otherCell.getRow()
+            && col == otherCell.getCol()
+            && Objects.equals(getColor(), otherCell.getColor());
+  }
+
+
 }

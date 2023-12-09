@@ -10,7 +10,7 @@
 //import cs3500.reversi.model.DiscColor;
 //import cs3500.reversi.model.MockBasicReversi;
 //import cs3500.reversi.model.RowCol;
-//import cs3500.reversi.model.strategy.GoForCornersStrategy;
+////import cs3500.reversi.model.strategy.GoForCornersStrategy;
 //import cs3500.reversi.model.strategy.Strategy;
 //
 ///**
