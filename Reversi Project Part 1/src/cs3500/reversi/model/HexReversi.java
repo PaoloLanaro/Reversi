@@ -1,13 +1,5 @@
 package cs3500.reversi.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import cs3500.reversi.controller.ModelFeatures;
-
-
 /**
  * Represents a basic implementation of a basic hexagon Reversi Game. Implements the MutableReversi
  * interface to give methods for making moves, passing turns, and checking game state. The game is
@@ -18,12 +10,15 @@ import cs3500.reversi.controller.ModelFeatures;
  * <p>1. The passCounter should always be between 0 and 2.
  */
 public class HexReversi extends AbstractReversi {
-  
+
+  /**
+   * Used to construct a hexagonal reversi game.
+   * Creates a {@link HexReversi model game.
+   *
+   * @param initSize the size for the top 'length' to be.
+   */
   public HexReversi(int initSize) {
     super(initSize);
   }
 
-  public HexReversi(List<List<Cell>> otherBoard, DiscColor currentColor) {
-    super(otherBoard, currentColor);
-  }
 }

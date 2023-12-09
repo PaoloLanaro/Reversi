@@ -22,14 +22,14 @@ public interface Cell {
   void setColor(DiscColor color);
 
   /**
-   * Gets this cells current row.
+   * Gets this cell's current row.
    *
    * @return an integer representation of the row this cell occupies.
    */
   int getRow();
 
   /**
-   * Gets this cells current column.
+   * Gets this cell's current column.
    *
    * @return an integer representation of the column this cell occupies.
    */

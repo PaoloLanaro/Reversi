@@ -113,22 +113,22 @@ public class SquareReversi extends AbstractReversi {
   }
 
   @Override
-  public List<List<Cell>> getBoard() {      // todo super duper?
+  public List<List<Cell>> getBoard() {
     return super.getBoard();
   }
 
   @Override
-  public boolean isGameOver() {             // todo super duper?
+  public boolean isGameOver() {
     return super.isGameOver();
   }
 
   @Override
   public Map<DiscColor, Integer> getScore() {
-    return super.getScore();                            // todo super duper?
+    return super.getScore();
   }
 
   @Override
-  public String getWinner() {               // todo super duper?
+  public String getWinner() {
     return super.getWinner();
   }
 
@@ -161,7 +161,7 @@ public class SquareReversi extends AbstractReversi {
   }
 
   @Override
-  public String getTurn() {                 // todo super duper?
+  public String getTurn() {
     return super.getTurn();
   }
 

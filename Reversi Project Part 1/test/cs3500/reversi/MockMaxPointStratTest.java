@@ -111,5 +111,4 @@ public class MockMaxPointStratTest {
             "Checked move at (4, 1).\n" +
             "Moved to row: 4 col: 1\n"));
   }
-
 }

@@ -1,12 +1,7 @@
 package cs3500.reversi.model.strategy;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import cs3500.reversi.model.HexReversi;
-import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.RowCol;

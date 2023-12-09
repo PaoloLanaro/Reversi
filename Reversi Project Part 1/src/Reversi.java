@@ -1,4 +1,3 @@
-//import java.security.Provider;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,14 +5,11 @@ import cs3500.reversi.controller.GameController;
 import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.HexReversi;
 import cs3500.reversi.model.DiscColor;
-import cs3500.reversi.model.ISmarterModel;
 import cs3500.reversi.model.MutableReversi;
-import cs3500.reversi.model.SmarterModel;
 import cs3500.reversi.model.SquareReversi;
 import cs3500.reversi.model.players.AIPlayer;
 import cs3500.reversi.model.players.HumanPlayer;
 import cs3500.reversi.model.players.Player;
-//import cs3500.reversi.model.strategy.GoForCornersStrategy;
 import cs3500.reversi.model.strategy.GoForCornersStrategy;
 import cs3500.reversi.model.strategy.MaxPointStrategy;
 import cs3500.reversi.view.IView;
@@ -108,7 +104,6 @@ public final class Reversi {
         throw new IllegalArgumentException("Could not create player with argument: " + arg);
     }
   }
-
 }
 
 

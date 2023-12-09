@@ -5,6 +5,7 @@ import java.util.Optional;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.RowCol;
+import cs3500.reversi.model.strategy.Strategy;
 
 /**
  * An implementation of the Player interface which represents a human player.
@@ -13,6 +14,14 @@ public class HumanPlayer implements Player {
 
   private final DiscColor playerColor;
 
+  /**
+   /**
+   * Constructs an {@link Player} object with the player's playing color,
+   * and a {@link ReadOnlyReversi} they should follow.
+   **
+   * @param model the {@link ReadOnlyReversi} model which the player will have access to.
+   * @param playerColor the {@link DiscColor} which the {@link Player} will "be".
+   */
   public HumanPlayer(ReadOnlyReversi model, DiscColor playerColor) {
     this.playerColor = playerColor;
   }

@@ -77,7 +77,7 @@ public abstract class AbstractReversi implements MutableReversi {
       throw new IllegalStateException("Tried to move on a finished game.");
     }
     illegalRowColCheck(row, col);
-//    isValidMove(row, col);
+    //    isValidMove(row, col);
     if (requiredPlayerPassCheck()) {
       passTurn();
       throw new IllegalStateException("There is no valid move for you, so your turn has been " +
@@ -95,8 +95,8 @@ public abstract class AbstractReversi implements MutableReversi {
 
     notifyListeners();
 
-//    List<List<Cell>> validRuns = findValidRuns(originCell);
-//    setValidDiscs(validRuns);
+    //    List<List<Cell>> validRuns = findValidRuns(originCell);
+    //    setValidDiscs(validRuns);
   }
 
   // package private so that SquareReversi can use it
@@ -219,145 +219,6 @@ public abstract class AbstractReversi implements MutableReversi {
   private DiscColor getOppositeColor(DiscColor color) {
     return color == DiscColor.WHITE ? DiscColor.BLACK : DiscColor.WHITE;
   }
-
-//  private List<List<Cell>> findValidRuns(Cell originCell) {
-//    Map<String, List<Cell>> routesMap = getRunsForCell(originCell, turn);
-//    List<List<Cell>> validRuns = new ArrayList<>();
-//
-//    validRunChecker(originCell, turn, routesMap, validRuns);
-//
-//    return validRuns;
-//  }
-
-  // sets valid discs based on valid runs
-//  private void setValidDiscs(List<List<Cell>> validRuns) {
-//
-//    // if there are no valid runs, the move is not valid.
-//    if (validRuns.isEmpty()) {
-//      throw new IllegalStateException("Not a valid move");
-//    }
-//    // flips the discs for all valid runs.
-//    flipValidDiscRuns(turn, validRuns);
-//    passCounter = 0;
-//  }
-
-  // actually sets the runs to playerColor
-//  private void flipValidDiscRuns(DiscColor playerColor, List<List<Cell>> validRuns) {
-//    for (List<Cell> singleRun : validRuns) {
-//      for (Cell runCell : singleRun) {
-//        runCell.setColor(playerColor);
-//      }
-//    }
-//  }
-
-  // checks and adds valid runs to the validRuns list.
-//  private void validRunChecker(Cell originCell, DiscColor playerColor, Map<String,
-//          List<Cell>> routesMap, List<List<Cell>> validRuns) {
-//    for (String key : routesMap.keySet()) {
-//      List<Cell> run = routesMap.get(key);
-//      if (run != null && !run.isEmpty() && run.get(run.size() - 1).getColor() == playerColor) {
-////        originCell.setDiscColor(playerColor);
-//        run.add(0, originCell);
-//        validRuns.add(run);
-//      }
-//    }
-//  }
-
-  // computes and returns possible runs for the given origin cell and player color.
-//  private Map<String, List<Cell>> getRunsForCell(Cell originCell, DiscColor playerColor) {
-//    Map<String, List<Cell>> routesMap = new HashMap<>();
-//    DiscColor oppositeColor = getOppositeColor(playerColor);
-//    checkAndAddDirection(UPPER_LEFT, routesMap, originCell.getUpperLeft(), oppositeColor,
-//            playerColor);
-//    checkAndAddDirection(UPPER_RIGHT, routesMap, originCell.getUpperRight(), oppositeColor,
-//            playerColor);
-//    checkAndAddDirection(LEFT, routesMap, originCell.getLeft(), oppositeColor,
-//            playerColor);
-//    checkAndAddDirection(RIGHT, routesMap, originCell.getRight(), oppositeColor, playerColor);
-//    checkAndAddDirection(BOTTOM_LEFT, routesMap, originCell.getBottomLeft(), oppositeColor,
-//            playerColor);
-//    checkAndAddDirection(BOTTOM_RIGHT, routesMap, originCell.getBottomRight(), oppositeColor,
-//            playerColor);
-//    return routesMap;
-//  }
-
-  // method to traverse in a given direction and add cells in given direction to a list
-//  private void checkAndAddDirection(String direction, Map<String, List<Cell>> routesMap, Cell cell,
-//                                    DiscColor oppositeColor, DiscColor playerColor) {
-//    if (cell != null && cell.getColor() == oppositeColor) {
-//      routesMap.put(direction, traverse(direction, playerColor, cell));
-//    }
-//  }
-
-  // method that calls recursive method helper.
-  // used to not muddy up the call to traverse in previous method. also helpful for debugging.
-//  private List<Cell> traverse(String dir, DiscColor color, Cell currCell) {
-//    List<Cell> routeList = new ArrayList<>();
-//    traverseHelper(dir, color, currCell, routeList);
-//    return routeList;
-//  }
-
-  // recursive method helper to traverse cells in a given direction and add said cells to a list
-//  private void traverseHelper(String dir, DiscColor originalColor, Cell currCell,
-//                              List<Cell> currentRun) {
-//    if (currCell.getColor() == originalColor) {
-//      currentRun.add(currCell);
-//      return;
-//    }
-//
-//    if (currCell.getColor() == DiscColor.EMPTY) {
-//      return;
-//    }
-//
-//    switch (dir) {
-//      case UPPER_LEFT:
-//        if (currCell.getUpperLeft() == null) {
-//          return;
-//        }
-//        currentRun.add(currCell);
-//        traverseHelper(dir, originalColor, currCell.getUpperLeft(), currentRun);
-//        break;
-//      case UPPER_RIGHT:
-//        if (currCell.getUpperRight() == null) {
-//          return;
-//        }
-//        currentRun.add(currCell);
-//        traverseHelper(dir, originalColor, currCell.getUpperRight(), currentRun);
-//        break;
-//      case LEFT:
-//        if (currCell.getLeft() == null) {
-//          return;
-//        }
-//        currentRun.add(currCell);
-//        traverseHelper(dir, originalColor, currCell.getLeft(), currentRun);
-//        break;
-//      case RIGHT:
-//        if (currCell.getRight() == null) {
-//          return;
-//        }
-//        currentRun.add(currCell);
-//        traverseHelper(dir, originalColor, currCell.getRight(), currentRun);
-//        break;
-//      case BOTTOM_LEFT:
-//        if (currCell.getBottomLeft() == null) {
-//          return;
-//        }
-//        currentRun.add(currCell);
-//        traverseHelper(dir, originalColor, currCell.getBottomLeft(), currentRun);
-//        break;
-//      case BOTTOM_RIGHT:
-//        if (currCell.getBottomRight() == null) {
-//          return;
-//        }
-//        currentRun.add(currCell);
-//        traverseHelper(dir, originalColor, currCell.getBottomRight(), currentRun);
-//        break;
-//      default:
-//        // There should never be a case where someone calls traverseHelper without the above
-//        // string, so we tried implementing a new error we found while looking through autofill.
-//        throw new IllegalCallerException("Fatal error");
-//    }
-//  }
 
   private boolean requiredPlayerPassCheck() {
     return getValidMoves(turn).isEmpty();
@@ -528,7 +389,7 @@ public abstract class AbstractReversi implements MutableReversi {
       return 0;
     }
     List<List<Cell>> runs = getValidRuns(row, col, turn);
-//    List<List<Cell>> validRuns = findValidRuns(cell);
+    //    List<List<Cell>> validRuns = findValidRuns(cell);
 
     int scoreForMove = 0;
     for (List<Cell> validRun : runs) {
@@ -537,9 +398,9 @@ public abstract class AbstractReversi implements MutableReversi {
       }
       scoreForMove--;
     }
-//    for (int i = 0; i < validRuns.size() - 1; i++) {
-//      scoreForMove--;
-//    }
+    //    for (int i = 0; i < validRuns.size() - 1; i++) {
+    //      scoreForMove--;
+    //    }
 
     return scoreForMove;
   }

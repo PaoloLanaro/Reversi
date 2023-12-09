@@ -1,8 +1,9 @@
 package cs3500.reversi.view;
 
-import java.awt.*;
+import java.awt.Dimension;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import cs3500.reversi.controller.ViewFeatures;
 import cs3500.reversi.model.DiscColor;

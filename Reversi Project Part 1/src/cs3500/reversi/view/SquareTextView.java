@@ -2,7 +2,6 @@ package cs3500.reversi.view;
 
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.ReadOnlyReversi;
-import cs3500.reversi.model.ReversiCell;
 
 public class SquareTextView {
   private final Appendable out;
