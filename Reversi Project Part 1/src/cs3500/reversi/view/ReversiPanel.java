@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 
 import cs3500.reversi.controller.ViewFeatures;
 import cs3500.reversi.model.Cell;
-import cs3500.reversi.model.HexReversiCell;
+import cs3500.reversi.model.ReversiCell;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
 import cs3500.reversi.model.RowCol;
@@ -178,7 +178,7 @@ public class ReversiPanel extends JPanel {
 //    }
 //  }
 
-  private static Color convertColor(HexReversiCell cell) {
+  private static Color convertColor(ReversiCell cell) {
     if (cell == null) {
       return Color.BLACK;
     }
