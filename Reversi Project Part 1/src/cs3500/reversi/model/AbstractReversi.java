@@ -85,19 +85,18 @@ public abstract class AbstractReversi implements MutableReversi {
     }
 
     List<List<Cell>> validRuns = getValidRuns(row, col, turn);
-    if (validRuns.size() != 0) {
+    if (!validRuns.isEmpty()) {
       passCounter = 0;
       validRuns.forEach(singleRun -> singleRun.forEach(squareCell -> squareCell.setColor(turn)));
     } else {
       throw new IllegalArgumentException("(" + row + ", " + col + ") is an invalid move.");
     }
 
+    switchTurn();
     notifyListeners();
 
 //    List<List<Cell>> validRuns = findValidRuns(originCell);
 //    setValidDiscs(validRuns);
-//    switchTurn();
-//    notifyListeners();
   }
 
   // package private so that SquareReversi can use it
@@ -132,7 +131,7 @@ public abstract class AbstractReversi implements MutableReversi {
     int newRow = row + rowOffset;
     int newCol = col + colOffset;
 
-    if (!isInBounds(row, col)) {
+    if (!isInBounds(newRow, newCol)) {
       return;
     }
     if (board.get(newRow).get(newCol).getColor() == color
@@ -444,21 +443,7 @@ public abstract class AbstractReversi implements MutableReversi {
 
     int validMovesOnBoard = getValidMoves(DiscColor.BLACK).size();
     validMovesOnBoard += getValidMoves(DiscColor.WHITE).size();
-    if (validMovesOnBoard == 0) {
-      return true;
-    }
-
-    for (List<Cell> row : board) {
-      for (Cell cell : row) {
-        if (cell == null) {
-          continue;
-        }
-        if (cell.getColor() == DiscColor.EMPTY) {
-          return false;
-        }
-      }
-    }
-    return true;
+    return validMovesOnBoard == 0;
   }
 
   @Override
@@ -600,9 +585,10 @@ public abstract class AbstractReversi implements MutableReversi {
 
   @Override
   public Cell getCellAt(int row, int col) {
-    if (board.get(row).get(col) == null) {
+    Cell cell = board.get(row).get(col);
+    if (cell == null) {
       return null;
     }
-    return new ReversiCell(board.get(row).get(col));
+    return new ReversiCell(cell);
   }
 }
