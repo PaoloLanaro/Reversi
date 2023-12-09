@@ -12,9 +12,9 @@ import cs3500.reversi.view.HexTextView;
 import cs3500.reversi.model.HexReversi;
 
 /**
- * Tests for model implementations of the reversi game.
+ * Tests for Hex model implementations of the reversi game.
  */
-public class ModelTests {
+public class HexReversiTest {
   HexReversi model3;
   HexReversi model4;
   HexTextView viewSize3;
