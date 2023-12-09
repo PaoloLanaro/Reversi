@@ -29,7 +29,38 @@ public class ViewTests {
   public void testSquareViewStarts() {
     SquareReversi size4Game = new SquareReversi(4);
     SquareTextView size4View = new SquareTextView(size4Game);
-    System.out.println(size4View);
+    String expected = "- - - - \n" +
+            "- X O - \n" +
+            "- O X - \n" +
+            "- - - - \n";
+    Assert.assertEquals(expected, size4View.toString());
+  }
+
+  @Test
+  public void testSquareViewWorksForBigBoards() {
+    SquareReversi size20Game = new SquareReversi(20);
+    SquareTextView size20View = new SquareTextView(size20Game);
+    String expected = "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - X O - - - - - - - - - \n" +
+            "- - - - - - - - - O X - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n" +
+            "- - - - - - - - - - - - - - - - - - - - \n";
+    Assert.assertEquals(expected, size20View.toString());
   }
 
 }

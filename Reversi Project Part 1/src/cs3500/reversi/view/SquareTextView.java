@@ -40,41 +40,19 @@ public class SquareTextView {
     for (int row = 0; row < size; row++) {
       for (int col = 0; col < size; col++) {
         Cell cell = model.getCellAt(row, col);
-      }
-    }
 
-    for (int row = 0; row < model.getBoard().size(); row++) {
-      int initialOffset = row - middleRow;
-      for (int col = 0; col < model.getBoard().size(); col++) {
-        ReversiCell cell = (ReversiCell) model.getBoard().get(row).get(col);
-        if (row <= middleRow) {
-          if (cell == null) {
-            boardRepresentation.append(' ');
-            continue;
-          }
-          getCellStateAsString(boardRepresentation, cell);
-        }
-        if (row > middleRow) {
-          while (initialOffset > 0) {
-            boardRepresentation.append(' ');
-            initialOffset--;
-          }
-          if (cell == null) {
-            continue;
-          }
-          getCellStateAsString(boardRepresentation, cell);
-        }
+        getCellStateAsString(boardRepresentation, cell);
       }
       boardRepresentation.append('\n');
     }
-    return boardRepresentation.toString();
 
+    return boardRepresentation.toString();
   }
 
-  private void getCellStateAsString(StringBuilder boardRepresentation, ReversiCell cell) {
+  private void getCellStateAsString(StringBuilder boardRepresentation, Cell cell) {
     switch (cell.getColor()) {
       case EMPTY:
-        boardRepresentation.append('_');
+        boardRepresentation.append('-');
         boardRepresentation.append(' ');
         break;
       case BLACK:

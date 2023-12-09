@@ -122,7 +122,7 @@ public class SquareReversi extends AbstractReversi {
 
   @Override
   public String getWinner() {               // todo super duper?
-    return null;
+    return super.getWinner();
   }
 
   @Override
