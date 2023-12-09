@@ -21,6 +21,7 @@ public class HexReversiFrame extends JFrame implements IView {
 
   /**
    * Constructs a {@link HexReversiFrame} object with a game panel.
+   * It should be used only with a {@link ReadOnlyReversi} model to avoid mutability.
    *
    * @param model the {@link ReadOnlyReversi} model for the Reversi game.
    */

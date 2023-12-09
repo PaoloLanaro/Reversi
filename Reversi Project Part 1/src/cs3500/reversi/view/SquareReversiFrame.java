@@ -19,7 +19,6 @@ public class SquareReversiFrame extends JFrame implements IView {
   private final SquareReversiPanel gamePanel;
   private final ReadOnlyReversi model;
 
-
   /**
    * This constructor creates a {@link SquareReversiFrame} object.
    * It should be used only with a {@link ReadOnlyReversi} model to avoid mutability.

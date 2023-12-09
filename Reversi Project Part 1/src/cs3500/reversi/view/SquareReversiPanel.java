@@ -44,8 +44,8 @@ public class SquareReversiPanel extends JPanel {
     this.model = model;
     this.setMinimumSize(new Dimension(800, 900));
     this.setBackground(Color.DARK_GRAY);
-    this.addMouseListener(new SquareReversiPanel.MouseAdapter());
-    this.addKeyListener(new SquareReversiPanel.KeyboardAdapter());
+    this.addMouseListener(new MouseAdapter());
+    this.addKeyListener(new KeyboardAdapter());
     this.setFocusable(true);
     this.squareList = new ArrayList<>();
   }
@@ -89,6 +89,7 @@ public class SquareReversiPanel extends JPanel {
         squareList.get(row).add(rectangle);
       }
     }
+    update(g2d);
   }
 
   private void setHighlightedHex(int row, int col) {

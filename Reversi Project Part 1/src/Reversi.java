@@ -48,7 +48,6 @@ public final class Reversi {
 
     controller1.playGame();
     controller2.playGame();
-
   }
 
   private static MutableReversi makeGame(String arg, int gameSize) {
@@ -78,7 +77,8 @@ public final class Reversi {
       case "square":
         return new SquareReversiFrame(model);
       default:
-        throw new IllegalArgumentException("Couldn't create GUI of type: " + arg);
+        throw new IllegalArgumentException("Couldn't create GUI of game type: " + arg +
+                "\nSupported games are 'hex' and 'square'");
     }
   }
 

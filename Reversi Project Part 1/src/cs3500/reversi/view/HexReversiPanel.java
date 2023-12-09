@@ -34,7 +34,7 @@ public class HexReversiPanel extends JPanel {
   private final List<Hexagon> hexagonList;
   private final List<Cell> cellList;
   private final List<List<Cell>> underlyingBoard;
-  private ViewFeatures featureListener;
+  ViewFeatures featureListener; // package private so the decorator can access it
 
   /**
    * Constructs the {@link HexReversiPanel}.
@@ -52,8 +52,6 @@ public class HexReversiPanel extends JPanel {
     this.setFocusable(true);
     this.hexagonList = new ArrayList<>();
     this.cellList = new ArrayList<>();
-    //basic 27
-    this.hexagonRadius = 27;
   }
 
   // draws full board (onion wrapper)
