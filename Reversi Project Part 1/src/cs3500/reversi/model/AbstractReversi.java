@@ -184,6 +184,7 @@ public abstract class AbstractReversi implements MutableReversi {
     featuresListeners.add(featuresListener);
   }
 
+  // package private so that SquareReversi can use it
   void notifyListeners() {
     if (!featuresListeners.isEmpty()) {
       for (ModelFeatures listener : featuresListeners) {
