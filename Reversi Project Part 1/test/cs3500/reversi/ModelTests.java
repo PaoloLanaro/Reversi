@@ -8,7 +8,7 @@ import java.util.List;
 
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.DiscColor;
-import cs3500.reversi.view.TextView;
+import cs3500.reversi.view.HexTextView;
 import cs3500.reversi.model.HexReversi;
 
 /**
@@ -17,16 +17,16 @@ import cs3500.reversi.model.HexReversi;
 public class ModelTests {
   HexReversi model3;
   HexReversi model4;
-  TextView viewSize3;
-  TextView viewSize4;
+  HexTextView viewSize3;
+  HexTextView viewSize4;
 
   @Before
   public void init() {
     model3 = new HexReversi(3);
     model4 = new HexReversi(4);
 
-    viewSize3 = new TextView(model3);
-    viewSize4 = new TextView(model4);
+    viewSize3 = new HexTextView(model3);
+    viewSize4 = new HexTextView(model4);
 
     model3.startGame();
     model4.startGame();

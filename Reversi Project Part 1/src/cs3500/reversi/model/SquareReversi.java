@@ -36,10 +36,11 @@ public class SquareReversi extends AbstractReversi {
   }
 
   private void setStarterDiscs(List<List<Cell>> initialList, int initSize) {
-    initialList.get(initSize).get(initSize).setColor(DiscColor.BLACK);
-    initialList.get(initSize - 1).get(initSize - 1).setColor(DiscColor.BLACK);
-    initialList.get(initSize - 1).get(initSize).setColor(DiscColor.WHITE);
-    initialList.get(initSize).get(initSize - 1).setColor(DiscColor.WHITE);
+    int middle = initSize / 2;
+    initialList.get(middle).get(middle).setColor(DiscColor.BLACK);
+    initialList.get(middle - 1).get(middle - 1).setColor(DiscColor.BLACK);
+    initialList.get(middle - 1).get(middle).setColor(DiscColor.WHITE);
+    initialList.get(middle).get(middle - 1).setColor(DiscColor.WHITE);
   }
 
   private void gameStartedCheck() {
@@ -106,17 +107,17 @@ public class SquareReversi extends AbstractReversi {
 
   @Override
   public List<List<Cell>> getBoard() {      // todo super duper?
-    return null;
+    return super.getBoard();
   }
 
   @Override
   public boolean isGameOver() {             // todo super duper?
-    return false;
+    return super.isGameOver();
   }
 
   @Override
   public Map<DiscColor, Integer> getScore() {
-    return null;                            // todo super duper?
+    return super.getScore();                            // todo super duper?
   }
 
   @Override
@@ -154,27 +155,40 @@ public class SquareReversi extends AbstractReversi {
 
   @Override
   public String getTurn() {                 // todo super duper?
-    return null;
+    return super.getTurn();
   }
 
   @Override
   public boolean isValidMove(int row, int col) {
-    return false;
+    illegalRowColCheck(row, col);
+    Cell originCell = board.get(row).get(col);
+
+    if (originCell == null) {
+      throw new IllegalArgumentException("Invalid move attempt, trying to place on null");
+    }
+
+    if (originCell.getColor() != DiscColor.EMPTY) {
+      return false;
+    }
+
+    List<List<Cell>> runs = getValidRuns(row, col, turn);
+
+    return !runs.isEmpty();
   }
 
   @Override
-  public int getSideLength() {
-    return 0;
+  public int getSideLength() {            // todo super duper?
+    return super.getSideLength();
   }
 
   @Override
   public DiscColor getCellColor(int row, int col) {
-    return null;
+    return super.getCellColor(row, col);
   }
 
   @Override
   public Cell getCellAt(int row, int col) {
-    return null;
+    return super.getCellAt(row, col);
   }
 
   @Override
