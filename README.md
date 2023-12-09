@@ -11,7 +11,9 @@ HexReversi. Overall the extra credit was done over the course of Friday, and we 
 big changes that served to cut down on our code :).
 
 #### Level 0 extra credit
-
+We didn't complete level 0 of the extra credit. 
+We worked on some parts of it in the HintDecorator class under the View package, 
+but it doesn't work and no partial credit so mehh.
 
 #### Level 1 extra credit
 For 'Level 1' of extra credit, all the code can be found in the SquareReversi class within the 

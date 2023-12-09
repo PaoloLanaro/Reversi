@@ -29,7 +29,11 @@ public interface ViewFeatures {
   void pushError(String errorMessage);
 
   /**
-   * Enables hints for the player.
+   * Enables hints for the game.
+   * Couldn't get this to work, so it's currently deprecated.
+   *
+   * @param row the row the hint should be shown for (in the original model).
+   * @param col the column the hint should be shown for (in the original model).
    */
   void enableHint(int row, int col);
 }
