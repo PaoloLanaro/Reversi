@@ -27,7 +27,7 @@ public class SquareReversi extends AbstractReversi {
   }
 
   private void initializeBoard(List<List<Cell>> initialList, int initSize) {
-    for (int row = 0; row  < initSize; row++) {
+    for (int row = 0; row < initSize; row++) {
       initialList.add(new ArrayList<>());
       for (int col = 0; col < initSize; col++) {
         initialList.get(row).add(new ReversiCell(row, col));
@@ -67,8 +67,13 @@ public class SquareReversi extends AbstractReversi {
     illegalRowColCheck(row, col);
 
     List<List<Cell>> validRuns = getValidRuns(row, col, turn);
-    validRuns.forEach(singleRun -> singleRun.forEach(squareCell -> squareCell.setColor(turn)));
+    if (validRuns.isEmpty()) {
+      throw new IllegalArgumentException(
+              "No valid move could be made at: (" + row + ", " + col + ")"
+      );
+    }
 
+    validRuns.forEach(singleRun -> singleRun.forEach(squareCell -> squareCell.setColor(turn)));
     switchTurn();
     super.passCounter = 0;
   }
