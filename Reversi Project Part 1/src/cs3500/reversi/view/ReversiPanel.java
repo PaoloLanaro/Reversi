@@ -98,7 +98,6 @@ public class ReversiPanel extends JPanel {
         cellList.add(currentCell);
       }
     }
-
   }
 
 //  private void theOnionLoop(Graphics2D g2d, int timesActionRepeated, HexReversiCell currentCell,
