@@ -10,10 +10,9 @@ import cs3500.reversi.model.strategy.Strategy;
  * Creates a mock for the purpose of testing and getting output messages confirming
  * that moves are actually working. This is made to support the use of {@link Strategy}s.
  */
-public class MockBasicReversi implements MutableReversi {
-
+public class MockSquareReversi implements MutableReversi {
   private final Appendable out;
-  private final HexReversi delegate;
+  private final SquareReversi delegate;
 
   /**
    * The constructor for this mock class.
@@ -22,8 +21,8 @@ public class MockBasicReversi implements MutableReversi {
    *             This will be the amount of hexagons on each "side".
    * @param out  the appendable that messages will be added to.
    */
-  public MockBasicReversi(int size, Appendable out) {
-    this.delegate = new HexReversi(size);
+  public MockSquareReversi(int size, Appendable out) {
+    this.delegate = new SquareReversi(size);
     this.out = out;
   }
 
@@ -126,5 +125,4 @@ public class MockBasicReversi implements MutableReversi {
     appendHelper("Getting all valid moves for cell with color" + color);
     return delegate.getValidMoves(color);
   }
-
 }

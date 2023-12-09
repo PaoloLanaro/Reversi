@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import cs3500.reversi.model.HexReversi;
 import cs3500.reversi.model.DiscColor;
-import cs3500.reversi.model.MockBasicReversi;
+import cs3500.reversi.model.MockHexReversi;
 import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.strategy.GoForCornersStrategy;
 import cs3500.reversi.model.strategy.Strategy;
@@ -21,7 +21,7 @@ public class GoForCornerStratTest {
   HexReversi basicModel;
   Strategy basicStrategy;
   StringBuilder out;
-  MockBasicReversi mock;
+  MockHexReversi mock;
 
 
   @Before
@@ -29,7 +29,7 @@ public class GoForCornerStratTest {
     basicModel = new HexReversi(3);
     basicStrategy = new GoForCornersStrategy();
     out = new StringBuilder();
-    mock = new MockBasicReversi(3, out);
+    mock = new MockHexReversi(3, out);
     basicModel.startGame();
     mock.startGame();
   }

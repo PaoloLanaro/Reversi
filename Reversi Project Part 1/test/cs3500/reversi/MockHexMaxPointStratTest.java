@@ -9,18 +9,18 @@ import java.util.Optional;
 import cs3500.reversi.model.HexReversi;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.strategy.MaxPointStrategy;
-import cs3500.reversi.model.MockBasicReversi;
+import cs3500.reversi.model.MockHexReversi;
 import cs3500.reversi.model.RowCol;
 import cs3500.reversi.model.strategy.Strategy;
 
 /**
  * Test class for MockMaxPointStrat.
  */
-public class MockMaxPointStratTest {
+public class MockHexMaxPointStratTest {
   HexReversi basicModel;
   Strategy basicStrategy;
   StringBuilder out;
-  MockBasicReversi mock;
+  MockHexReversi mock;
 
 
   @Before
@@ -28,7 +28,7 @@ public class MockMaxPointStratTest {
     basicModel = new HexReversi(4);
     basicStrategy = new MaxPointStrategy();
     out = new StringBuilder();
-    mock = new MockBasicReversi(4, out);
+    mock = new MockHexReversi(4, out);
     basicModel.startGame();
     mock.startGame();
   }
