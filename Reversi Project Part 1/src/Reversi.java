@@ -9,13 +9,13 @@ import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ISmarterModel;
 import cs3500.reversi.model.MutableReversi;
 import cs3500.reversi.model.SmarterModel;
-import cs3500.reversi.model.players.AIPlayer;
+import cs3500.reversi.model.SquareReversi;
 import cs3500.reversi.model.players.HumanPlayer;
 import cs3500.reversi.model.players.Player;
 //import cs3500.reversi.model.strategy.GoForCornersStrategy;
-import cs3500.reversi.model.strategy.MaxPointStrategy;
 import cs3500.reversi.view.IView;
-import cs3500.reversi.view.ReversiGraphicsView;
+import cs3500.reversi.view.HexReversiFrame;
+import cs3500.reversi.view.SquareReversiFrame;
 
 /**
  * The main class for the Reversi project.
@@ -62,20 +62,28 @@ public final class Reversi {
     } catch (Exception e) {
       throw new IllegalArgumentException("The first argument was not a valid number.");
     }
-    MutableReversi delegate = new HexReversi(gameSize);
-    ISmarterModel model = new SmarterModel(delegate);
-    IView player1View = new ReversiGraphicsView(model);
-    IView player2View = new ReversiGraphicsView(model);
+//    MutableReversi delegate = new HexReversi(gameSize);
+//    ISmarterModel model = new SmarterModel(delegate);
+//    IView player1View = new HexReversiFrame(model);
+//    IView player2View = new HexReversiFrame(model);
+//
+//    List<Player> players = constructPlayers(args, gameSize);
+//
+//    ReversiController controller1 = new GameController(model, players.get(0), player1View);
+//    ReversiController controller2 = new GameController(model, players.get(1), player2View);
+//
+//    model.startGame();
+//
+//    controller1.playGame();
+//    controller2.playGame();
 
-    List<Player> players = constructPlayers(args, gameSize);
+    MutableReversi square = new SquareReversi(gameSize);
+    IView view = new SquareReversiFrame(square);
+    IView view2 = new SquareReversiFrame(square);
+    square.startGame();
+    view.setVisible(true);
+    view2.setVisible(true);
 
-    ReversiController controller1 = new GameController(model, players.get(0), player1View);
-    ReversiController controller2 = new GameController(model, players.get(1), player2View);
-
-    model.startGame();
-
-    controller1.playGame();
-    controller2.playGame();
   }
 
   private static List<Player> constructPlayers(String[] args, int gameSize) {

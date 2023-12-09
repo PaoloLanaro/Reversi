@@ -28,7 +28,7 @@ import cs3500.reversi.model.RowCol;
  * creates the full board and allows for mouse and keyboard input to indicate
  * "moves".
  */
-public class ReversiPanel extends JPanel {
+public class HexReversiPanel extends JPanel {
 
   private final ReadOnlyReversi model;
   private double hexagonRadius;
@@ -39,11 +39,11 @@ public class ReversiPanel extends JPanel {
   protected ViewFeatures featureListener;
 
   /**
-   * Constructs the {@link ReversiPanel}.
+   * Constructs the {@link HexReversiPanel}.
    *
    * @param model the {@link ReadOnlyReversi} model to represent in the JPanel
    */
-  public ReversiPanel(ReadOnlyReversi model) {
+  public HexReversiPanel(ReadOnlyReversi model) {
     this.model = model;
     this.setMinimumSize(new Dimension(800, 800));
     this.setBackground(Color.DARK_GRAY);
