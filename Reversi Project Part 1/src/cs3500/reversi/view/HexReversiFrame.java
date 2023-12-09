@@ -30,14 +30,14 @@ public class HexReversiFrame extends JFrame implements IView {
     this.setLocation(390, 85);
     this.setSize(new Dimension(500, 500));
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    gamePanel = new HintDecorator(model);
+    gamePanel = new HexReversiPanel(model);
     this.model = model;
     this.add(gamePanel);
   }
 
   @Override
   public void addFeaturesListener(ViewFeatures featuresListener) {
-    gamePanel.addFeaturesListener(featuresListener);
+//    gamePanel.addFeaturesListener(featuresListener);
     //for controller.
   }
 
