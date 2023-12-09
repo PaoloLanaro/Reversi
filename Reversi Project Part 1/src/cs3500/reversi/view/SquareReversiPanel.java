@@ -52,11 +52,6 @@ public class SquareReversiPanel extends JPanel {
     this.addKeyListener(new SquareReversiPanel.KeyboardAdapter());
     this.setFocusable(true);
     this.squareList = new ArrayList<>();
-    //basic 27
-    this.squareSideLength = 200;
-    circleDiameter = 0;
-    circleOffset = 0;
-    activeRectangle = null;
   }
 
   public void addFeaturesListener(ViewFeatures featuresListener) {
@@ -76,48 +71,13 @@ public class SquareReversiPanel extends JPanel {
     circleDiameter = (int) (squareSideLength * CIRCLE_RATIO);
     circleOffset = (squareSideLength - circleDiameter) / 2;
 
-//    int sideLength = model.getSideLength();
-
     if (squareList.isEmpty()) {
       createBoard(g2d);
     } else {
       updateBoard(g2d);
     }
 
-//    for (int row = 0; row < sideLength; row++) {
-//      for (int col = 0; col < sideLength; col++) {
-//        int xPos = col * squareSideLength;
-//        int yPos = row * squareSideLength;
-//
-//        Rectangle rect = new Rectangle(xPos, yPos, squareSideLength, squareSideLength);
-//
-//        //  if rectangle is 100 pixels length, the circle has a diameter of 70
-//
-//        g2d.setColor(Color.LIGHT_GRAY);
-//        g2d.fill(rect);
-//        g2d.setColor(Color.BLACK);
-//        g2d.draw(rect);
-//        if (model.getCellAt(row, col).getColor() == DiscColor.WHITE) {
-//          g2d.setColor(Color.WHITE);
-//          g2d.fillOval(rect.x + CIRCLE_OFFSET, rect.y + CIRCLE_OFFSET,
-//                  rect.width - CIRCLE_OFFSET * 2, rect.height - CIRCLE_OFFSET * 2);
-//          g2d.setColor(Color.BLACK);
-//          g2d.draw(rect);
-//        }
-//        if (model.getCellAt(row, col).getColor() == DiscColor.BLACK) {
-//          g2d.setColor(Color.BLACK);
-//          g2d.fillOval(rect.x + CIRCLE_OFFSET, rect.y + CIRCLE_OFFSET,
-//                  rect.width - CIRCLE_OFFSET * 2, rect.height - CIRCLE_OFFSET * 2);
-//          g2d.setColor(Color.BLACK);
-//          g2d.draw(rect);
-//        }
-//      }
-//    }
-
     g2d.dispose();
-
-//    g2d.setColor(Color.BLACK);
-//    g2d.fillOval(40,40, 100, 100);
   }
 
   private void createBoard(Graphics2D g2d) {
@@ -208,26 +168,6 @@ public class SquareReversiPanel extends JPanel {
           }
         }
       }
-//      Point point = mouseEvent.getPoint();
-//
-//      int row = getRowFromPoint(point);
-//      int col = getColFromPoint(point);
-//
-//      if (row != -1 && col != -1) {
-//        boolean alreadyFilled =
-//                underlyingBoard.get(row).get(col).getColor() == DiscColor.BLACK ||
-//                        (underlyingBoard.get(row).get(col).getColor() == DiscColor.WHITE);
-//
-//        if (alreadyFilled) {
-//          System.out.println("Board already filled at: (" + row + ", " + col + ")");
-//        } else {
-//          System.out.println("(" + row + ", " + col + ")");
-//        }
-//      } else {
-//        System.out.println("Not a valid cell");
-//      }
-//
-//      drawBlueTile(point, Color.CYAN);
     }
   }
 
@@ -254,25 +194,6 @@ public class SquareReversiPanel extends JPanel {
           System.out.println("Not a valid key");
           break;
       }
-      System.out.println("keyboard!");
-//      switch (event.getKeyCode()) {
-//        case KeyEvent.VK_ENTER:
-//          RowCol highlightedHex = getHighlightedHex();
-//          if (highlightedHex == null) {
-//            featureListener.pushError("There is no currently highlighted cell in the game.");
-//          } else {
-//            featureListener.makeMove(getHighlightedHex());
-//          }
-//          repaint();
-//          break;
-//        case KeyEvent.VK_BACK_SPACE:
-//          featureListener.passTurn();
-//          break;
-//        default:
-//          System.out.println("Not a valid key");
-//          break;
-//      }
-//    }
     }
   }
 }
