@@ -37,7 +37,7 @@ public class HexReversiFrame extends JFrame implements IView {
 
   @Override
   public void addFeaturesListener(ViewFeatures featuresListener) {
-//    gamePanel.addFeaturesListener(featuresListener);
+    gamePanel.addFeaturesListener(featuresListener);
     //for controller.
   }
 

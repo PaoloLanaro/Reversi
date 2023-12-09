@@ -16,9 +16,11 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import cs3500.reversi.controller.ViewFeatures;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.DiscColor;
 import cs3500.reversi.model.ReadOnlyReversi;
+import cs3500.reversi.model.RowCol;
 
 /**
  * The JPanel which represents the actual Reversi board. This class
@@ -32,6 +34,7 @@ public class HexReversiPanel extends JPanel {
   private final List<Hexagon> hexagonList;
   private final List<Cell> cellList;
   private final List<List<Cell>> underlyingBoard;
+  private ViewFeatures featureListener;
 
   /**
    * Constructs the {@link HexReversiPanel}.
@@ -150,6 +153,9 @@ public class HexReversiPanel extends JPanel {
         cellList.add(currentCell);
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
+      if (timesActionRepeated == model.getSideLength() - 1) {
+        break;
+      }
       currentCell = model.getCellAt(currentCell.getRow(), currentCell.getCol() + 1); // right
       double newX = currentPoint.getX() + horiz;
       double newY = currentPoint.getY();
@@ -173,10 +179,8 @@ public class HexReversiPanel extends JPanel {
     g2d.fill(hexagon.getHexagon());
 
     if (hexagon.getColor() == Color.CYAN) {
-      if (cell.getColor() == DiscColor.EMPTY) {
-        g2d.setColor(Color.CYAN);
-        g2d.fill(hexagon.getHexagon());
-      }
+      g2d.setColor(Color.CYAN);
+      g2d.fill(hexagon.getHexagon());
     }
     if (cell.getColor() != DiscColor.EMPTY) {
       Color color = cell.getColor() == DiscColor.WHITE ? Color.WHITE :
@@ -222,7 +226,6 @@ public class HexReversiPanel extends JPanel {
 
     updateOnionLayers(g2d, timesActionRepeated, currentCell,
             currentPoint, horiz, vert, listCounter);
-
   }
 
   private void updateOnionLayers(Graphics2D g2d, int timesActionRepeated, Cell currentCell,
@@ -288,6 +291,9 @@ public class HexReversiPanel extends JPanel {
         listCounter++;
         drawHexagon(g2d, currentCell, currentHexagon, currentHexagon.getCenter());
       }
+      if (timesActionRepeated == model.getSideLength() - 1) {
+        break;
+      }
       currentCell = model.getCellAt(currentCell.getRow(), currentCell.getCol() + 1);
       double newX = currentPoint.getX() + horiz;
       double newY = currentPoint.getY();
@@ -331,7 +337,7 @@ public class HexReversiPanel extends JPanel {
     }
     try {
       return clickedCell.getRow();
-    } catch (IllegalArgumentException e) {
+    } catch (NullPointerException e) {
       // can't throw apparently
       return -1;
     }
@@ -345,7 +351,7 @@ public class HexReversiPanel extends JPanel {
     }
     try {
       return clickedCell.getCol();
-    } catch (IllegalArgumentException e) {
+    } catch (NullPointerException e) {
       // cant throw an exception apparently
       return -1;
     }
@@ -414,6 +420,23 @@ public class HexReversiPanel extends JPanel {
     repaint();
   }
 
+  protected RowCol getHighlightedHex() {
+    for (int hex = 0; hex < hexagonList.size(); hex++) {
+      Hexagon hexagon = hexagonList.get(hex);
+      if (hexagon.getColor() == Color.CYAN) {
+        Point2D center = hexagon.getCenter();
+        int row = getRowFromPoint(new Point((int) center.getX(), (int) center.getY()));
+        int col = getColFromPoint(new Point((int) center.getX(), (int) center.getY()));
+        return new RowCol(row, col);
+      }
+    }
+    return null;
+  }
+
+  protected void addFeaturesListener(ViewFeatures featureListener) {
+    this.featureListener = featureListener;
+  }
+
   private class MouseAdapter extends java.awt.event.MouseAdapter {
 
     @Override
@@ -448,35 +471,16 @@ public class HexReversiPanel extends JPanel {
     public void keyPressed(KeyEvent event) {
       switch (event.getKeyCode()) {
         case KeyEvent.VK_ENTER:
-          System.out.println("Make move");
+          RowCol highlightedHex = getHighlightedHex();
+          if (highlightedHex == null) {
+            featureListener.pushError("There is no currently highlighted cell in the game.");
+          } else {
+            featureListener.makeMove(getHighlightedHex());
+          }
           repaint();
           break;
         case KeyEvent.VK_BACK_SPACE:
-          System.out.println("Pass turn");
-          break;
-        case KeyEvent.VK_U:
-          System.out.println("Upper left");
-          repaint();
-          break;
-        case KeyEvent.VK_I:
-          System.out.println("Upper right");
-          repaint();
-          break;
-        case KeyEvent.VK_H:
-          System.out.println("Left");
-          repaint();
-          break;
-        case KeyEvent.VK_K:
-          System.out.println("Right");
-          repaint();
-          break;
-        case KeyEvent.VK_N:
-          System.out.println("Bottom left");
-          repaint();
-          break;
-        case KeyEvent.VK_M:
-          System.out.println("Bottom right");
-          repaint();
+          featureListener.passTurn();
           break;
         default:
           System.out.println("Not a valid key");
