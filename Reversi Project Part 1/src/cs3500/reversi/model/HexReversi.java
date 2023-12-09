@@ -89,18 +89,18 @@ public class HexReversi implements MutableReversi {
     }
 
     List<List<Cell>> validRuns = getValidRuns(row, col, turn);
-    if (validRuns.size() != 0) {
+    if (!validRuns.isEmpty()) {
       passCounter = 0;
       validRuns.forEach(singleRun -> singleRun.forEach(squareCell -> squareCell.setColor(turn)));
     } else {
       throw new IllegalArgumentException("(" + row + ", " + col + ") is an invalid move.");
     }
 
+    switchTurn();
     notifyListeners();
 
 //    List<List<Cell>> validRuns = findValidRuns(originCell);
 //    setValidDiscs(validRuns);
-//    switchTurn();
 //    notifyListeners();
   }
 
@@ -126,7 +126,7 @@ public class HexReversi implements MutableReversi {
         int newRow = row + rowOffset;
         int newCol = col + colOffset;
 
-        if (!isInBounds(row, col)) {
+        if (!isInBounds(newRow, newCol)) {
           continue;
         }
         if (board.get(newRow).get(newCol).getColor() == color
@@ -420,6 +420,10 @@ public class HexReversi implements MutableReversi {
     for (int row = 0; row < board.size(); row++) {
       deepCopy.add(new ArrayList<>());
       for (int col = 0; col < board.size(); col++) {
+        if (board.get(row).get(col) == null) {
+          deepCopy.get(row).add(null);
+          continue;
+        }
         deepCopy.get(row).add(new HexReversiCell(board.get(row).get(col)));
       }
     }
@@ -435,21 +439,7 @@ public class HexReversi implements MutableReversi {
 
     int validMovesOnBoard = getValidMoves(DiscColor.BLACK).size();
     validMovesOnBoard += getValidMoves(DiscColor.WHITE).size();
-    if (validMovesOnBoard == 0) {
-      return true;
-    }
-
-    for (List<Cell> row : board) {
-      for (Cell cell : row) {
-        if (cell == null) {
-          continue;
-        }
-        if (cell.getColor() == DiscColor.EMPTY) {
-          return false;
-        }
-      }
-    }
-    return true;
+    return validMovesOnBoard == 0;
   }
 
   @Override
@@ -591,6 +581,9 @@ public class HexReversi implements MutableReversi {
 
   @Override
   public Cell getCellAt(int row, int col) {
+    if (board.get(row).get(col) == null) {
+      return null;
+    }
     return new HexReversiCell(board.get(row).get(col));
   }
 

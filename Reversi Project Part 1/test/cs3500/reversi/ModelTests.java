@@ -169,8 +169,8 @@ public class ModelTests {
     Assert.assertEquals("Tied game!", model3.getWinner());
   }
 
-  @Test(expected = IllegalStateException.class)
-  public void testWhiteMoveFirst() {
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidStartMove() {
     model3.makeMove(0, 2);
   }
 
