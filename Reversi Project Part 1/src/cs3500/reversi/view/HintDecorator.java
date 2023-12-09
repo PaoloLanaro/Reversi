@@ -4,13 +4,13 @@ import java.awt.event.KeyEvent;
 
 import cs3500.reversi.model.ReadOnlyReversi;
 
-public class HintDecorator extends ReversiPanel {
+public class HintDecorator extends HexReversiPanel {
 
 //  private final ReversiPanel reversiPanel;
   private boolean hintEnabled;
 
   /**
-   * Constructs the {@link ReversiPanel}.
+   * Constructs the {@link HexReversiPanel}.
    *
    * @param model the {@link ReadOnlyReversi} model to represent in the JPanel
    */

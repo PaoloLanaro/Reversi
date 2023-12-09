@@ -12,20 +12,21 @@ import cs3500.reversi.model.players.Player;
 
 /**
  * A graphical user interface representation of a Reversi game.
+ * This representation is to be used with hexagonal boards and for hexagonal GUI's.
  */
-public class ReversiGraphicsView extends JFrame implements IView {
+public class HexReversiFrame extends JFrame implements IView {
 
-  private final ReversiPanel gamePanel;
+  private final HexReversiPanel gamePanel;
   private final ReadOnlyReversi model;
 
   /**
-   * Constructs a ReversiGraphicsView object with a game panel.
+   * Constructs a {@link HexReversiFrame} object with a game panel.
    *
    * @param model the {@link ReadOnlyReversi} model for the Reversi game.
    */
-  public ReversiGraphicsView(ReadOnlyReversi model) {
+  public HexReversiFrame(ReadOnlyReversi model) {
     super();
-    this.setTitle("Reversi game!");
+    this.setTitle("Hex Reversi game!");
     this.setLocation(390, 85);
     this.setSize(new Dimension(500, 500));
     setDefaultCloseOperation(EXIT_ON_CLOSE);
