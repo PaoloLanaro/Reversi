@@ -29,12 +29,13 @@ import cs3500.reversi.model.RowCol;
  */
 public class HexReversiPanel extends JPanel {
 
-  private final ReadOnlyReversi model;
+  final ReadOnlyReversi model; // package private so the decorator can access it
   private double hexagonRadius;
   private final List<Hexagon> hexagonList;
   private final List<Cell> cellList;
   private final List<List<Cell>> underlyingBoard;
   ViewFeatures featureListener; // package private so the decorator can access it
+  Hexagon highlightedHex;
 
   /**
    * Constructs the {@link HexReversiPanel}.
@@ -52,6 +53,7 @@ public class HexReversiPanel extends JPanel {
     this.setFocusable(true);
     this.hexagonList = new ArrayList<>();
     this.cellList = new ArrayList<>();
+    highlightedHex = null;
   }
 
   // draws full board (onion wrapper)
@@ -379,6 +381,7 @@ public class HexReversiPanel extends JPanel {
     for (int hexagon = 0; hexagon < hexagonList.size(); hexagon++) {
       if (hexagonList.get(hexagon).getHexagon().contains(point)) {
         clickedCell = cellList.get(hexagon);
+        highlightedHex = hexagonList.get(hexagon);
       }
     }
     return clickedCell;

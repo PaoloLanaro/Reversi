@@ -104,4 +104,9 @@ public class Hexagon {
   public void setRadius(double radius) {
     this.radius = radius;
   }
+
+  @Override
+  public String toString() {
+    return "Center Position: " + center;
+  }
 }
