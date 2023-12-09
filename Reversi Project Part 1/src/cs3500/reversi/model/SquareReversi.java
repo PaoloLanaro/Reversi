@@ -76,6 +76,8 @@ public class SquareReversi extends AbstractReversi {
     validRuns.forEach(singleRun -> singleRun.forEach(squareCell -> squareCell.setColor(turn)));
     switchTurn();
     super.passCounter = 0;
+
+    notifyListeners();
   }
 
   private List<List<Cell>> getValidRuns(int row, int col, DiscColor color) {

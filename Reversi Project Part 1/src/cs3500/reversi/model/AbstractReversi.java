@@ -85,14 +85,14 @@ public abstract class AbstractReversi implements MutableReversi {
     }
 
     List<List<Cell>> validRuns = getValidRuns(row, col, turn);
-    if (!validRuns.isEmpty()) {
-      passCounter = 0;
-      validRuns.forEach(singleRun -> singleRun.forEach(squareCell -> squareCell.setColor(turn)));
-    } else {
+    if (validRuns.isEmpty()) {
       throw new IllegalArgumentException("(" + row + ", " + col + ") is an invalid move.");
     }
 
+    validRuns.forEach(singleRun -> singleRun.forEach(squareCell -> squareCell.setColor(turn)));
     switchTurn();
+    passCounter = 0;
+
     notifyListeners();
 
 //    List<List<Cell>> validRuns = findValidRuns(originCell);
@@ -184,7 +184,7 @@ public abstract class AbstractReversi implements MutableReversi {
     featuresListeners.add(featuresListener);
   }
 
-  private void notifyListeners() {
+  void notifyListeners() {
     if (!featuresListeners.isEmpty()) {
       for (ModelFeatures listener : featuresListeners) {
         listener.refresh();
