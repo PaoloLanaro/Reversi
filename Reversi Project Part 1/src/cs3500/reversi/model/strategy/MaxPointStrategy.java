@@ -25,61 +25,74 @@ public class MaxPointStrategy implements Strategy {
   public Optional<RowCol> chooseMove(ReadOnlyReversi model, DiscColor forWhom) {
     this.model = model;
 
-    Map<Cell, RowCol> validMoves = new HashMap<>();
+    RowCol score = scoreCheck();
 
-    int underlyingLength = this.model.getSideLength() * 2 - 1;
+    if (score == null) {
+      return Optional.empty();
+    }
+
+    return Optional.of(score);
+  }
+
+  private RowCol scoreCheck() {
+    int underlyingLength = this.model.getBoard().size();
+
+    RowCol currentBestCoord = null;
+    int currentBestScore = Integer.MIN_VALUE;
 
     for (int row = 0; row < underlyingLength; row++) {
       for (int col = 0; col < underlyingLength; col++) {
         if (model.getBoard().get(row).get(col) == null) {
           continue;
         }
-        if (model.isValidMove(row, col)) {
-          validMoves.put(model.getBoard().get(row).get(col), new RowCol(row, col));
+        int currentScore = model.getScoreFor(row, col);
+        if (currentScore > currentBestScore) {
+          currentBestScore = currentScore;
+          currentBestCoord = new RowCol(row, col);
         }
       }
     }
-
-    if (validMoves.isEmpty()) {
-      return Optional.empty();
+    if (currentBestScore == 0) {
+      return null;
     }
-
-    return Optional.ofNullable(getBestScore(validMoves, forWhom));
-
+    return currentBestCoord;
   }
 
   private RowCol getBestScore(Map<Cell, RowCol> validMoves, DiscColor forWhom) {
-    int maxScore = Integer.MIN_VALUE;
-    RowCol bestMove = null;
-
-    for (Map.Entry<Cell, RowCol> entry : validMoves.entrySet()) {
-      RowCol move = entry.getValue();
-
-      // Simulate the move by updating the copied board directly
-      List<List<Cell>> originalBoard = model.getBoard();
-      HexReversi hexReversi = new HexReversi(originalBoard, forWhom);
-      hexReversi.startGame();
-      hexReversi.makeMove(move.getRow(), move.getCol());
-
-      // Calculate the score after the simulated move
-      int score = hexReversi.getScore().get(forWhom);
-
-      // Update the best move if the current move has a higher score
-      if (score > maxScore) {
-        maxScore = score;
-        bestMove = move;
-        continue;
-      }
-
-      if (score == maxScore) {
-        if (move.getRow() < bestMove.getRow()) {
-          bestMove = move;
-        }
-        if (move.getRow() == bestMove.getRow() && move.getCol() <= bestMove.getCol()) {
-          bestMove = move;
-        }
-      }
-    }
-    return bestMove;
+//    int maxScore = Integer.MIN_VALUE;
+//    RowCol bestMove = null;
+//
+//    for (Map.Entry<Cell, RowCol> entry : validMoves.entrySet()) {
+//      RowCol move = entry.getValue();
+//
+//      // Simulate the move by updating the copied board directly
+//
+////      model.getScoreFor()
+//      List<List<Cell>> originalBoard = model.getBoard();
+//      HexReversi hexReversi = new HexReversi(originalBoard, forWhom);
+//      hexReversi.startGame();
+//      hexReversi.makeMove(move.getRow(), move.getCol());
+//
+//      // Calculate the score after the simulated move
+//      int score = hexReversi.getScore().get(forWhom);
+//
+//      // Update the best move if the current move has a higher score
+//      if (score > maxScore) {
+//        maxScore = score;
+//        bestMove = move;
+//        continue;
+//      }
+//
+//      if (score == maxScore) {
+//        if (move.getRow() < bestMove.getRow()) {
+//          bestMove = move;
+//        }
+//        if (move.getRow() == bestMove.getRow() && move.getCol() <= bestMove.getCol()) {
+//          bestMove = move;
+//        }
+//      }
+//    }
+//    return bestMove;
+    return null;
   }
 }

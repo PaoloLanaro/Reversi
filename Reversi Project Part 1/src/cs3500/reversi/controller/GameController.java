@@ -40,13 +40,8 @@ public class GameController implements ReversiController, ViewFeatures, ModelFea
 
   @Override
   public void playGame() {
-    //    if (view != null) {
     view.refresh();
     view.setVisible(true);
-    //    } else if (reversiModelView != null) {
-    //      reversiModelView.advance();
-    //      reversiModelView.setVisible(true);
-    //    }
   }
 
   @Override

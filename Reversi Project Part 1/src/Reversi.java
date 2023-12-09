@@ -10,9 +10,11 @@ import cs3500.reversi.model.ISmarterModel;
 import cs3500.reversi.model.MutableReversi;
 import cs3500.reversi.model.SmarterModel;
 import cs3500.reversi.model.SquareReversi;
+import cs3500.reversi.model.players.AIPlayer;
 import cs3500.reversi.model.players.HumanPlayer;
 import cs3500.reversi.model.players.Player;
 //import cs3500.reversi.model.strategy.GoForCornersStrategy;
+import cs3500.reversi.model.strategy.MaxPointStrategy;
 import cs3500.reversi.view.IView;
 import cs3500.reversi.view.HexReversiFrame;
 import cs3500.reversi.view.SquareReversiFrame;
@@ -53,7 +55,7 @@ public final class Reversi {
 //    controller2.playGame();
 //
 //    model.startGame();
-    if (args.length == 0 || args.length > 3) {
+    if (args.length == 0 || args.length > 4) {
       throw new IllegalArgumentException("Incorrect amount of command line arguments.");
     }
     int gameSize;
@@ -67,7 +69,8 @@ public final class Reversi {
 //    IView player1View = new HexReversiFrame(model);
 //    IView player2View = new HexReversiFrame(model);
 //
-//    List<Player> players = constructPlayers(args, gameSize);
+    MutableReversi game = makeGame(args[1], gameSize);
+    List<Player> players = constructPlayers(args, gameSize);
 //
 //    ReversiController controller1 = new GameController(model, players.get(0), player1View);
 //    ReversiController controller2 = new GameController(model, players.get(1), player2View);
@@ -80,17 +83,33 @@ public final class Reversi {
     MutableReversi square = new SquareReversi(gameSize);
     IView view = new SquareReversiFrame(square);
     IView view2 = new SquareReversiFrame(square);
-    square.startGame();
-    view.setVisible(true);
-    view2.setVisible(true);
 
+    ReversiController controller1 = new GameController(square, players.get(0), view);
+    ReversiController controller2 = new GameController(square, players.get(1), view2);
+
+    square.startGame();
+
+    controller1.playGame();
+    controller2.playGame();
+
+  }
+
+  private static MutableReversi makeGame(String arg, int gameSize) {
+    switch (arg) {
+      case "hex":
+        return new HexReversi(gameSize);
+      case "square":
+        return new SquareReversi(gameSize);
+      default:
+        throw new IllegalArgumentException("Can't make a game of type: " + arg);
+    }
   }
 
   private static List<Player> constructPlayers(String[] args, int gameSize) {
     List<Player> players = new ArrayList<>();
 
-    players.add(playerFactory(args[1], DiscColor.BLACK, gameSize));
-    players.add(playerFactory(args[2], DiscColor.WHITE, gameSize));
+    players.add(playerFactory(args[2], DiscColor.BLACK, gameSize));
+    players.add(playerFactory(args[3], DiscColor.WHITE, gameSize));
 
     return players;
   }
@@ -101,9 +120,9 @@ public final class Reversi {
     switch (arg) {
       case "human":
         return new HumanPlayer(new HexReversi(gameSize), playerColor);
-//      case "maxpointstrat":
-//        return new AIPlayer(playerColor, new MaxPointStrategy());
-//      case "cornerstrat":
+      case "maxpointstrat":
+        return new AIPlayer(playerColor, new MaxPointStrategy());
+      case "cornerstrat":
 //        return new AIPlayer(playerColor, new GoForCornersStrategy());
       default:
         throw new IllegalArgumentException("Could not create player with argument: " + arg);

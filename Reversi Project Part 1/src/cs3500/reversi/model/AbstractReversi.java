@@ -31,7 +31,7 @@ public abstract class AbstractReversi implements MutableReversi {
    */
   public AbstractReversi(int initSize) {
     turn = DiscColor.BLACK;
-    if (initSize <= 2) {
+    if (initSize < 3) {
       throw new IllegalArgumentException("Top side length of the board cannot be less than or " +
               "equal to two.");
     }
@@ -186,6 +186,9 @@ public abstract class AbstractReversi implements MutableReversi {
 
   // package private so that SquareReversi can use it
   void notifyListeners() {
+    if (featuresListeners == null) {
+      return;
+    }
     if (!featuresListeners.isEmpty()) {
       for (ModelFeatures listener : featuresListeners) {
         listener.refresh();

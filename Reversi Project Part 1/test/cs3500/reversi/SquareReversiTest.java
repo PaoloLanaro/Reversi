@@ -18,9 +18,7 @@ public class SquareReversiTest {
 
   SquareReversi board4;
   SquareReversi board6;
-
   SquareTextView view4;
-
 
   @Before
   public void init() {
@@ -188,6 +186,11 @@ public class SquareReversiTest {
   @Test
   public void getCellColorTest() {
     Assert.assertEquals(DiscColor.BLACK, board4.getCellColor(1, 1));
+  }
+
+  @Test
+  public void testGetScoreFor() {
+    Assert.assertEquals(2, board4.getScoreFor(0, 2));
   }
 
 }

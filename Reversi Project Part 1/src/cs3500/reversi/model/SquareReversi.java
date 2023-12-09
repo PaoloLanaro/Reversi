@@ -200,6 +200,24 @@ public class SquareReversi extends AbstractReversi {
 
   @Override
   public int getScoreFor(int row, int col) {
-    return 0;
+    if (!gameStarted) {
+      throw new IllegalStateException("Can't get a score for a game that hasn't been started");
+    }
+    if (!isInBounds(row, col)) {
+      return 0;
+    }
+    if (!isValidMove(row, col)) {
+      return 0;
+    }
+    List<List<Cell>> runs = getValidRuns(row, col, turn);
+
+    int scoreForMove = 0;
+    for (List<Cell> validRun : runs) {
+      for (Cell scoredCell : validRun) {
+        scoreForMove++;
+      }
+      scoreForMove--;
+    }
+    return scoreForMove;
   }
 }
