@@ -100,11 +100,11 @@ public abstract class AbstractReversi implements MutableReversi {
   }
 
   // package private so that SquareReversi can use it
-  boolean isInBounds(int row, int col) {
+  boolean isOutOfBounds(int row, int col) {
     if (row < 0 || col < 0 || row >= board.size() || col >= board.size()) {
-      return false;
+      return true;
     }
-    return board.get(row).get(col) != null;
+    return board.get(row).get(col) == null;
   }
 
   private List<List<Cell>> getValidRuns(int row, int col, DiscColor color) {
@@ -131,13 +131,19 @@ public abstract class AbstractReversi implements MutableReversi {
     int newRow = row + rowOffset;
     int newCol = col + colOffset;
 
-    if (!isInBounds(newRow, newCol)) {
+    if (isOutOfBounds(newRow, newCol)) {
       return;
     }
+
+    if (board.get(row).get(col).getColor() != DiscColor.EMPTY) {
+      return;
+    }
+
     if (board.get(newRow).get(newCol).getColor() == color
             || board.get(newRow).get(newCol).getColor() == DiscColor.EMPTY) {
       return;
     }
+
     List<Cell> currentRun = new ArrayList<>();
     currentRun.add(board.get(row).get(col));
     if (directionChecker(newRow, newCol, rowOffset, colOffset, currentRun, color)) {
@@ -149,7 +155,7 @@ public abstract class AbstractReversi implements MutableReversi {
   boolean directionChecker(int newRow, int newCol,
                            int rowOffset, int colOffset, List<Cell> currentRun,
                            DiscColor originColor) {
-    if (!isInBounds(newRow, newCol)
+    if (isOutOfBounds(newRow, newCol)
             || board.get(newRow).get(newCol).getColor() == DiscColor.EMPTY) {
       if (currentRun.isEmpty()) {
         return false;
@@ -382,7 +388,7 @@ public abstract class AbstractReversi implements MutableReversi {
     if (!gameStarted) {
       throw new IllegalStateException("Can't get a score for a game that hasn't been started");
     }
-    if (!isInBounds(row, col)) {
+    if (isOutOfBounds(row, col)) {
       return 0;
     }
     if (!isValidMove(row, col)) {
@@ -394,6 +400,7 @@ public abstract class AbstractReversi implements MutableReversi {
     int scoreForMove = 0;
     for (List<Cell> validRun : runs) {
       for (Cell scoredCell : validRun) {
+        // scoredCell ignored as it's just our "counter"
         scoreForMove++;
       }
       scoreForMove--;

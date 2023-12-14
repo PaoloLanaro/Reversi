@@ -214,7 +214,7 @@ public class SquareReversi extends AbstractReversi {
     if (!gameStarted) {
       throw new IllegalStateException("Can't get a score for a game that hasn't been started");
     }
-    if (!isInBounds(row, col)) {
+    if (isOutOfBounds(row, col)) {
       return 0;
     }
     if (!isValidMove(row, col)) {
