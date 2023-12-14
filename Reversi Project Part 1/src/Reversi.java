@@ -51,14 +51,12 @@ public final class Reversi {
   }
 
   private static MutableReversi makeGame(String arg, int gameSize) {
-    switch (arg) {
-      case "hex":
-        return new HexReversi(gameSize);
-      case "square":
-        return new SquareReversi(gameSize);
-      default:
-        throw new IllegalArgumentException("Can't make a game of type: " + arg);
-    }
+
+    return switch (arg) {
+      case "hex" -> new HexReversi(gameSize);
+      case "square" -> new SquareReversi(gameSize);
+      default -> throw new IllegalArgumentException("Can't make a game of type: " + arg);
+    };
   }
 
   private static List<IView> constructViews(String arg, MutableReversi game) {
@@ -71,15 +69,13 @@ public final class Reversi {
   }
 
   private static IView viewFactory(String arg, MutableReversi model) {
-    switch (arg) {
-      case "hex":
-        return new HexReversiFrame(model);
-      case "square":
-        return new SquareReversiFrame(model);
-      default:
-        throw new IllegalArgumentException("Couldn't create GUI of game type: " + arg +
-                "\nSupported games are 'hex' and 'square'");
-    }
+
+    return switch (arg) {
+      case "hex" -> new HexReversiFrame(model);
+      case "square" -> new SquareReversiFrame(model);
+      default -> throw new IllegalArgumentException("Couldn't create GUI of game type: " + arg +
+              "\nSupported games are 'hex' and 'square'");
+    };
   }
 
   private static List<Player> constructPlayers(String[] args, int gameSize) {
@@ -93,16 +89,13 @@ public final class Reversi {
 
   private static Player playerFactory(String arg, DiscColor playerColor, int gameSize) {
 
-    switch (arg) {
-      case "human":
-        return new HumanPlayer(new HexReversi(gameSize), playerColor);
-      case "maxpointstrat":
-        return new AIPlayer(playerColor, new MaxPointStrategy());
-      case "cornerstrat":
-        return new AIPlayer(playerColor, new GoForCornersStrategy());
-      default:
-        throw new IllegalArgumentException("Could not create player with argument: " + arg);
-    }
+    return switch (arg) {
+      case "human" -> new HumanPlayer(new HexReversi(gameSize), playerColor);
+      case "maxpointstrat" -> new AIPlayer(playerColor, new MaxPointStrategy());
+      case "cornerstrat" -> new AIPlayer(playerColor, new GoForCornersStrategy());
+      default ->
+              throw new IllegalArgumentException("Could not create player with argument: " + arg);
+    };
   }
 }
 

@@ -77,19 +77,17 @@ public class ReversiCell implements Cell {
    */
   @Override
   public String toString() {
-    return "(" + row + ", " + col + ")" + " : " + color.toString();
+    return "Cell at (" + row + ", " + col + ")" + " has color : " + color.toString();
   }
 
   @Override
   public boolean equals(Object other) {
-    if (this == other) {
-      return true;
-    }
-    if (other == null || getClass() != other.getClass()) {
+    if (other == null) {
       return false;
     }
-
-    Cell otherCell = (Cell) other;
+    if (!(other instanceof Cell otherCell)) {
+      return false;
+    }
 
     return row == otherCell.getRow()
             && col == otherCell.getCol()
@@ -98,7 +96,7 @@ public class ReversiCell implements Cell {
 
   @Override
   public int hashCode() {
-    return color.toString().hashCode() * (row + col) * (row * row + col * col);
+    return color.hashCode() * (row + col) * (row * row + col * col);
   }
 
 }

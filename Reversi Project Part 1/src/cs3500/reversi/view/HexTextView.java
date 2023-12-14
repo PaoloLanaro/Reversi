@@ -14,7 +14,9 @@ public class HexTextView {
 
   /**
    * Constructs a TextView with a custom output stream and a read-only Reversi board.
-   *
+   * <p>
+   * @deprecated Use the HexReversiFrame class to create a GUI rather than a textual view.
+   * <p>
    * @param out   The output stream to write the game board to.
    * @param board The read-only Reversi board to display.
    */
@@ -25,7 +27,9 @@ public class HexTextView {
 
   /**
    * Constructs a TextView with the standard output stream and a read-only Reversi board.
-   *
+   * <p>
+   * @deprecated Use the HexReversiFrame class to create a GUI rather than a textual view.
+   * <p>
    * @param board The read-only Reversi board to display.
    */
   public HexTextView(ReadOnlyReversi board) {
@@ -69,20 +73,19 @@ public class HexTextView {
 
   private void getCellStateAsString(StringBuilder boardRepresentation, ReversiCell cell) {
     switch (cell.getColor()) {
-      case EMPTY:
+      case EMPTY -> {
         boardRepresentation.append('_');
         boardRepresentation.append(' ');
-        break;
-      case BLACK:
+      }
+      case BLACK -> {
         boardRepresentation.append('X');
         boardRepresentation.append(' ');
-        break;
-      case WHITE:
+      }
+      case WHITE -> {
         boardRepresentation.append('O');
         boardRepresentation.append(' ');
-        break;
-      default:
-        throw new IllegalStateException("Cell color is null. Not allowed");
+      }
+      default -> throw new IllegalStateException("Cell color is null. Not allowed");
     }
   }
 }

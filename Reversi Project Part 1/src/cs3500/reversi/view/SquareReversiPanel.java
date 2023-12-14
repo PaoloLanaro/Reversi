@@ -182,7 +182,7 @@ public class SquareReversiPanel extends JPanel {
     @Override
     public void keyPressed(KeyEvent event) {
       switch (event.getKeyCode()) {
-        case KeyEvent.VK_ENTER:
+        case KeyEvent.VK_ENTER -> {
           RowCol coordinate = getHighlightedHex();
           if (coordinate == null) {
             featureListener.pushError("There is no currently highlighted cell in the game.");
@@ -190,13 +190,9 @@ public class SquareReversiPanel extends JPanel {
             featureListener.makeMove(getHighlightedHex());
           }
           repaint();
-          break;
-        case KeyEvent.VK_BACK_SPACE:
-          featureListener.passTurn();
-          break;
-        default:
-          System.out.println("Not a valid key");
-          break;
+        }
+        case KeyEvent.VK_BACK_SPACE -> featureListener.passTurn();
+        default -> System.out.println("Not a valid key");
       }
     }
   }

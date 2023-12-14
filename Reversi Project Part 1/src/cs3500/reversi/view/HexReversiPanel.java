@@ -425,8 +425,7 @@ public class HexReversiPanel extends JPanel {
   }
 
   protected RowCol getHighlightedHex() {
-    for (int hex = 0; hex < hexagonList.size(); hex++) {
-      Hexagon hexagon = hexagonList.get(hex);
+    for (Hexagon hexagon : hexagonList) {
       if (hexagon.getColor() == Color.CYAN) {
         Point2D center = hexagon.getCenter();
         int row = getRowFromPoint(new Point((int) center.getX(), (int) center.getY()));
@@ -474,7 +473,7 @@ public class HexReversiPanel extends JPanel {
     @Override
     public void keyPressed(KeyEvent event) {
       switch (event.getKeyCode()) {
-        case KeyEvent.VK_ENTER:
+        case KeyEvent.VK_ENTER -> {
           RowCol highlightedHex = getHighlightedHex();
           if (highlightedHex == null) {
             featureListener.pushError("There is no currently highlighted cell in the game.");
@@ -482,13 +481,9 @@ public class HexReversiPanel extends JPanel {
             featureListener.makeMove(getHighlightedHex());
           }
           repaint();
-          break;
-        case KeyEvent.VK_BACK_SPACE:
-          featureListener.passTurn();
-          break;
-        default:
-          System.out.println("Not a valid key");
-          break;
+        }
+        case KeyEvent.VK_BACK_SPACE -> featureListener.passTurn();
+        default -> System.out.println("Not a valid key");
       }
     }
   }

@@ -3,6 +3,7 @@ package cs3500.reversi.view;
 import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.awt.Polygon;
+import java.util.Objects;
 
 /**
  * Represents a basic hexagon.
@@ -108,5 +109,27 @@ public class Hexagon {
   @Override
   public String toString() {
     return "Center Position: " + center;
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (other == null) {
+      return false;
+    }
+    if (!(other instanceof Hexagon otherObj)) {
+      return false;
+    }
+    return Objects.equals(otherObj.center, this.center)
+            && Objects.equals(otherObj.hexagon, this.hexagon)
+            && Objects.equals(otherObj.color, this.color)
+            && Objects.equals(otherObj.radius, this.radius);
+  }
+
+  @Override
+  public int hashCode() {
+    return this.center.hashCode()
+            + this.hexagon.npoints
+            + (int) this.radius
+            + this.color.hashCode();
   }
 }

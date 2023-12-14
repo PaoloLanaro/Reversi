@@ -1,14 +1,22 @@
-# Extra Credit Assignment 9
-We changed a lot of things about our code, but most of it was just background changes. 
-Some changes included in that hazy definition of background changes, was that we 
-completely overhauled our Cell class. Our Cell class was pretty much exclusively useful for a
-hexagonal style of game, with methods to "get the neighbors of the cell". This was switched to 
-coordinates being stored in our Cells. This made us rework some of our code in HexReversiCell 
-to not have to use neighbors, and actually cut down on a *lot* of code! After having updated 
-some methods in HexReversi, we started working on SquareReversi. We created an abstract class to 
-hold all the code for reversi that was duplicated between the classes, and simply extended it in 
-HexReversi. Overall the extra credit was done over the course of Friday, and we made a lot of 
-big changes that served to cut down on our code :).
+# [Reversi](https://github.com/PaoloLanaro/Reversi)
+
+by [Paolo Lanaro](https://github.com/PaoloLanaro) and [Quinn Louie](https://github.com/QuinnJL04)
+
+A [Reversi](https://en.wikipedia.org/wiki/Reversi), otherwise known as Othello,
+game application made in Java.
+
+## Getting Started
+
+Placeholder
+
+### Installation
+
+_Our program doesn't have any dependencies, but you'll need to run our program's jar._
+
+1. Clone the repo
+    ```sh
+   git clone https://github.com/PaoloLanaro/Reversi.git
+   ```
 
 ### Command Line arguments
 To run our program, we require 4 command line arguments.
