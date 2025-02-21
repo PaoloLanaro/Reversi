@@ -20,26 +20,25 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Navigate to src dir
-        run: |
-          cd "reversi_src/src"
-
       - name: Compile Java file
+        working-directory: ./reversi_src/src
         run: |
-          javac -d Reversi.java cs3500/reversi/**/*.java
+          find . -name "*.java" > sources.txt
+          javac -d . @sources.txt
 
       - name: Create manifest
+        working-directory: ./reversi_src/src
         run: |
           echo "Main-Class: Reversi" > manifest.txt
 
       - name: Package JAR
         run: |
-          jar cfm Reversi.jar manifest.txt Reversi.class cs3500/reversi/**/*.class
+        working-directory: ./reversi_src/src
+          jar cfm Reversi.jar manifest.txt $(find . -name "*.class")
 
       - name: Move JAR to root directory
         run: |
-          mv Reversi.jar ../../Reversi.jar
-          cd ../..
+          mv reversi_src/src/Reversi.jar Reversi.jar
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
