@@ -21,16 +21,20 @@ jobs:
           distribution: 'temurin'
 
       - name: Navigate to src dir
-        run: cd "reversi_src/src"
+        run: |
+          cd "reversi_src/src"
 
       - name: Compile Java file
-        run: javac -d Reversi.java cs3500/reversi/**/*.java
+        run: |
+          javac -d Reversi.java cs3500/reversi/**/*.java
 
       - name: Create manifest
-        run: echo "Main-Class: Reversi" > manifest.txt
+        run: |
+          echo "Main-Class: Reversi" > manifest.txt
 
       - name: Package JAR
-        run: jar cfm Reversi.jar manifest.txt Reversi.class cs3500/reversi/**/*.class
+        run: |
+          jar cfm Reversi.jar manifest.txt Reversi.class cs3500/reversi/**/*.class
 
       - name: Move JAR to root directory
         run: |
